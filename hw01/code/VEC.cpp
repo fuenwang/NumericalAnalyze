@@ -76,7 +76,7 @@ void VEC::operator/=(VEC &data){
 }
 
 double& VEC::operator[](int index){
-    if(index >= this->dimension){
+    if(index >= this->dimension || index < 0){
         printf("array[index] out of bound\n");
         exit(0);
     }
