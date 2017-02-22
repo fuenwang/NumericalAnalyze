@@ -19,7 +19,7 @@ class VEC{
         int dim();
         bool operator==(VEC &data);
         void operator=(VEC &data);
-        double& operator[](int index);
+        double& operator[](int index) const;
 
         VEC operator+(VEC &data);
         VEC operator+(double num);

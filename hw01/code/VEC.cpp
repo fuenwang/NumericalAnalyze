@@ -75,7 +75,7 @@ void VEC::operator/=(VEC &data){
         this->val[i] /= data.val[i];
 }
 
-double& VEC::operator[](int index){
+double& VEC::operator[](int index) const{
     if(index >= this->dimension || index < 0){
         printf("array[index] out of bound\n");
         exit(0);

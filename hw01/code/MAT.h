@@ -18,12 +18,12 @@ class MAT{
         MAT(int n);
         MAT(int m, int n);
         MAT(double **val, int m, int n);
-        MAT(MAT &data);
+        MAT(const MAT &data);
         ~MAT();
         void print();
 
         void operator=(MAT &data);
-        VEC& operator[](int index);
+        VEC& operator[](int index) const;
 
         void operator+=(MAT &data);
         void operator+=(double num);

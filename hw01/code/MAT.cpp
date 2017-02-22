@@ -16,6 +16,17 @@ MAT::MAT(int m, int n){
         this->val[i] = this->CreateVEC(n);
 }
 
+MAT::MAT(const MAT &data){
+    this->m = data.m;
+    this->n = data.n;
+    this->val = new VEC*[m];
+    for(int i=0; i<m; i++){
+        this->val[i] = this->CreateVEC(n);
+        (*this)[i] = data[i];
+    } 
+}
+
+
 MAT::MAT(double **val, int m, int n){
     this->m = m;
     this->n = n;
@@ -56,7 +67,7 @@ void MAT::operator=(MAT &data){
     return;
 }
 
-VEC& MAT::operator[](int index){
+VEC& MAT::operator[](int index) const{
     if(index >= this->m || index < 0){
         printf("MAT[index] out of bound!\n");
         exit(0);
@@ -176,11 +187,14 @@ MAT MAT::operator/(double num){
 }
 
 void MAT::print(){
+    printf("----------------\n");
     printf("%d %d\n", this->m, this->n);
     for(int i=0; i<this->m; i++){
         (*this)[i].print();
-        printf("\n");
+        if(i != this->m-1)
+            printf("\n");
     }
+    printf("----------------\n");
 }
 
 MAT operator+(double num, MAT &data){
