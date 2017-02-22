@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef class VEC{
+class VEC{
     private:
         int dimension;
         double *val;
@@ -20,14 +20,29 @@ typedef class VEC{
         bool operator==(VEC &data);
         void operator=(VEC &data);
         double& operator[](int index);
-        
+
         VEC operator+(VEC &data);
+        VEC operator+(double num);
         VEC operator-(VEC &data);
+        VEC operator-(double num);
         VEC operator*(VEC &data);
+        VEC operator*(double num);
         VEC operator/(VEC &data);
+        VEC operator/(double num);
+
         void operator+=(VEC &data);
         void operator-=(VEC &data);
         void operator*=(VEC &data);
         void operator/=(VEC &data);
-}vec;
+        friend VEC operator+(double num, VEC &vec);
+        friend VEC operator-(double num, VEC &vec);
+        friend VEC operator*(double num, VEC &vec);
+        friend VEC operator/(double num, VEC &vec);
+
+};
+
+VEC operator+(double num, VEC &vec);
+VEC operator-(double num, VEC &vec);
+VEC operator*(double num, VEC &vec);
+VEC operator/(double num, VEC &vec);
 #endif

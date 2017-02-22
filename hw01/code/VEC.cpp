@@ -116,6 +116,80 @@ VEC VEC::operator/(VEC &data){
     return out;
 }
 
+VEC VEC::operator+(double num){
+    VEC out(this->dimension);
+    for(int i=0; i<this->dimension; i++)
+        out[i] = this->val[i] + num;
+    return out;
+}
+
+VEC VEC::operator-(double num){
+    VEC out(this->dimension);
+    for(int i=0; i<this->dimension; i++)
+        out[i] = this->val[i] - num;
+    return out;
+}
+
+VEC VEC::operator*(double num){
+    VEC out(this->dimension);
+    for(int i=0; i<this->dimension; i++)
+        out[i] = this->val[i] * num;
+    return out;
+}
+
+VEC VEC::operator/(double num){
+    VEC out(this->dimension);
+    for(int i=0; i<this->dimension; i++)
+        out[i] = this->val[i] / num;
+    return out;
+}
+
+VEC operator+(double num, VEC &vec){
+    VEC out(vec.dimension);
+    for(int i=0; i<vec.dimension; i++)
+        out.val[i] = num + vec.val[i];
+    return out;
+}
+VEC operator-(double num, VEC &vec){
+    VEC out(vec.dimension);
+    for(int i=0; i<vec.dimension; i++)
+        out.val[i] = num - vec.val[i];
+    return out;
+}
+
+VEC operator*(double num, VEC &vec){
+    VEC out(vec.dimension);
+    for(int i=0; i<vec.dimension; i++)
+        out.val[i] = num * vec.val[i];
+    return out;
+}
+
+VEC operator/(double num, VEC &vec){
+    VEC out(vec.dimension);
+    for(int i=0; i<vec.dimension; i++)
+        out.val[i] = num / vec.val[i];
+    return out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
