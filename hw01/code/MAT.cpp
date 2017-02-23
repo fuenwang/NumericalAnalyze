@@ -38,6 +38,17 @@ MAT::MAT(double **val, int m, int n){
     } 
 }
 
+void MAT::Reset(double **val, int m, int n){
+    this->m = m;
+    this->n = n;
+    this->val = new VEC*[m];
+    for(int i=0; i<m; i++){
+        this->val[i] = this->CreateVEC(n);
+        for(int j=0; j<n; j++)
+            (*this)[i][j] = val[i][j];
+    } 
+}
+
 MAT::~MAT(){
     for(int i=0; i<this->n; i++){
         this->val[i]->~VEC();
@@ -141,11 +152,27 @@ MAT MAT::operator-(MAT &data){
     return out;
 }
 MAT MAT::operator*(MAT &data){
-    MAT out(this->m, this->n);
-    this->checkDim(data);
+    if(this->n != data.m){
+        printf("MAT mul size dismatch!\n");
+        exit(0);
+    }
+    MAT out(this->m, data.n);
+    //this->checkDim(data);
+    /*
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             out[i][j] = (*this)[i][j] * data[i][j];
+    */
+    for(int i=0; i<this->m; i++){
+        for(int j=0; j<data.n; j++){
+            int sum = 0;
+            for(int k = 0; k < this->n; k++){
+                sum += (*this)[i][k] * data[k][j];
+            }
+            out[i][j] = sum;
+        }
+    }
+
     return out;
 }
 MAT MAT::operator/(MAT &data){
@@ -195,6 +222,17 @@ void MAT::print(){
             printf("\n");
     }
     printf("----------------\n");
+}
+
+MAT MAT::T(){
+    MAT out(this->n, this->m);
+
+    for(int i=0; i<this->m; i++){
+        for(int j=0; j<this->n; j++){
+            out[i][j] = (*this)[j][i];
+        }
+    }
+    return out;
 }
 
 MAT operator+(double num, MAT &data){

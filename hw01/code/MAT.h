@@ -20,7 +20,10 @@ class MAT{
         MAT(double **val, int m, int n);
         MAT(const MAT &data);
         ~MAT();
+        void Reset(double **val, int m, int n);
         void print();
+
+        MAT T(); // transpose matrix
 
         void operator=(MAT &data);
         VEC& operator[](int index) const;

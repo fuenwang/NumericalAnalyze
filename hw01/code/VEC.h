@@ -17,8 +17,10 @@ class VEC{
         ~VEC();
         void print();
         int dim();
+        double sum();
         bool operator==(VEC &data);
         void operator=(VEC &data);
+        void operator=(double num);
         double& operator[](int index) const;
 
         VEC operator+(VEC &data);

@@ -19,6 +19,12 @@ VEC::~VEC(){
 int VEC::dim(){
     return this->dimension; 
 }
+double VEC::sum(){
+    double sum=0;
+    for(int i=0; i<this->dimension; i++)
+        sum += this->val[i];
+    return sum;
+}
 void VEC::print(){
     for(int i=0; i<this->dimension; i++)
         printf("%lf ",this->val[i]);
@@ -48,6 +54,12 @@ void VEC::operator=(VEC &data){
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] = data.val[i];
+    return;
+}
+
+void VEC::operator=(double num){
+    for(int i=0; i<this->dimension; i++)
+        this->val[i] = num;
     return;
 }
 
