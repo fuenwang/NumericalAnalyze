@@ -13,7 +13,7 @@ class MAT{
         VEC **val;
     protected:
         VEC *CreateVEC(int n);
-        void checkDim(MAT &data);
+        void checkDim(const MAT &data);
     public:
         MAT(int n);
         MAT(int m, int n);
@@ -25,25 +25,25 @@ class MAT{
 
         MAT T(); // transpose matrix
 
-        void operator=(MAT &data);
+        void operator=(const MAT &data);
         VEC& operator[](int index) const;
 
-        void operator+=(MAT &data);
+        void operator+=(const MAT &data);
         void operator+=(double num);
-        void operator-=(MAT &data);
+        void operator-=(const MAT &data);
         void operator-=(double num);
-        void operator*=(MAT &data);
+        void operator*=(const MAT &data);
         void operator*=(double num);
-        void operator/=(MAT &data);
+        void operator/=(const MAT &data);
         void operator/=(double num);
 
-        MAT operator+(MAT &data);
+        MAT operator+(const MAT &data);
         MAT operator+(double num);
-        MAT operator-(MAT &data);
+        MAT operator-(const MAT &data);
         MAT operator-(double num);
-        MAT operator*(MAT &data);
+        MAT operator*(const MAT &data);
         MAT operator*(double num);
-        MAT operator/(MAT &data);
+        MAT operator/(const MAT &data);
         MAT operator/(double num);
 
         friend MAT operator+(double num, MAT &data);

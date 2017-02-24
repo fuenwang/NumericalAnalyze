@@ -1,18 +1,18 @@
 #include "MAT.h"
+using namespace std;
 
 void algo1(MAT &A, int n){
     MAT A_t(A.T());
     MAT G(n, n);
     //A_t.print();
-
     G[0] = A_t[0];
     for(int k=1; k<n; k++){
         G[k] = 0;
         for(int i=0; i<k; i++){
-            //G[k] += 
+            G[k] += (A[k] * G[i]) / G[i];
         }
     }
-    G.print();
+    (G * G.T()).print();
 
     return;
 }
@@ -29,7 +29,10 @@ int main(){
             scanf("%lf", &val[i][j]);
     }
     MAT data(val, dim, dim);
+    //cout << (data[0]*data[1]).sum() << endl;
     data.print();
+    //data[0] += data[1];
+    //data.print();
     /*
     MAT data2(data + 1);
     data.print();

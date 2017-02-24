@@ -32,7 +32,7 @@ void VEC::print(){
     return;
 }
 
-void VEC::checkDim(VEC &data){
+void VEC::checkDim(const VEC &data){
     if(this->dimension != data.dimension){
         printf("Dimension dismatch!\n");
         exit(0);
@@ -50,7 +50,7 @@ bool VEC::operator==(VEC &data){
         return false;
 }
 
-void VEC::operator=(VEC &data){
+void VEC::operator=(const VEC &data){
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] = data.val[i];
@@ -63,25 +63,25 @@ void VEC::operator=(double num){
     return;
 }
 
-void VEC::operator+=(VEC &data){
+void VEC::operator+=(const VEC &data){
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] += data.val[i];
 }
 
-void VEC::operator-=(VEC &data){
+void VEC::operator-=(const VEC &data){
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] -= data.val[i];
 }
 
-void VEC::operator*=(VEC &data){
+void VEC::operator*=(const VEC &data){
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] *= data.val[i];
 }
 
-void VEC::operator/=(VEC &data){
+void VEC::operator/=(const VEC &data){
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] /= data.val[i];
@@ -95,7 +95,7 @@ double& VEC::operator[](int index) const{
     return this->val[index];
 }
 
-VEC VEC::operator+(VEC &data){
+VEC VEC::operator+(const VEC &data){
     VEC out(this->dimension);
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
@@ -103,7 +103,7 @@ VEC VEC::operator+(VEC &data){
     return out;
 }
 
-VEC VEC::operator-(VEC &data){
+VEC VEC::operator-(const VEC &data){
     VEC out(this->dimension);
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
@@ -112,7 +112,7 @@ VEC VEC::operator-(VEC &data){
 
 }
 
-VEC VEC::operator*(VEC &data){
+VEC VEC::operator*(const VEC &data){
     VEC out(this->dimension);
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
@@ -120,7 +120,7 @@ VEC VEC::operator*(VEC &data){
     return out;
 }
 
-VEC VEC::operator/(VEC &data){
+VEC VEC::operator/(const VEC &data){
     VEC out(this->dimension);
     this->checkDim(data);
     for(int i=0; i<this->dimension; i++)

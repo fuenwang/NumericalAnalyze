@@ -57,7 +57,7 @@ MAT::~MAT(){
     delete this->val;
 }
 
-void MAT::checkDim(MAT &data){
+void MAT::checkDim(const MAT &data){
     if (this->m != data.m || this->n != data.n){
         printf("MAT dimension dismatch!\n");
         exit(0);
@@ -70,7 +70,7 @@ VEC* MAT::CreateVEC(int n){
     return out;
 }
 
-void MAT::operator=(MAT &data){
+void MAT::operator=(const MAT &data){
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
@@ -86,27 +86,27 @@ VEC& MAT::operator[](int index) const{
     return *(this->val[index]);
 }
 
-void MAT::operator+=(MAT &data){
+void MAT::operator+=(const MAT &data){
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] += data[i][j];
 }
-void MAT::operator-=(MAT &data){
+void MAT::operator-=(const MAT &data){
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] -= data[i][j];
 
 }
-void MAT::operator*=(MAT &data){
+void MAT::operator*=(const MAT &data){
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] *= data[i][j];
 
 }
-void MAT::operator/=(MAT &data){
+void MAT::operator/=(const MAT &data){
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
@@ -135,7 +135,7 @@ void MAT::operator/=(double num){
             (*this)[i][j] /= num;
 }
 
-MAT MAT::operator+(MAT &data){
+MAT MAT::operator+(const MAT &data){
     MAT out(this->m, this->n);
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
@@ -143,7 +143,7 @@ MAT MAT::operator+(MAT &data){
             out[i][j] = (*this)[i][j] + data[i][j];
     return out;
 }
-MAT MAT::operator-(MAT &data){
+MAT MAT::operator-(const MAT &data){
     MAT out(this->m, this->n);
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
@@ -151,7 +151,7 @@ MAT MAT::operator-(MAT &data){
             out[i][j] = (*this)[i][j] - data[i][j];
     return out;
 }
-MAT MAT::operator*(MAT &data){
+MAT MAT::operator*(const MAT &data){
     if(this->n != data.m){
         printf("MAT mul size dismatch!\n");
         exit(0);
@@ -175,7 +175,7 @@ MAT MAT::operator*(MAT &data){
 
     return out;
 }
-MAT MAT::operator/(MAT &data){
+MAT MAT::operator/(const MAT &data){
     MAT out(this->m, this->n);
     this->checkDim(data);
     for(int i=0; i<this->m; i++)

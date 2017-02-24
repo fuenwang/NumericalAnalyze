@@ -10,7 +10,7 @@ class VEC{
         int dimension;
         double *val;
     protected:
-        void checkDim(VEC &data);
+        void checkDim(const VEC &data);
     public:
         VEC(int n);
         VEC(VEC &data);
@@ -19,23 +19,23 @@ class VEC{
         int dim();
         double sum();
         bool operator==(VEC &data);
-        void operator=(VEC &data);
+        void operator=(const VEC &data);
         void operator=(double num);
         double& operator[](int index) const;
 
-        VEC operator+(VEC &data);
+        VEC operator+(const VEC &data);
         VEC operator+(double num);
-        VEC operator-(VEC &data);
+        VEC operator-(const VEC &data);
         VEC operator-(double num);
-        VEC operator*(VEC &data);
+        VEC operator*(const VEC &data);
         VEC operator*(double num);
-        VEC operator/(VEC &data);
+        VEC operator/(const VEC &data);
         VEC operator/(double num);
 
-        void operator+=(VEC &data);
-        void operator-=(VEC &data);
-        void operator*=(VEC &data);
-        void operator/=(VEC &data);
+        void operator+=(const VEC &data);
+        void operator-=(const VEC &data);
+        void operator*=(const VEC &data);
+        void operator/=(const VEC &data);
         friend VEC operator+(double num, VEC &vec);
         friend VEC operator-(double num, VEC &vec);
         friend VEC operator*(double num, VEC &vec);
