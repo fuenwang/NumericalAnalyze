@@ -21,7 +21,7 @@ class MAT{
         MAT(const MAT &data);
         ~MAT();
         void Reset(double **val, int m, int n);
-        void print();
+        void print() const;
 
         MAT T(); // transpose matrix
 

@@ -213,7 +213,7 @@ MAT MAT::operator/(double num){
     return out;
 }
 
-void MAT::print(){
+void MAT::print() const{
     printf("----------------\n");
     printf("%d %d\n", this->m, this->n);
     for(int i=0; i<this->m; i++){
