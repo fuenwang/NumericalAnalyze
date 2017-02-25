@@ -32,10 +32,10 @@ void algo1(MAT &A, int n){
         G[k] = A_t[k] - G[k];
     }
     G = G.T();
-
+    G.print();
     //(G.T() * G).print();
 
-    calculateSigma(G.T() * G, n);
+    //calculateSigma(G.T() * G, n);
     return;
 }
 
@@ -53,7 +53,7 @@ void algo2(MAT &A, int n){
     G = G.T();
 
     (G.T() * G).print();
-
+    G.print();
     calculateSigma(G.T() * G, n);
     return;
 }

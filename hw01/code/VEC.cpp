@@ -156,27 +156,27 @@ VEC VEC::operator/(double num){
     return out;
 }
 
-VEC operator+(double num, VEC &vec){
+VEC operator+(double num, const VEC &vec){
     VEC out(vec.dimension);
     for(int i=0; i<vec.dimension; i++)
         out.val[i] = num + vec.val[i];
     return out;
 }
-VEC operator-(double num, VEC &vec){
+VEC operator-(double num, const VEC &vec){
     VEC out(vec.dimension);
     for(int i=0; i<vec.dimension; i++)
         out.val[i] = num - vec.val[i];
     return out;
 }
 
-VEC operator*(double num, VEC &vec){
+VEC operator*(double num, const VEC &vec){
     VEC out(vec.dimension);
     for(int i=0; i<vec.dimension; i++)
         out.val[i] = num * vec.val[i];
     return out;
 }
 
-VEC operator/(double num, VEC &vec){
+VEC operator/(double num, const VEC &vec){
     VEC out(vec.dimension);
     for(int i=0; i<vec.dimension; i++)
         out.val[i] = num / vec.val[i];

@@ -36,15 +36,15 @@ class VEC{
         void operator-=(const VEC &data);
         void operator*=(const VEC &data);
         void operator/=(const VEC &data);
-        friend VEC operator+(double num, VEC &vec);
-        friend VEC operator-(double num, VEC &vec);
-        friend VEC operator*(double num, VEC &vec);
-        friend VEC operator/(double num, VEC &vec);
+        friend VEC operator+(double num, const VEC &vec);
+        friend VEC operator-(double num, const VEC &vec);
+        friend VEC operator*(double num, const VEC &vec);
+        friend VEC operator/(double num, const VEC &vec);
 
 };
 
-VEC operator+(double num, VEC &vec);
-VEC operator-(double num, VEC &vec);
-VEC operator*(double num, VEC &vec);
-VEC operator/(double num, VEC &vec);
+VEC operator+(double num, const VEC &vec);
+VEC operator-(double num, const VEC &vec);
+VEC operator*(double num, const VEC &vec);
+VEC operator/(double num, const VEC &vec);
 #endif

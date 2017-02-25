@@ -235,28 +235,28 @@ MAT MAT::T(){
     return out;
 }
 
-MAT operator+(double num, MAT &data){
+MAT operator+(double num, const MAT &data){
     MAT out(data.m, data.n);
     for(int i=0; i<data.m; i++)
         for(int j=0; j<data.n; j++)
             out[i][j] = num  + data[i][j];
     return out;
 }
-MAT operator-(double num, MAT &data){
+MAT operator-(double num, const MAT &data){
     MAT out(data.m, data.n);
     for(int i=0; i<data.m; i++)
         for(int j=0; j<data.n; j++)
             out[i][j] = num  - data[i][j];
     return out;
 }
-MAT operator*(double num, MAT &data){
+MAT operator*(double num, const MAT &data){
     MAT out(data.m, data.n);
     for(int i=0; i<data.m; i++)
         for(int j=0; j<data.n; j++)
             out[i][j] = num  * data[i][j];
     return out;
 }
-MAT operator/(double num, MAT &data){
+MAT operator/(double num, const MAT &data){
     MAT out(data.m, data.n);
     for(int i=0; i<data.m; i++)
         for(int j=0; j<data.n; j++)

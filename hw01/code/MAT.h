@@ -46,14 +46,14 @@ class MAT{
         MAT operator/(const MAT &data);
         MAT operator/(double num);
 
-        friend MAT operator+(double num, MAT &data);
-        friend MAT operator-(double num, MAT &data);
-        friend MAT operator*(double num, MAT &data);
-        friend MAT operator/(double num, MAT &data);
+        friend MAT operator+(double num, const MAT &data);
+        friend MAT operator-(double num, const MAT &data);
+        friend MAT operator*(double num, const MAT &data);
+        friend MAT operator/(double num, const MAT &data);
 };
 
-MAT operator+(double num, MAT &data);
-MAT operator-(double num, MAT &data);
-MAT operator*(double num, MAT &data);
-MAT operator/(double num, MAT &data);
+MAT operator+(double num, const MAT &data);
+MAT operator-(double num, const MAT &data);
+MAT operator*(double num, const MAT &data);
+MAT operator/(double num, const MAT &data);
 #endif
