@@ -13,7 +13,7 @@ class VEC{
         void checkDim(const VEC &data);
     public:
         VEC(int n);
-        VEC(VEC &data);
+        VEC(const VEC &data);
         ~VEC();
         void print();
         int dim();

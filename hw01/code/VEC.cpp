@@ -5,7 +5,7 @@ VEC::VEC(int n){
     this->val = new double[n]();
 }
 
-VEC::VEC(VEC &data){
+VEC::VEC(const VEC &data){
     this->dimension = data.dimension;
     this->val = new double[data.dimension]();
     for(int i=0; i<this->dimension; i++)

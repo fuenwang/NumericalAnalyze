@@ -165,7 +165,7 @@ MAT MAT::operator*(const MAT &data){
     */
     for(int i=0; i<this->m; i++){
         for(int j=0; j<data.n; j++){
-            int sum = 0;
+            double sum = 0;
             for(int k = 0; k < this->n; k++){
                 sum += (*this)[i][k] * data[k][j];
             }
