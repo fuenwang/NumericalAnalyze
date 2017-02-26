@@ -45,6 +45,7 @@ void algo1(MAT &A, int n, const char mat_name[]){
     double sigma = calculateSigma(G.T() * G, n);
     printf("-------------\n");
     printf("algo1: < %s\n", mat_name);
+    printf("n: %d\n", n);
     printf("Sigma: %g\n", sigma);
     printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
     printf("-------------\n");
@@ -71,6 +72,8 @@ void algo2(MAT &A, int n, const char mat_name[]){
     double sigma = calculateSigma(G.T() * G, n);
     printf("-------------\n");
     printf("algo2: < %s\n", mat_name);
+    printf("n: %d\n", n);
+
     printf("Sigma: %g\n", sigma);
     printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
     printf("-------------\n");
@@ -97,6 +100,8 @@ void algo3(MAT &A, int n, const char mat_name[]){
     double sigma = calculateSigma(G.T() * G, n);
     printf("-------------\n");
     printf("algo3: < %s\n", mat_name);
+    printf("n: %d\n", n);
+
     printf("Sigma: %g\n", sigma);
     printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
     printf("-------------\n");
