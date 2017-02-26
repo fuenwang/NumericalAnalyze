@@ -34,6 +34,8 @@
 \usepackage{courier} % Required for the courier font
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{bigstrut}
 
 % Margins
 \topmargin=-0.45in
@@ -227,17 +229,68 @@ Theorectically, $\sigma$ should be very closed to zeros. \newline \newline
 In this homework, we will implement three algorithms to compare their runtime.
 \newpage
 
-\section{Algorithm-1}
-\subsection{C$++$ Implementation}
+\section{C$++$ Implementation}
+\subsection{Algorithm-1}
 \cppscript{src/algo1.cpp}{algo1 implementation}
+This is the most straightforward method for \textbf{Gram-Schmidt process}. In the innermost for-loop, we calculate
+$\sum_{i=1}^{k-1}{\frac{(A_k^TG_i)G_i}{G_i^TG_i}}$ first and subtracted by $A[k]$, and then replace $G[k]$ by the final vector. \newline
 
-\section{Algorithm-2}
-\subsection{C$++$ Implementation}
+\subsection{Algorithm-2}
 \cppscript{src/algo2.cpp}{algo2 implementation}
+Algo2 simplify algo1 by modifying three terms and removing $G[k]$ = $A[k]$ - $G[k]$. Because there is one more subtraction in algo1 than
+algo2, so algo2 should be faster than algo1.
 
-\section{Algorithm-3}
-\subsection{C$++$ Implementation}
+\subsection{Algorithm-3}
 \cppscript{src/algo3.cpp}{algo3 implementation}
+\newpage
+Compared to algo2, algo3 only move the multiplication of $(G_k^TG_i)$ and $G_i$ to the last position. By such manipulation, two problems
+show up:
+\begin{enumerate}
+\item Will the result change? (observed by \boldmath$\sigma$) \\
+    \item Will the speed change? (observed by \textbf{RUNTIME})
+\end{enumerate}
+We will discuss these two questions in next section.
+
+\section{Discussion}
+\subsection{Performance Evaluation}
+In this project, we focus on two numbers for performance:
+\begin{enumerate}
+    \item \boldmath$\sigma$ (accuracy) \\
+    \item \textbf{RUNTIME} (speed)
+\end{enumerate}
+
+$\sigma$ can be regarded as the loss or error of our system, so we must make it small as possible as we can. As for RUNTIME, there are
+two way to deal with it.
+\begin{enumerate}
+    \item Total runtime (total time of execution) \\
+    \item Algorithm runtime (total time of algorithm part)
+\end{enumerate}
+Because total runtime consists of the time that program parses the \textbf{mX.dat}; when the matrix dimension is large, it will consume
+much more time. But what we really care about is the time our algorithms consume, so I also track the algorithm time in each 
+experiment.
+
+
+
+
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{Add caption}
+    \begin{tabular}{|r|r|}
+    \hline
+    \multicolumn{1}{|l|}{A} & \multicolumn{1}{l|}{B} \bigstrut\\
+    \hline
+    1   & 4 \bigstrut\\
+    \hline
+    2   & 5 \bigstrut\\
+    \hline
+    3   & 6 \bigstrut\\
+    \hline
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
 
 %\begin{align*}
 %    & G_1  = A_1; \\
@@ -249,31 +302,5 @@ In this homework, we will implement three algorithms to compare their runtime.
 %    & \hspace{2em} G_k = A_k - G_k \\
 %    & \}
 %\end{align*}
-
-
-\begin{homeworkProblem}
-Listing \ref{test} shows a Perl script.
-
-\perlscript{test}{Sample Perl Script With Highlighting}
-\lipsum[1]
-\end{homeworkProblem}
-
-%----------------------------------------------------------------------------------------
-%	PROBLEM 2
-%----------------------------------------------------------------------------------------
-
-\begin{homeworkProblem}
-\lipsum[2]
-
-\problemAnswer{
-\begin{center}
-\includegraphics[width=0.75\columnwidth]{example_figure} % Example image
-\end{center}
-
-\lipsum[3-5]
-}
-\end{homeworkProblem}
-
-%----------------------------------------------------------------------------------------
 
 \end{document}
