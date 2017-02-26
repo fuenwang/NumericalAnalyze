@@ -1,0 +1,217 @@
+1
+-------------
+algo1: < m3.dat
+Sigma: 4.39626e-15
+Time: 3.09944e-06
+-------------
+
+real	0m0.004s
+user	0m0.001s
+sys	0m0.001s
+2
+-------------
+algo2: < m3.dat
+Sigma: 3.78128e-15
+Time: 3.09944e-06
+-------------
+
+real	0m0.004s
+user	0m0.001s
+sys	0m0.001s
+3
+-------------
+algo3: < m3.dat
+Sigma: 7.86928e-15
+Time: 1.90735e-06
+-------------
+
+real	0m0.004s
+user	0m0.001s
+sys	0m0.001s
+
+1
+-------------
+algo1: < m4.dat
+Sigma: 3.06299e-13
+Time: 2.90871e-05
+-------------
+
+real	0m0.004s
+user	0m0.001s
+sys	0m0.001s
+2
+-------------
+algo2: < m4.dat
+Sigma: 1.28987e-14
+Time: 3.40939e-05
+-------------
+
+real	0m0.004s
+user	0m0.001s
+sys	0m0.001s
+3
+-------------
+algo3: < m4.dat
+Sigma: 7.82771e-15
+Time: 2.00272e-05
+-------------
+
+real	0m0.008s
+user	0m0.002s
+sys	0m0.002s
+
+1
+-------------
+algo1: < m5.dat
+Sigma: 293.881
+Time: 0.00778294
+-------------
+
+real	0m0.017s
+user	0m0.012s
+sys	0m0.001s
+2
+-------------
+algo2: < m5.dat
+Sigma: 1.9181e-13
+Time: 0.00751305
+-------------
+
+real	0m0.021s
+user	0m0.014s
+sys	0m0.004s
+3
+-------------
+algo3: < m5.dat
+Sigma: 1.86177e-13
+Time: 0.00417805
+-------------
+
+real	0m0.016s
+user	0m0.011s
+sys	0m0.001s
+
+1
+-------------
+algo1: < m6.dat
+Sigma: 477.474
+Time: 0.035723
+-------------
+
+real	0m0.108s
+user	0m0.096s
+sys	0m0.005s
+2
+-------------
+algo2: < m6.dat
+Sigma: 6.41276e-13
+Time: 0.039526
+-------------
+
+real	0m0.102s
+user	0m0.093s
+sys	0m0.003s
+3
+-------------
+algo3: < m6.dat
+Sigma: 6.34527e-13
+Time: 0.022445
+-------------
+
+real	0m0.094s
+user	0m0.087s
+sys	0m0.003s
+
+1
+-------------
+algo1: < m7.dat
+Sigma: 717.106
+Time: 0.238809
+-------------
+
+real	0m0.626s
+user	0m0.606s
+sys	0m0.008s
+2
+-------------
+algo2: < m7.dat
+Sigma: 2.28725e-12
+Time: 0.232578
+-------------
+
+real	0m0.584s
+user	0m0.574s
+sys	0m0.005s
+3
+-------------
+algo3: < m7.dat
+Sigma: 2.32067e-12
+Time: 0.169157
+-------------
+
+real	0m0.529s
+user	0m0.516s
+sys	0m0.006s
+
+1
+-------------
+algo1: < m8.dat
+Sigma: 1069.88
+Time: 1.73899
+-------------
+
+real	0m5.984s
+user	0m5.892s
+sys	0m0.042s
+2
+-------------
+algo2: < m8.dat
+Sigma: 9.09661e-12
+Time: 1.70995
+-------------
+
+real	0m5.960s
+user	0m5.880s
+sys	0m0.039s
+3
+-------------
+algo3: < m8.dat
+Sigma: 8.78728e-12
+Time: 1.2729
+-------------
+
+real	0m5.405s
+user	0m5.342s
+sys	0m0.038s
+
+1
+-------------
+algo1: < m9.dat
+Sigma: 1531.34
+Time: 13.3381
+-------------
+
+real	0m53.997s
+user	0m52.011s
+sys	0m0.399s
+2
+-------------
+algo2: < m9.dat
+Sigma: 3.39784e-11
+Time: 13.5172
+-------------
+
+real	0m50.559s
+user	0m50.010s
+sys	0m0.248s
+3
+-------------
+algo3: < m9.dat
+Sigma: 3.45128e-11
+Time: 9.95697
+-------------
+
+real	0m52.003s
+user	0m49.170s
+sys	0m0.529s
+
