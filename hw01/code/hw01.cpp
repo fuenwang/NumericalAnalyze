@@ -34,7 +34,7 @@ void algo1(MAT &A, int n, const char mat_name[]){
     for(int k=1; k<n; k++){
         G[k] = 0;
         for(int i=0; i<k; i++){
-            G[k] += (A[k] * G[i]).sum() * G[i] / (G[i] * G[i]).sum();
+            G[k] += (A_t[k] * G[i]).sum() * G[i] / (G[i] * G[i]).sum();
         }
         G[k] = A_t[k] - G[k];
     }

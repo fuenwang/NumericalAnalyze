@@ -36,7 +36,16 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{bigstrut}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{color}
 
+\hypersetup{
+    colorlinks   = true,    % Colours links instead of ugly boxes
+    urlcolor     = red,    % Colour for external hyperlinks
+    linkcolor    = red,    % Colour of internal links
+    citecolor    = red      % Colour of citations
+}
 % Margins
 \topmargin=-0.45in
 \evensidemargin=0in
@@ -67,43 +76,43 @@
 \definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
 \lstloadlanguages{Perl} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
 \lstset{language=Perl, % Use Perl in this example
-        frame=single, % Single frame around code
-        basicstyle=\small\ttfamily, % Use small true type font
-        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
-        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
-        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
-        identifierstyle=, % Nothing special about identifiers                                         
-        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
-        stringstyle=\color{Purple}, % Strings are purple
-        showstringspaces=false, % Don't put marks in string spaces
-        tabsize=5, % 5 spaces per tab
-        %
-        % Put standard Perl functions not included in the default language here
-        morekeywords={rand},
-        %
-        % Put Perl function parameters here
-        morekeywords=[2]{on, off, interp},
-        %
-        % Put user defined functions here
-        morekeywords=[3]{test},
-       	%
-        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
-        numbers=left, % Line numbers on left
-        firstnumber=1, % Line numbers start with line 1
-        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
-        stepnumber=5 % Line numbers go in steps of 5
+    frame=single, % Single frame around code
+    basicstyle=\small\ttfamily, % Use small true type font
+    keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+    keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+    keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+    identifierstyle=, % Nothing special about identifiers                                         
+    commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+    stringstyle=\color{Purple}, % Strings are purple
+    showstringspaces=false, % Don't put marks in string spaces
+    tabsize=5, % 5 spaces per tab
+    %
+    % Put standard Perl functions not included in the default language here
+    morekeywords={rand},
+    %
+    % Put Perl function parameters here
+    morekeywords=[2]{on, off, interp},
+    %
+    % Put user defined functions here
+    morekeywords=[3]{test},
+    %
+    morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+    numbers=left, % Line numbers on left
+    firstnumber=1, % Line numbers start with line 1
+    numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+    stepnumber=5 % Line numbers go in steps of 5
 }
 
 % Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
 \newcommand{\perlscript}[2]{
-\begin{itemize}
-\item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
-\end{itemize}
+    \begin{itemize}
+        \item[]\lstinputlisting[caption=#2,label=#1]{#1.py}
+    \end{itemize}
 }
 \newcommand{\cppscript}[2]{
-\begin{itemize}
-\item[]\lstinputlisting[]{#1}
-\end{itemize}
+    \begin{itemize}
+        \item[]\lstinputlisting[]{#1}
+    \end{itemize}
 }
 
 %----------------------------------------------------------------------------------------
@@ -113,14 +122,14 @@
 
 % Header and footer for when a page split occurs within a problem environment
 \newcommand{\enterProblemHeader}[1]{
-\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
-\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+    \nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
 }
 
 % Header and footer for when a page split occurs between problem environments
 \newcommand{\exitProblemHeader}[1]{
-\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
-\nobreak\extramarks{#1}{}\nobreak
+    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+    \nobreak\extramarks{#1}{}\nobreak
 }
 
 %\setcounter{secnumdepth}{0} % Removes default section numbers
@@ -128,12 +137,12 @@
 
 \newcommand{\homeworkProblemName}{}
 \newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
-\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
-\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
-\section{\homeworkProblemName} % Make a section in the document with the custom problem count
-\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
-}{
-\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+    \stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+    \renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+    \section{\homeworkProblemName} % Make a section in the document with the custom problem count
+    \enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+    }{
+    \exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
 }
 
 \newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
@@ -142,11 +151,11 @@
 
 \newcommand{\homeworkSectionName}{}
 \newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
-\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
-\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
-\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
-}{
-\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+    \renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+    \subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+    }{
+    \enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
 }
 
 %----------------------------------------------------------------------------------------
@@ -155,7 +164,7 @@
 
 \newcommand{\hmwkTitle}{homework 01} % Assignment title
 \newcommand{\hmwkDueDate}{Tuesday,\ Febrary\ 28,\ 2017} % Due date
-\newcommand{\hmwkClass}{Numerical Analyze} % Course/class
+\newcommand{\hmwkClass}{Numerical Analysis} % Course/class
 \newcommand{\hmwkClassTime}{10:30am} % Class/lecture time
 \newcommand{\hmwkClassInstructor}{Jones} % Teacher/lecturer
 \newcommand{\hmwkAuthorName}{102061149 Fu-En Wang} % Your name
@@ -165,10 +174,10 @@
 %----------------------------------------------------------------------------------------
 
 \title{
-\vspace{2in}
-\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
-\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
-\vspace{3in}
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{3in}
 }
 
 \author{\textbf{\hmwkAuthorName}}
@@ -200,11 +209,11 @@ When we are given an n x n squre matrix $A$, then an n x n orthogonal matrix $G$
 \subsection{Gram-Schmidt process}
 When \newline
 \begin{gather}
-    A = \begin{bmatrix}A_1 & A_2 & ...... & A_n \end{bmatrix}
+A = \begin{bmatrix}A_1 & A_2 & ...... & A_n \end{bmatrix}
 \end{gather}
 and \newline
 \begin{gather}
-    G = \begin{bmatrix}G_1 & G_2 & ...... & G_n\end{bmatrix}
+G = \begin{bmatrix}G_1 & G_2 & ...... & G_n\end{bmatrix}
 \end{gather}
 
 Each $A_i$ and $G_i$ is a column of squre matrix $A$ and $G$, respectively. And the algorithm of \textbf{Gram-Schmidt process} is as the
@@ -237,8 +246,8 @@ $\sum_{i=1}^{k-1}{\frac{(A_k^TG_i)G_i}{G_i^TG_i}}$ first and subtracted by $A[k]
 
 \subsection{Algorithm-2}
 \cppscript{src/algo2.cpp}{algo2 implementation}
-Algo2 simplify algo1 by modifying three terms and removing $G[k]$ = $A[k]$ - $G[k]$. Because there is one more subtraction in algo1 than
-algo2, so algo2 should be faster than algo1.
+Algo2 simplifies algo1 by modifying three terms and removing $G[k]$ = $A[k]$ - $G[k]$. And there is one more subtraction in algo1 
+than algo2.
 
 \subsection{Algorithm-3}
 \cppscript{src/algo3.cpp}{algo3 implementation}
@@ -246,10 +255,14 @@ algo2, so algo2 should be faster than algo1.
 Compared to algo2, algo3 only move the multiplication of $(G_k^TG_i)$ and $G_i$ to the last position. By such manipulation, two problems
 show up:
 \begin{enumerate}
-\item Will the result change? (observed by \boldmath$\sigma$) \\
+    \item Will the result change? (observed by \boldmath$\sigma$) \\
     \item Will the speed change? (observed by \textbf{RUNTIME})
 \end{enumerate}
-We will discuss these two questions in next section.
+We will discuss these two questions in Discussion part.
+
+\subsection{Complexity}
+Because in the innermost for-loop, we have to do $\frac{n(n+1)}{2}$; but we still need to do vector operation one time, so it will
+become $n * \frac{n(n+1)}{2}$, which is a \boldmath$O(n^3)$ problem.
 
 \section{Discussion}
 \subsection{Performance Evaluation}
@@ -267,30 +280,137 @@ two way to deal with it.
 \end{enumerate}
 Because total runtime consists of the time that program parses the \textbf{mX.dat}; when the matrix dimension is large, it will consume
 much more time. But what we really care about is the time our algorithms consume, so I also track the algorithm time in each 
-experiment.
+experiment. In the following part, \textbf{algo-time} is refered as algorithm runtime(seconds), 
+while \textbf{runtime} refered as total runtime(seconds).
 
 
-
-
-
-
-\begin{table}[htbp]
-  \centering
-  \caption{Add caption}
-    \begin{tabular}{|r|r|}
-    \hline
-    \multicolumn{1}{|l|}{A} & \multicolumn{1}{l|}{B} \bigstrut\\
-    \hline
-    1   & 4 \bigstrut\\
-    \hline
-    2   & 5 \bigstrut\\
-    \hline
-    3   & 6 \bigstrut\\
-    \hline
+\subsection{Algorithm-1 Perormance}
+Table [\ref{tab:algo1}] show detail results of algorithm-1.
+\begin{table}[h!]
+    \centering
+    \caption{Algorithm-1 performance}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{algo1} & n   & sigma & algo-time(s) & runrime(s) \bigstrut\\
+        \hline
+        m3  & 3   & 4.40E-15 & 4.05E-06 & 0.004 \bigstrut\\
+        \hline
+        m4  & 10  & 3.06E-13 & 2.79E-05 & 0.005 \bigstrut\\
+        \hline
+        m5  & 100 & 293.881 & 0.0118849 & 0.04 \bigstrut\\
+        \hline
+        m6  & 200 & 477.474 & 0.042047 & 0.112 \bigstrut\\
+        \hline
+        m7  & 400 & 717.106 & 0.242979 & 0.634 \bigstrut\\
+        \hline
+        m8  & 800 & 1069.88 & 1.92496 & 6.629 \bigstrut\\
+        \hline
+        m9  & 1600 & 1531.34 & 14.5427 & 55.245 \bigstrut\\
+        \hline
     \end{tabular}%
-  \label{tab:addlabel}%
-\end{table}%
 
+    \label{tab:algo1}
+\end{table}%
+\subsubsection{Sigma}
+\label{sec:algo1-sigma}
+When $n$ is large, it seems that algorithm-1 get a large $\sigma$; in other words, it is not \textbf{accurate}. By my observation,
+because the \textbf{magnitude} difference between $A[k]$ and $G[k]$ could be large, so the calculation error of $G[k] = A[k] - G[k]$
+will be amplified, and that's why we get a large \boldmath$\sigma$
+\newpage
+\subsubsection{$n^3$ and runtime}
+Because it is a $O(n^3)$ problem, so $n^3$ and runtime shoule be a straight line, shown by fig [\ref{fig:algo1-runtime}].
+\begin{figure}[H]
+    \centering
+    \caption{runtime to $n^3$}
+    \includegraphics[width=0.75\textwidth]{src/algo1-runtime.png}
+    \label{fig:algo1-runtime}
+\end{figure}
+
+\subsection{Algorithm-2 performance}
+% Table generated by Excel2LaTeX from sheet '工作表1'
+Table [\ref{tab:algo2}] shows detail result of Algorithm-2
+\begin{table}[h]
+    \centering
+    \caption{Algorithm-2 performance}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{algo2} & \multicolumn{1}{c|}{n} & \multicolumn{1}{c|}{sigma} & \multicolumn{1}{c|}{algo-time(s)} & \multicolumn{1}{c|}{runrime(s)} \bigstrut\\
+        \hline
+        m3  & 3   & 3.78E-15 & 4.05E-06 & 0.004 \bigstrut\\
+        \hline
+        m4  & 10  & 1.29E-14 & 4.91E-05 & 0.009 \bigstrut\\
+        \hline
+        m5  & 100 & 1.92E-13 & 0.00610399 & 0.017 \bigstrut\\
+        \hline
+        m6  & 200 & 6.41E-13 & 0.039006 & 0.113 \bigstrut\\
+        \hline
+        m7  & 400 & 2.29E-12 & 0.25009 & 0.663 \bigstrut\\
+        \hline
+        m8  & 800 & 9.10E-12 & 1.84492 & 6.382 \bigstrut\\
+        \hline
+        m9  & 1600 & 3.40E-11 & 18.2445 & 59.626 \bigstrut\\
+        \hline
+    \end{tabular}%
+
+    \label{tab:algo2}
+\end{table}%
+\subsubsection{Sigma}
+Although when n is getting larger, we will also get larger $\sigma$, but the slope $\sigma$ grows is much smaller than Algorithm-1.
+\subsubsection{runtime to $n^3$}
+\begin{figure}[H]
+    \centering
+    \caption{runtime to $n^3$}
+    \includegraphics[width=0.75\textwidth]{src/algo2-runtime.png}
+    \label{fig:algo2-runtime}
+\end{figure}
+
+\subsection{Algorithm-3 performance}
+% Table generated by Excel2LaTeX from sheet '工作表1'
+Table [\ref{tab:algo3}] shows detail results of Algorithm-3.
+\begin{table}[htbp]
+    \centering
+    \caption{Algorithm-3 performance}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{algo3} & \multicolumn{1}{c|}{n} & \multicolumn{1}{c|}{sigma} & \multicolumn{1}{l|}{algo-time(s)} & \multicolumn{1}{c|}{runrime(s)} \bigstrut\\
+        \hline
+        m3  & 3   & 7.87E-15 & 1.91E-06 & 0.004 \bigstrut\\
+        \hline
+        m4  & 10  & 7.83E-15 & 3.60E-05 & 0.015 \bigstrut\\
+        \hline
+        m5  & 100 & 1.86E-13 & 0.00776792 & 0.02 \bigstrut\\
+        \hline
+        m6  & 200 & 6.35E-13 & 0.022558 & 0.094 \bigstrut\\
+        \hline
+        m7  & 400 & 2.32E-12 & 0.164832 & 0.586 \bigstrut\\
+        \hline
+        m8  & 800 & 8.79E-12 & 1.33471 & 5.788 \bigstrut\\
+        \hline
+        m9  & 1600 & 3.45E-11 & 10.458 & 50.275 \bigstrut\\
+        \hline
+    \end{tabular}%
+    \label{tab:algo3}
+\end{table}%
+\subsubsection{Sigma}
+From Table [\ref{tab:algo3}], we can found that sigma in algorithm-2 and algoritm-3 is almost same, so they have the same accuracy.
+\subsubsection{runtime to $n^3$}
+\begin{figure}[H]
+    \centering
+    \caption{runtime to $n^3$}
+    \includegraphics[width=0.75\textwidth]{src/algo3-runtime.png}
+    \label{fig:algo3-runtime}
+\end{figure}
+
+\subsection{Comparison}
+\subsubsection{Accuracy}
+From Section \ref{sec:algo1-sigma}, we can found that Algorithm-1 is the worst method for \textbf{Gram-Schmidt process} because it is not
+quite accurate. However, Algorithm-2 and Algorithm-3 almost have the same accuracy.
+\subsubsection{Speed}
+From Table [\ref{tab:algo2}] and Table [\ref{tab:algo3}], we found that both algo-time and runtime consumed by Algorithm-3 are a little
+smaller than Algorithm-2, so Algorithm-3 is faster than Algorithm-2.
+\subsubsection{Data transfer}
+From Table [\ref{tab:algo1}][\ref{tab:algo2}][\ref{tab:algo3}], we can see that algo-time only takes about $\frac{1}{4}$ of total
+execution time; in other words, dimension of matrix in \textbf{mX.dat} may also play an important role in this homework.
 
 %\begin{align*}
 %    & G_1  = A_1; \\
