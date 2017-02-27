@@ -4,3 +4,4 @@
 *.dSYM
 *.aux
 *.log
+*.DS_store

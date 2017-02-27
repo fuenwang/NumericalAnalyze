@@ -261,6 +261,7 @@ show up:
 We will discuss these two questions in Discussion part.
 
 \subsection{Complexity}
+\label{sec:complexity}
 Because in the innermost for-loop, we have to do $\frac{n(n+1)}{2}$; but we still need to do vector operation one time, so it will
 become $n * \frac{n(n+1)}{2}$, which is a \boldmath$O(n^3)$ problem.
 
@@ -402,6 +403,8 @@ From Table [\ref{tab:algo3}], we can found that sigma in algorithm-2 and algorit
 \end{figure}
 
 \subsection{Comparison}
+\subsubsection{Complexity}
+Mentioned in section \ref{sec:complexity}, the complexity of three algorithms is all $O(n^3)$, so the runtime grows up with $n^3$.
 \subsubsection{Accuracy}
 From Section \ref{sec:algo1-sigma}, we can found that Algorithm-1 is the worst method for \textbf{Gram-Schmidt process} because it is not
 quite accurate. However, Algorithm-2 and Algorithm-3 almost have the same accuracy.

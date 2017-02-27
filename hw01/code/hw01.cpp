@@ -24,7 +24,12 @@ double calculateSigma(const MAT &M, int n){
 }
 
 void algo1(MAT &A, int n, const char mat_name[]){
+    //struct timeval a,b;
+    //gettimeofday(&a, NULL);
     MAT A_t(A.T());
+    //gettimeofday(&b, NULL);
+    //printf("AAA %d\n", b.tv_sec - a.tv_sec);
+
     MAT G(n, n);
     //A_t.print();
     //
@@ -42,12 +47,20 @@ void algo1(MAT &A, int n, const char mat_name[]){
     G = G.T();
     //G.print();
     //(G.T() * G).print();
+
+    //gettimeofday(&a, NULL);
+    //G.T() * G;
+    //gettimeofday(&b, NULL);
+    //printf("BBB %d\n", b.tv_sec - a.tv_sec);
+
     double sigma = calculateSigma(G.T() * G, n);
+
     printf("-------------\n");
     printf("algo1: < %s\n", mat_name);
     printf("n: %d\n", n);
     printf("Sigma: %g\n", sigma);
     printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
+    //printf("Time: %d\n", stop.tv_sec - start.tv_sec);
     printf("-------------\n");
     return;
 }
@@ -113,7 +126,8 @@ void algo3(MAT &A, int n, const char mat_name[]){
 int main(int argc, char* argv[]){
     int dim;
     //double **val;
-
+    //struct timeval a, b;
+    //gettimeofday(&a, NULL);
     scanf("%d", &dim);
     MAT data(dim, dim);
     //val = (double**)malloc(dim*sizeof(double*));
@@ -122,6 +136,10 @@ int main(int argc, char* argv[]){
         for(int j=0; j<dim; j++)  
             scanf("%lf", &data[i][j]);
     }
+
+    //gettimeofday(&b, NULL);
+
+    //printf("DDDDD %d\n", b.tv_sec - a.tv_sec);
     //cout << (data[0]*data[1]).sum() << endl;
     //data.print();
     //data[0] += data[1];
@@ -147,7 +165,6 @@ int main(int argc, char* argv[]){
         algo3(data, dim, argv[1]);
     }
     
-
 
 
     return 0;
