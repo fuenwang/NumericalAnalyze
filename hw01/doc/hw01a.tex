@@ -246,7 +246,7 @@ $\sum_{i=1}^{k-1}{\frac{(A_k^TG_i)G_i}{G_i^TG_i}}$ first and subtracted by $A[k]
 
 \subsection{Algorithm-2}
 \cppscript{src/algo2.cpp}{algo2 implementation}
-Algo2 simplifies algo1 by modifying three terms and removing $G[k]$ = $A[k]$ - $G[k]$. And there is one more subtraction in algo1 
+Algo2 simplifies algo1 by modifying three terms and removing $G[k]$ = $A[k]$ - $G[k]$. So there is one more subtraction in algo1 
 than algo2.
 
 \subsection{Algorithm-3}
@@ -255,7 +255,7 @@ than algo2.
 Compared to algo2, algo3 only move the multiplication of $(G_k^TG_i)$ and $G_i$ to the last position. By such manipulation, two problems
 show up:
 \begin{enumerate}
-    \item Will the result change? (observed by \boldmath$\sigma$) \\
+    \item Will the result change? (observed by {\boldmath$\sigma$}) \\
     \item Will the speed change? (observed by \textbf{RUNTIME})
 \end{enumerate}
 We will discuss these two questions in Discussion part.
@@ -263,24 +263,24 @@ We will discuss these two questions in Discussion part.
 \subsection{Complexity}
 \label{sec:complexity}
 Because in the innermost for-loop, we have to do $\frac{n(n+1)}{2}$; but we still need to do vector operation one time, so it will
-become $n * \frac{n(n+1)}{2}$, which is a \boldmath$O(n^3)$ problem.
+become $n * \frac{n(n+1)}{2}$, which is a {\boldmath$O(n^3)$} problem.
 
 \section{Discussion}
 \subsection{Performance Evaluation}
 In this project, we focus on two numbers for performance:
 \begin{enumerate}
-    \item \boldmath$\sigma$ (accuracy) \\
+    \item {\boldmath$\sigma$} (accuracy) \\
     \item \textbf{RUNTIME} (speed)
 \end{enumerate}
 
 $\sigma$ can be regarded as the loss or error of our system, so we must make it small as possible as we can. As for RUNTIME, there are
-two way to deal with it.
+two way to analyze.
 \begin{enumerate}
     \item Total runtime (total time of execution) \\
     \item Algorithm runtime (total time of algorithm part)
 \end{enumerate}
-Because total runtime consists of the time that program parses the \textbf{mX.dat}; when the matrix dimension is large, it will consume
-much more time. But what we really care about is the time our algorithms consume, so I also track the algorithm time in each 
+Total runtime consists of the time that program parses the \textbf{mX.dat} and processes other jobs, which may also take much time.
+But what we really care about is the time our algorithms consume, so I also track the algorithm time in each 
 experiment. In the following part, \textbf{algo-time} is refered as algorithm runtime(seconds), 
 while \textbf{runtime} refered as total runtime(seconds).
 
@@ -292,7 +292,7 @@ Table [\ref{tab:algo1}] show detail results of algorithm-1.
     \caption{Algorithm-1 performance}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{algo1} & n   & sigma & algo-time(s) & runrime(s) \bigstrut\\
+        Mat & n   & sigma & algo-time(s) & runrime(s) \bigstrut\\
         \hline
         m3  & 3   & 4.40E-15 & 4.05E-06 & 0.004 \bigstrut\\
         \hline
@@ -316,13 +316,13 @@ Table [\ref{tab:algo1}] show detail results of algorithm-1.
 \label{sec:algo1-sigma}
 When $n$ is large, it seems that algorithm-1 get a large $\sigma$; in other words, it is not \textbf{accurate}. By my observation,
 because the \textbf{magnitude} difference between $A[k]$ and $G[k]$ could be large, so the calculation error of $G[k] = A[k] - G[k]$
-will be amplified, and that's why we get a large \boldmath$\sigma$
+will be amplified, and that's why we get a large {\boldmath$\sigma$}
 \newpage
 \subsubsection{$n^3$ and runtime}
 Because it is a $O(n^3)$ problem, so $n^3$ and runtime shoule be a straight line, shown by fig [\ref{fig:algo1-runtime}].
 \begin{figure}[H]
     \centering
-    \caption{runtime to $n^3$}
+    \caption{Algorithm-1 runtime to $n^3$}
     \includegraphics[width=0.75\textwidth]{src/algo1-runtime.png}
     \label{fig:algo1-runtime}
 \end{figure}
@@ -335,7 +335,7 @@ Table [\ref{tab:algo2}] shows detail result of Algorithm-2
     \caption{Algorithm-2 performance}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{algo2} & \multicolumn{1}{c|}{n} & \multicolumn{1}{c|}{sigma} & \multicolumn{1}{c|}{algo-time(s)} & \multicolumn{1}{c|}{runrime(s)} \bigstrut\\
+        Mat & \multicolumn{1}{c|}{n} & \multicolumn{1}{c|}{sigma} & \multicolumn{1}{c|}{algo-time(s)} & \multicolumn{1}{c|}{runrime(s)} \bigstrut\\
         \hline
         m3  & 3   & 3.78E-15 & 4.05E-06 & 0.004 \bigstrut\\
         \hline
@@ -360,7 +360,7 @@ Although when n is getting larger, we will also get larger $\sigma$, but the slo
 \subsubsection{runtime to $n^3$}
 \begin{figure}[H]
     \centering
-    \caption{runtime to $n^3$}
+    \caption{Algorithm-2 runtime to $n^3$}
     \includegraphics[width=0.75\textwidth]{src/algo2-runtime.png}
     \label{fig:algo2-runtime}
 \end{figure}
@@ -373,7 +373,7 @@ Table [\ref{tab:algo3}] shows detail results of Algorithm-3.
     \caption{Algorithm-3 performance}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{algo3} & \multicolumn{1}{c|}{n} & \multicolumn{1}{c|}{sigma} & \multicolumn{1}{l|}{algo-time(s)} & \multicolumn{1}{c|}{runrime(s)} \bigstrut\\
+        Mat & \multicolumn{1}{c|}{n} & \multicolumn{1}{c|}{sigma} & \multicolumn{1}{l|}{algo-time(s)} & \multicolumn{1}{c|}{runrime(s)} \bigstrut\\
         \hline
         m3  & 3   & 7.87E-15 & 1.91E-06 & 0.004 \bigstrut\\
         \hline
@@ -397,23 +397,26 @@ From Table [\ref{tab:algo3}], we can found that sigma in algorithm-2 and algorit
 \subsubsection{runtime to $n^3$}
 \begin{figure}[H]
     \centering
-    \caption{runtime to $n^3$}
+    \caption{Algorithm-3 runtime to $n^3$}
     \includegraphics[width=0.75\textwidth]{src/algo3-runtime.png}
     \label{fig:algo3-runtime}
 \end{figure}
 
 \subsection{Comparison}
 \subsubsection{Complexity}
-Mentioned in section \ref{sec:complexity}, the complexity of three algorithms is all $O(n^3)$, so the runtime grows up with $n^3$.
+As mentioned in Section \ref{sec:complexity}, the complexity of three algorithms is all {\boldmath$O(n^3)$}, so the runtime grows 
+up with $n^3$.
 \subsubsection{Accuracy}
 From Section \ref{sec:algo1-sigma}, we can found that Algorithm-1 is the worst method for \textbf{Gram-Schmidt process} because it is not
 quite accurate. However, Algorithm-2 and Algorithm-3 almost have the same accuracy.
 \subsubsection{Speed}
 From Table [\ref{tab:algo2}] and Table [\ref{tab:algo3}], we found that both algo-time and runtime consumed by Algorithm-3 are a little
 smaller than Algorithm-2, so Algorithm-3 is faster than Algorithm-2.
-\subsubsection{Data transfer}
+\subsubsection{Runtime Problem}
 From Table [\ref{tab:algo1}][\ref{tab:algo2}][\ref{tab:algo3}], we can see that algo-time only takes about $\frac{1}{4}$ of total
-execution time; in other words, dimension of matrix in \textbf{mX.dat} may also play an important role in this homework.
+execution time; After several experiments, I also found that the most time-consuming part is not our algorithm itself; Instead,
+it's the calculation of $G^T * G$. However, the complexity of matrix multiplication is also $O(n^3)$, which still makes sense in 
+the result of Figure [\ref{fig:algo1-runtime}][\ref{fig:algo2-runtime}][\ref{fig:algo3-runtime}].
 
 %\begin{align*}
 %    & G_1  = A_1; \\
