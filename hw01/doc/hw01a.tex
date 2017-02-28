@@ -405,13 +405,21 @@ From Table [\ref{tab:algo3}], we can found that sigma in algorithm-2 and algorit
 \subsection{Comparison}
 \subsubsection{Complexity}
 As mentioned in Section \ref{sec:complexity}, the complexity of three algorithms is all {\boldmath$O(n^3)$}, so the runtime grows 
-up with $n^3$.
+up with $n^3$. Algo-time of Algorithm-1,2,3 with $n^3$ is shown in Figure [\ref{fig:total-compare}], and we can clearly see three 
+straight lines in this figure, which is the property of {\boldmath$O(n^3)$} problem.
+\begin{figure}[H]
+    \centering
+    \caption{Algo-time of three algorithms}
+    \includegraphics[width=0.75\textwidth]{src/total_compare.png}
+    \label{fig:total-compare}
+\end{figure}
+
 \subsubsection{Accuracy}
 From Section \ref{sec:algo1-sigma}, we can found that Algorithm-1 is the worst method for \textbf{Gram-Schmidt process} because it is not
 quite accurate. However, Algorithm-2 and Algorithm-3 almost have the same accuracy.
 \subsubsection{Speed}
-From Table [\ref{tab:algo2}] and Table [\ref{tab:algo3}], we found that both algo-time and runtime consumed by Algorithm-3 are a little
-smaller than Algorithm-2, so Algorithm-3 is faster than Algorithm-2.
+From Figure [\ref{fig:total-compare}], we found that both algo-time and runtime consumed by Algorithm-3 are
+less than Algorithm-1 and Algorithm-2, so Algorithm-3 has the best performance.
 \subsubsection{Runtime Problem}
 From Table [\ref{tab:algo1}][\ref{tab:algo2}][\ref{tab:algo3}], we can see that algo-time only takes about $\frac{1}{4}$ of total
 execution time; After several experiments, I also found that the most time-consuming part is not our algorithm itself; Instead,
