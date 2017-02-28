@@ -23,7 +23,7 @@ double calculateSigma(const MAT &M, int n){
     return sum;
 }
 
-void algo1(MAT &A, int n, const char mat_name[]){
+void algo1(MAT &A, int n){
     //struct timeval a,b;
     //gettimeofday(&a, NULL);
     MAT A_t(A.T());
@@ -56,7 +56,7 @@ void algo1(MAT &A, int n, const char mat_name[]){
     double sigma = calculateSigma(G.T() * G, n);
 
     printf("-------------\n");
-    printf("algo1: < %s\n", mat_name);
+    printf("algo1:\n");
     printf("n: %d\n", n);
     printf("Sigma: %g\n", sigma);
     printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
@@ -65,7 +65,7 @@ void algo1(MAT &A, int n, const char mat_name[]){
     return;
 }
 
-void algo2(MAT &A, int n, const char mat_name[]){
+void algo2(MAT &A, int n){
     MAT A_t(A.T());
     MAT G(n, n);
     //A_t.print();
@@ -84,7 +84,7 @@ void algo2(MAT &A, int n, const char mat_name[]){
 
     double sigma = calculateSigma(G.T() * G, n);
     printf("-------------\n");
-    printf("algo2: < %s\n", mat_name);
+    printf("algo2:\n");
     printf("n: %d\n", n);
 
     printf("Sigma: %g\n", sigma);
@@ -94,7 +94,7 @@ void algo2(MAT &A, int n, const char mat_name[]){
     return;
 }
 
-void algo3(MAT &A, int n, const char mat_name[]){
+void algo3(MAT &A, int n){
     MAT A_t(A.T());
     MAT G(n, n);
     //A_t.print();
@@ -112,7 +112,7 @@ void algo3(MAT &A, int n, const char mat_name[]){
 
     double sigma = calculateSigma(G.T() * G, n);
     printf("-------------\n");
-    printf("algo3: < %s\n", mat_name);
+    printf("algo3:\n");
     printf("n: %d\n", n);
 
     printf("Sigma: %g\n", sigma);
@@ -152,18 +152,9 @@ int main(int argc, char* argv[]){
     data.print();
     data2.print();
     */
-    if (strcmp(argv[2], "1") == 0){
-        printf("1\n");
-        algo1(data, dim, argv[1]);
-    }
-    else if(strcmp(argv[2], "2") == 0){
-        printf("2\n");
-        algo2(data, dim, argv[1]);
-    }
-    else if(strcmp(argv[2], "3") == 0){
-        printf("3\n");
-        algo3(data, dim, argv[1]);
-    }
+    algo1(data, dim);
+    algo2(data, dim);
+    algo3(data, dim);
     
 
 
