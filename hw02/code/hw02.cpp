@@ -10,52 +10,44 @@
 using namespace std;
 
 // Ax = b
-double calculateError(VEC &v1, VEC &v2);
-void Solve(MAT &A, VEC &b, int n){
-    MAT ori(A);
-    //MAT L(n, n);
-    //MAT U(n, n);
-    MAT test(n, n);
-    test[0][0] = A[0][0];
-    test[0][1] = A[0][1];
-    test[0][2] = A[0][2];
-    test[1][0] = A[1][0] / test[0][0];
-    test[2][0] = A[2][0] / test[0][0];
-    test[1][1] = A[1][1] - test[1][0] * test[0][1];
-    test[1][2] = A[1][2] - test[1][0] * test[0][2];
-    test[2][1] = (A[2][1] - test[2][0] * test[0][1]) / test[1][1];
-    test[2][2] = A[2][2] - test[2][0] * test[0][2] - test[1][2] * test[2][1];
+double calculateError(const VEC &v1, const VEC &v2){
+    double error = 0;
+    for(int i=0; i < v1.dim(); i++){
+        double tmp = v1[i] - v2[i];
+        error += tmp * tmp;
+    }
+    return sqrt(error);
+}
 
+void Solve(const char v[], MAT &A, VEC &B, int n){
+    double LU, fwd, bck;
+    struct timeval a;
+    struct timeval b;
+    MAT ori(A);
+    
+
+    gettimeofday(&a, NULL);
     luFact(A);
-    //A.print();
-    //test.print();
-    //exit(0);
-    /*
-    for(int i=0; i<n; i++){
-        L[i][i] = 1;
-        for(int j=0; j<i; j++){
-            L[i][j] = A[i][j];
-        }
-    }
-    for(int i=0; i<n; i++){
-        for(int j=i; j<n; j++){
-            U[i][j] = A[i][j];
-        }
-    }
-    */
-    //L.print();
-    //U.print();
-    //exit(0);
-    //A.print();
-    VEC Y(fwdSubs(A, b));
-    //Y.print();
-    //exit(0);
+    gettimeofday(&b, NULL);
+    LU = (b.tv_sec - a.tv_sec) + (b.tv_usec - a.tv_usec) / 1000000.0;
+
+    gettimeofday(&a, NULL);
+    VEC Y(fwdSubs(A, B));
+    gettimeofday(&b, NULL);
+    fwd = (b.tv_sec - a.tv_sec) + (b.tv_usec - a.tv_usec) / 1000000.0;
+
+    gettimeofday(&a, NULL);
     VEC X(bckSubs(A, Y));
-    //A.print();
-    (ori * X).print();
-    //A.print();
-    //X.print();
-    b.print();
+    gettimeofday(&b, NULL);
+    bck = (b.tv_sec - a.tv_sec) + (b.tv_usec - a.tv_usec) / 1000000.0;
+
+    cout << "-----------" << endl;
+    cout << v << endl;
+    cout << "Error: " << calculateError(ori * X, B) << endl;
+    printf("LU: %g second\n", LU);
+    printf("FWD: %g second\n", fwd);
+    printf("BCK: %g second\n", bck);
+    cout << "-----------" << endl;
 }
 
 int main(int argc, char* argv[]){
@@ -66,27 +58,13 @@ int main(int argc, char* argv[]){
     scanf("%d", &dim);
     MAT A(dim, dim);
     VEC b(dim);
-    //val = (double**)malloc(dim*sizeof(double*));
     for(int i=0; i<dim; i++){
-        //val[i] = (double*)malloc(dim*sizeof(double));
         for(int j=0; j<dim; j++)  
             scanf("%lf", &A[i][j]);
     }
-
-    //cout << "GG" << endl;
-    //left_hand.print();
-    //right_hand.print();
     for(int j=0; j<dim; j++)  
         scanf("%lf", &b[j]);
-    //A.print();
-    Solve(A, b, dim);
-    //A.print();
-    //VEC test(3);
-    //test[0] = 1;
-    //test[1] = 2;
-    //test[2] = 3;
-    //(A * test).print();
-    //right_hand.print();
+    Solve(argv[1], A, b, dim);
     //gettimeofday(&b, NULL);
 
     //printf("DDDDD %d\n", b.tv_sec - a.tv_sec);
