@@ -16,7 +16,7 @@ class VEC{
         VEC(const VEC &data);
         ~VEC();
         void print();
-        int dim();
+        int dim() const;
         double sum();
         bool operator==(VEC &data);
         void operator=(const VEC &data);

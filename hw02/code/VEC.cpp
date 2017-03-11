@@ -16,7 +16,7 @@ VEC::~VEC(){
     delete this->val;
 }
 
-int VEC::dim(){
+int VEC::dim() const{
     return this->dimension; 
 }
 double VEC::sum(){

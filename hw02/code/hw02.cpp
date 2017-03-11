@@ -1,3 +1,7 @@
+// HW02: LU Decomposition
+// ID: 102061149
+// Name: Fu-En Wang
+
 #include "MAT.h"
 #include <math.h>
 #include <time.h>
@@ -5,123 +9,54 @@
 
 using namespace std;
 
-double calculateSigma(const MAT &M, int n){
-    //M.print();
-    double sum = 0;
-    //M.print();
+// Ax = b
+double calculateError(VEC &v1, VEC &v2);
+void Solve(MAT &A, VEC &b, int n){
+    MAT ori(A);
+    //MAT L(n, n);
+    //MAT U(n, n);
+    MAT test(n, n);
+    test[0][0] = A[0][0];
+    test[0][1] = A[0][1];
+    test[0][2] = A[0][2];
+    test[1][0] = A[1][0] / test[0][0];
+    test[2][0] = A[2][0] / test[0][0];
+    test[1][1] = A[1][1] - test[1][0] * test[0][1];
+    test[1][2] = A[1][2] - test[1][0] * test[0][2];
+    test[2][1] = (A[2][1] - test[2][0] * test[0][1]) / test[1][1];
+    test[2][2] = A[2][2] - test[2][0] * test[0][2] - test[1][2] * test[2][1];
+
+    luFact(A);
+    //A.print();
+    //test.print();
+    //exit(0);
+    /*
     for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            if(i != j){
-                double val = M[i][j];
-                //cout << val << endl;
-                sum += val * val;;
-            }
+        L[i][i] = 1;
+        for(int j=0; j<i; j++){
+            L[i][j] = A[i][j];
         }
     }
-    sum = sqrt(sum);
-    //printf("Sigma: %g\n", sum);
-    return sum;
-}
-
-void algo1(MAT &A, int n){
-    //struct timeval a,b;
-    //gettimeofday(&a, NULL);
-    MAT A_t(A.T());
-    //gettimeofday(&b, NULL);
-    //printf("AAA %d\n", b.tv_sec - a.tv_sec);
-
-    MAT G(n, n);
-    //A_t.print();
-    //
-    struct timeval start, stop;
-    gettimeofday(&start, NULL);
-    G[0] = A_t[0];
-    for(int k=1; k<n; k++){
-        G[k] = 0;
-        for(int i=0; i<k; i++){
-            G[k] += (A_t[k] * G[i]).sum() * G[i] / (G[i] * G[i]).sum();
-        }
-        G[k] = A_t[k] - G[k];
-    }
-    gettimeofday(&stop, NULL);
-    G = G.T();
-    //G.print();
-    //(G.T() * G).print();
-
-    //gettimeofday(&a, NULL);
-    //G.T() * G;
-    //gettimeofday(&b, NULL);
-    //printf("BBB %d\n", b.tv_sec - a.tv_sec);
-
-    double sigma = calculateSigma(G.T() * G, n);
-
-    printf("-------------\n");
-    printf("algo1:\n");
-    printf("n: %d\n", n);
-    printf("Sigma: %g\n", sigma);
-    printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
-    //printf("Time: %d\n", stop.tv_sec - start.tv_sec);
-    printf("-------------\n");
-    return;
-}
-
-void algo2(MAT &A, int n){
-    MAT A_t(A.T());
-    MAT G(n, n);
-    //A_t.print();
-    struct timeval start, stop;
-    gettimeofday(&start, NULL);
-
-    G[0] = A_t[0];
-    for(int k=1; k<n; k++){
-        G[k] = A_t[k];
-        for(int i=0; i<k; i++){
-            G[k] -= (G[k] * G[i]).sum() * G[i] / (G[i] * G[i]).sum();
+    for(int i=0; i<n; i++){
+        for(int j=i; j<n; j++){
+            U[i][j] = A[i][j];
         }
     }
-    gettimeofday(&stop, NULL);
-    G = G.T();
-
-    double sigma = calculateSigma(G.T() * G, n);
-    printf("-------------\n");
-    printf("algo2:\n");
-    printf("n: %d\n", n);
-
-    printf("Sigma: %g\n", sigma);
-    printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
-    printf("-------------\n");
-
-    return;
+    */
+    //L.print();
+    //U.print();
+    //exit(0);
+    //A.print();
+    VEC Y(fwdSubs(A, b));
+    //Y.print();
+    //exit(0);
+    VEC X(bckSubs(A, Y));
+    //A.print();
+    (ori * X).print();
+    //A.print();
+    //X.print();
+    b.print();
 }
-
-void algo3(MAT &A, int n){
-    MAT A_t(A.T());
-    MAT G(n, n);
-    //A_t.print();
-    struct timeval start, stop;
-    gettimeofday(&start, NULL);
-    G[0] = A_t[0];
-    for(int k=1; k<n; k++){
-        G[k] = A_t[k];
-        for(int i=0; i<k; i++){
-            G[k] -= (G[k] * G[i]).sum() / (G[i] * G[i]).sum() * G[i];
-        }
-    }
-    gettimeofday(&stop, NULL);
-    G = G.T();
-
-    double sigma = calculateSigma(G.T() * G, n);
-    printf("-------------\n");
-    printf("algo3:\n");
-    printf("n: %d\n", n);
-
-    printf("Sigma: %g\n", sigma);
-    printf("Time: %g\n", ((stop.tv_usec - start.tv_usec)/ 1000000.0) + stop.tv_sec - start.tv_sec);
-    printf("-------------\n");
-
-    return;
-}
-
 
 int main(int argc, char* argv[]){
     int dim;
@@ -129,14 +64,29 @@ int main(int argc, char* argv[]){
     //struct timeval a, b;
     //gettimeofday(&a, NULL);
     scanf("%d", &dim);
-    MAT data(dim, dim);
+    MAT A(dim, dim);
+    VEC b(dim);
     //val = (double**)malloc(dim*sizeof(double*));
     for(int i=0; i<dim; i++){
         //val[i] = (double*)malloc(dim*sizeof(double));
         for(int j=0; j<dim; j++)  
-            scanf("%lf", &data[i][j]);
+            scanf("%lf", &A[i][j]);
     }
 
+    //cout << "GG" << endl;
+    //left_hand.print();
+    //right_hand.print();
+    for(int j=0; j<dim; j++)  
+        scanf("%lf", &b[j]);
+    //A.print();
+    Solve(A, b, dim);
+    //A.print();
+    //VEC test(3);
+    //test[0] = 1;
+    //test[1] = 2;
+    //test[2] = 3;
+    //(A * test).print();
+    //right_hand.print();
     //gettimeofday(&b, NULL);
 
     //printf("DDDDD %d\n", b.tv_sec - a.tv_sec);
@@ -152,10 +102,6 @@ int main(int argc, char* argv[]){
     data.print();
     data2.print();
     */
-    algo1(data, dim);
-    algo2(data, dim);
-    algo3(data, dim);
-    
 
 
     return 0;

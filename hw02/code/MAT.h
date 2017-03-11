@@ -42,6 +42,7 @@ class MAT{
         MAT operator-(const MAT &data);
         MAT operator-(double num);
         MAT operator*(const MAT &data);
+        VEC operator*(const VEC &data);
         MAT operator*(double num);
         MAT operator/(const MAT &data);
         MAT operator/(double num);
@@ -50,10 +51,23 @@ class MAT{
         friend MAT operator-(double num, const MAT &data);
         friend MAT operator*(double num, const MAT &data);
         friend MAT operator/(double num, const MAT &data);
+
+        friend MAT &luFact(MAT &m1);
+        friend VEC fwdSubs(MAT &m1, VEC b);
+        friend VEC bckSubs(MAT &m1, VEC b);
+
 };
 
 MAT operator+(double num, const MAT &data);
 MAT operator-(double num, const MAT &data);
 MAT operator*(double num, const MAT &data);
 MAT operator/(double num, const MAT &data);
+
+MAT &luFact(MAT &m1);
+VEC fwdSubs(MAT &m1, VEC b);
+VEC bckSubs(MAT &m1, VEC b);
+
+
+
+
 #endif

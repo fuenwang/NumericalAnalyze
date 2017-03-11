@@ -12,7 +12,7 @@ MAT::MAT(int m, int n){
     this->m = m;
     this->n = n;
     this->val = new VEC*[m];
-    for(int i=0; i<n; i++)
+    for(int i=0; i<m; i++)
         this->val[i] = this->CreateVEC(n);
 }
 
@@ -175,6 +175,31 @@ MAT MAT::operator*(const MAT &data){
 
     return out;
 }
+
+VEC MAT::operator*(const VEC &data){
+    if(this->n != data.dim()){
+        printf("MAT mul size dismatch!\n");
+        exit(0);
+    }
+    VEC out(this->m);
+    //this->checkDim(data);
+    /*
+    for(int i=0; i<this->m; i++)
+        for(int j=0; j<this->n; j++)
+            out[i][j] = (*this)[i][j] * data[i][j];
+    */
+    for(int i=0; i<this->m; i++){
+        double sum = 0;
+        for(int k = 0; k < this->n; k++){
+            sum += (*this)[i][k] * data[k];
+        }
+        out[i] = sum;
+    }
+
+    return out;
+}
+
+
 MAT MAT::operator/(const MAT &data){
     MAT out(this->m, this->n);
     this->checkDim(data);
@@ -263,4 +288,57 @@ MAT operator/(double num, const MAT &data){
             out[i][j] = num  / data[i][j];
     return out;
 }
+
+VEC fwdSubs(MAT &m1, VEC b){
+    VEC Y(b);
+    /*
+    for(int i=0; i < m1.m; i++){
+        for(int j=i+1; j < m1.m; j++){
+            Y[j] -= m1[j][i] * Y[i];
+        }
+    }
+    */
+    for(int i=0; i < m1.m; i++){
+        for(int j=0; j < i; j++){
+            Y[i] -= m1[i][j] * Y[j];
+        }
+    }
+    return Y;
+}
+
+VEC bckSubs(MAT &m1, VEC b){
+    VEC X(b);
+    /*
+    for(int i=m1.m-1; i >= 0; i--){
+        X[i] /= m1[i][i];
+        for(int j=i-1; j >= 0; j--){
+            X[j] -= m1[j][i] * X[i];
+        }
+    }
+    */
+    for(int i=m1.m-1; i >= 0; i--){
+        for(int j=m1.m-1; j > i; j--){
+            X[i] -= m1[i][j] * X[j];
+        }
+        X[i] /= m1[i][i];
+    }
+
+    return X;
+}
+
+MAT &luFact(MAT &m1){
+    for(int i=0; i<m1.m; i++){
+        for(int j=i+1; j < m1.m; j++){
+            m1[j][i] /= m1[i][i];
+        }
+        for(int j=i+1; j < m1.m; j++){
+            for(int k=i+1; k < m1.m; k++){
+                m1[j][k] -= m1[j][i] * m1[i][k];
+            }
+        }
+
+    }
+    return m1;
+}
+
 
