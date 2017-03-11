@@ -295,13 +295,6 @@ MAT operator/(double num, const MAT &data){
 
 VEC fwdSubs(MAT &m1, VEC b){
     VEC Y(b);
-    /*
-    for(int i=0; i < m1.m; i++){
-        for(int j=i+1; j < m1.m; j++){
-            Y[j] -= m1[j][i] * Y[i];
-        }
-    }
-    */
     for(int i=0; i < m1.m; i++){
         for(int j=0; j < i; j++){
             Y[i] -= m1[i][j] * Y[j];
@@ -312,21 +305,12 @@ VEC fwdSubs(MAT &m1, VEC b){
 
 VEC bckSubs(MAT &m1, VEC b){
     VEC X(b);
-    /*
-    for(int i=m1.m-1; i >= 0; i--){
-        X[i] /= m1[i][i];
-        for(int j=i-1; j >= 0; j--){
-            X[j] -= m1[j][i] * X[i];
-        }
-    }
-    */
     for(int i=m1.m-1; i >= 0; i--){
         for(int j=m1.m-1; j > i; j--){
             X[i] -= m1[i][j] * X[j];
         }
         X[i] /= m1[i][i];
     }
-
     return X;
 }
 
@@ -340,7 +324,6 @@ MAT &luFact(MAT &m1){
                 m1[j][k] -= m1[j][i] * m1[i][k];
             }
         }
-
     }
     return m1;
 }
