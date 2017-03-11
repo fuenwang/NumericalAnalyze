@@ -1,3 +1,7 @@
+// Matrix CPP
+// ID: 102061149
+// Name: Fu-En Wang
+
 #include "MAT.h"
 
 MAT::MAT(int n){

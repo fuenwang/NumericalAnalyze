@@ -1,3 +1,7 @@
+// Vector CPP
+// ID: 102061149
+// Name: Fu-En Wang
+
 #include "VEC.h"
 
 VEC::VEC(int n){

@@ -1,3 +1,7 @@
+// Vector Header
+// ID: 102061149
+// Name: Fu-En Wang
+
 #ifndef VEC_H
 #define VEC_H
 #include <cstdlib>

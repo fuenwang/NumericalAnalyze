@@ -1,3 +1,7 @@
+// Matrix Header
+// ID: 102061149
+// Name: Fu-En Wang
+
 #ifndef MAT_H
 #define MAT_H
 #include <cstdlib>
