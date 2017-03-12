@@ -10,13 +10,13 @@
 using namespace std;
 
 // Ax = b
-double calculateError(const VEC &v1, const VEC &v2){
+double calculateError(const VEC &v1, const VEC &v2, int n){
     double error = 0;
     for(int i=0; i < v1.dim(); i++){
         double tmp = v1[i] - v2[i];
         error += tmp * tmp;
     }
-    return sqrt(error);
+    return sqrt(error/n);
 }
 
 void Solve(const char v[], MAT &A, VEC &B, int n){
@@ -43,7 +43,7 @@ void Solve(const char v[], MAT &A, VEC &B, int n){
 
     cout << "-----------" << endl;
     cout << v << endl;
-    cout << "Error: " << calculateError(ori * X, B) << endl;
+    cout << "Error: " << calculateError(ori * X, B, n) << endl;
     printf("LU: %g second\n", LU);
     printf("FWD: %g second\n", fwd);
     printf("BCK: %g second\n", bck);
