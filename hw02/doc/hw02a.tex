@@ -331,6 +331,11 @@ Runtime and LU, respectively. Both of them match my expectation.
     \label{fig:runtime/LU}
 \end{figure}
 
+\subsection{Forward/Backward Substitution}
+As mentioned in Section \ref{sec:complexity}, the complexity of Forward/Backward Substitution is $O(n^2)$. So the relation between
+$n^2$ and FWD/BCK will be a straight line. Figure \ref{fig:fwd} and Figure \ref{fig:bck} show the experiment result, which satisfy
+my opinion.
+
 \begin{figure}[H]
     \centering
     \caption{FWD vs $N^2$}
@@ -343,6 +348,11 @@ Runtime and LU, respectively. Both of them match my expectation.
     \includegraphics[width=0.65\textwidth]{src/BCK.pdf}
     \label{fig:bck}
 \end{figure}
+
+\section{Advantage of LU Decomposition}
+In Section \ref{sec:complexity}, we have already known the complexity of LU Decompostion is $O(n^3)$, which is same as Gaussian 
+Elimination. But when solving $Ax = b$ with a lot of $b$, we just need to do LU Decomposition once and then do Forward/Backward
+Substitution for different $b$, which complexity is $O(n^2)$. As a result, LU Decomposition will be much faster in such case.
 
 \end{document}
 
