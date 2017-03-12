@@ -19,7 +19,7 @@ double calculateError(const VEC &v1, const VEC &v2, int n){
     return sqrt(error/n);
 }
 
-void Solve(const char v[], MAT &A, VEC &B, int n){
+void Solve(MAT &A, VEC &B, int n){
     double LU, fwd, bck;
     struct timeval a;
     struct timeval b;
@@ -42,7 +42,6 @@ void Solve(const char v[], MAT &A, VEC &B, int n){
     bck = (b.tv_sec - a.tv_sec) + (b.tv_usec - a.tv_usec) / 1000000.0;
 
     cout << "-----------" << endl;
-    cout << v << endl;
     cout << "Error: " << calculateError(ori * X, B, n) << endl;
     printf("LU: %g second\n", LU);
     printf("FWD: %g second\n", fwd);
@@ -64,7 +63,7 @@ int main(int argc, char* argv[]){
     }
     for(int j=0; j<dim; j++)  
         scanf("%lf", &b[j]);
-    Solve(argv[1], A, b, dim);
+    Solve(A, b, dim);
     //gettimeofday(&b, NULL);
 
     //printf("DDDDD %d\n", b.tv_sec - a.tv_sec);
