@@ -263,6 +263,8 @@ Figure \ref{fig:resistor_network}. And then update matrix A and b with \textbf{A
     \end{algorithmic}
 \end{algorithm}
 
+
+\section{Discussion}
 \subsection{Complexity}
 \label{sec:complexity}
 In all the folowing part, I will refer $N$ as the square of the number of nodes at each side of networks. For the network in 
@@ -270,7 +272,6 @@ Figure \ref{fig:resistor_network}, N is $3 \times 3 = 9$. \newline
 When solving the problem, the most time-comsuming part is the \textbf{LU Decomposition}, which is $O(n^3)$. As a result, the
 system is a {\boldmath$O(n^3)$} problem.
 
-\section{Discussion}
 \subsection{Performance Evaluation}
 In this project, I use five numbers to indicate the efficiency of our method:
 \begin{enumerate}
@@ -280,7 +281,66 @@ In this project, I use five numbers to indicate the efficiency of our method:
     \item \textbf{FWD}(time taken by forward substitution)
     \item \textbf{BCK}(time taker by backward substitution)
 \end{enumerate}
+The detail result of each resistor networks is show in Table \ref{tab:result}
+\begin{table}[htbp]
+  \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{N}   & \textbf{9}   & \textbf{25}  & \textbf{121} & \textbf{441} & \textbf{1681} & \textbf{2601} \bigstrut\\
+    \hline
+    R(each) & 1000 & 500 & 200 & 100 & 50  & 40 \bigstrut\\
+    \hline
+    R(equivalent) & 1000 & 681.818182 & 376.009408 & 229.423008 & 136.042809 & 114.395519 \bigstrut\\
+    \hline
+    $V_{ne}$ & 0.75 & 0.7 & 0.648693 & 0.622178 & 0.603088 & 0.598084 \bigstrut\\
+    \hline
+    $V_{ea}$ & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \bigstrut\\
+    \hline
+    $V_{sw}$ & 0.25 & 0.3 & 0.351307 & 0.377822 & 0.396912 & 0.401916 \bigstrut\\
+    \hline
+    Runtime(s) & 0.003 & 0.003 & 0.007 & 0.2 & 9.948 & 36.1 \bigstrut\\
+    \hline
+    PROBLEM(s) & 1.50E-05 & 2.10E-05 & 0.000199 & 0.001173 & 0.020578 & 0.052503 \bigstrut\\
+    \hline
+    LU(s) & 2.00E-06 & 3.30E-05 & 0.003537 & 0.194482 & 9.89144 & 35.9966 \bigstrut\\
+    \hline
+    FWD(s) & 1.00E-06 & 5.00E-06 & 4.40E-05 & 0.000489 & 0.008348 & 0.017034 \bigstrut\\
+    \hline
+    BCK(s) & 1.00E-06 & 3.00E-06 & 4.60E-05 & 0.000532 & 0.010656 & 0.019895 \bigstrut\\
+    \hline
+    \end{tabular}%
+  \caption{Experiment result}
+  \label{tab:result}%
+\end{table}%
 
+\subsection{Runtime and LU}
+Because LU Decomposition should be the most time-consuming part of algorithm, so after N is large enough, LU should be very close to
+Runtime. Figure \ref{fig:runtime_lu} shows the result of Runtime/LU and $N^3$ with log-scale:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{src/runtime_lu.pdf}
+    \caption{Runtime/LU vs N}
+    \label{fig:runtime_lu}
+\end{figure}
+Because when N is small, execution time will have huge error, so we should ignore former part of the line of Runtime. However, when
+N is large, we can see that Runtime and LU almost overlap and their slope is same as $N^3$, which means the system is a 
+{\boldmath$O(n^3)$} problem and satisfies my analysis in Section \ref{sec:complexity}.
+
+\subsection{Forward/Backward Substitution}
+Because the complixity of Forward/Backward Substitution is {\boldmath$O(n^2)$} as we discuss in last homework assignment, the
+slope of them should be same as $N^2$ in log-scale plot. Figure \ref{fig:fwd_bck} shows the result with log-scale.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{src/fwd_bck.pdf}
+    \caption{FWD/BCK vs N}
+    \label{fig:fwd_bck}
+\end{figure}
+From Figure \ref{fig:fwd_bck}, we can clearly see that the slope of FWD and BCK is same as $N^2$, which means they are
+{\boldmath$O(n^2)$} problem.
+
+\section{Code Usage}
+To compile the code, just type \textbf{\$ g++ hw03.cpp MAT.cpp VEC.cpp} in terminal. \newline
+To run the program, use \textbf{\$ ./a.out 10}, 10 means there are 10 resistors at each side of the resistor network.
 
 
 \end{document}
