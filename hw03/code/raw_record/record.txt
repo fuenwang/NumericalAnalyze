@@ -1,0 +1,102 @@
+-----------------
+Dimension: 9
+Each resistance: 1000.000000
+Total resistance: 1000.000000
+V_ne: 0.750000
+V_ea: 0.500000
+V_sw: 0.250000
+MODEL(s): 1.5e-05
+LU(s): 2e-06
+FWD(s): 1e-06
+BCK(s): 1e-06
+-----------------
+
+
+real	0m0.003s
+user	0m0.001s
+sys	0m0.001s
+-----------------
+Dimension: 25
+Each resistance: 500.000000
+Total resistance: 681.818182
+V_ne: 0.700000
+V_ea: 0.500000
+V_sw: 0.300000
+MODEL(s): 2.1e-05
+LU(s): 3.3e-05
+FWD(s): 5e-06
+BCK(s): 3e-06
+-----------------
+
+
+real	0m0.003s
+user	0m0.001s
+sys	0m0.001s
+-----------------
+Dimension: 121
+Each resistance: 200.000000
+Total resistance: 376.009408
+V_ne: 0.648693
+V_ea: 0.500000
+V_sw: 0.351307
+MODEL(s): 0.000199
+LU(s): 0.003537
+FWD(s): 4.4e-05
+BCK(s): 4.6e-05
+-----------------
+
+
+real	0m0.007s
+user	0m0.005s
+sys	0m0.001s
+-----------------
+Dimension: 441
+Each resistance: 100.000000
+Total resistance: 229.423008
+V_ne: 0.622178
+V_ea: 0.500000
+V_sw: 0.377822
+MODEL(s): 0.001173
+LU(s): 0.194482
+FWD(s): 0.000489
+BCK(s): 0.000532
+-----------------
+
+
+real	0m0.200s
+user	0m0.183s
+sys	0m0.005s
+-----------------
+Dimension: 1681
+Each resistance: 50.000000
+Total resistance: 136.042809
+V_ne: 0.603088
+V_ea: 0.500000
+V_sw: 0.396912
+MODEL(s): 0.020578
+LU(s): 9.89144
+FWD(s): 0.008348
+BCK(s): 0.010656
+-----------------
+
+
+real	0m9.948s
+user	0m9.545s
+sys	0m0.116s
+-----------------
+Dimension: 2601
+Each resistance: 40.000000
+Total resistance: 114.395519
+V_ne: 0.598084
+V_ea: 0.500000
+V_sw: 0.401916
+MODEL(s): 0.052503
+LU(s): 35.9966
+FWD(s): 0.017034
+BCK(s): 0.019895
+-----------------
+
+
+real	0m36.100s
+user	0m34.192s
+sys	0m0.241s

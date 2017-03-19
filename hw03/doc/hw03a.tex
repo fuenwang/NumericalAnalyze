@@ -221,6 +221,7 @@ For each of them, we have to show the equivalent resistance and the voltage of $
 \newpage
 
 \section{Implementation}
+\subsection{Algorithm}
 To model the problem into $A$ and $b$, I divide the network into two segments by horizontal and vertical resistor as shown in
 Figure \ref{fig:resistor_network}. And then update matrix A and b with \textbf{Algorithm 1.4.1} in class material.
 \begin{algorithm}[htb]
@@ -261,6 +262,26 @@ Figure \ref{fig:resistor_network}. And then update matrix A and b with \textbf{A
         \State X is the voltage of each node.
     \end{algorithmic}
 \end{algorithm}
+
+\subsection{Complexity}
+\label{sec:complexity}
+In all the folowing part, I will refer $N$ as the square of the number of nodes at each side of networks. For the network in 
+Figure \ref{fig:resistor_network}, N is $3 \times 3 = 9$. \newline
+When solving the problem, the most time-comsuming part is the \textbf{LU Decomposition}, which is $O(n^3)$. As a result, the
+system is a {\boldmath$O(n^3)$} problem.
+
+\section{Discussion}
+\subsection{Performance Evaluation}
+In this project, I use five numbers to indicate the efficiency of our method:
+\begin{enumerate}
+    \item \textbf{Runtime}(total execution time of program)
+    \item \textbf{PROBLEM}(execution time of modeling problem into martrix A and vector b)
+    \item \textbf{LU}(time taken by LU Decomposition)
+    \item \textbf{FWD}(time taken by forward substitution)
+    \item \textbf{BCK}(time taker by backward substitution)
+\end{enumerate}
+
+
 
 \end{document}
 
