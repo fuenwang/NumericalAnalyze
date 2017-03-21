@@ -18,19 +18,18 @@ int main(int argc, char* argv[]){
     }
     int num_res = atoi(argv[1]);
     int node_num_one_side = num_res + 1;
-    double res;
     if(num_res == 2)
-        res = Solve(node_num_one_side, 1000);
+        Solve(node_num_one_side, 1000);
     else if(num_res == 4)
-        res = Solve(node_num_one_side, 500);
+        Solve(node_num_one_side, 500);
     else if(num_res == 10)
-        res = Solve(node_num_one_side, 200);
+        Solve(node_num_one_side, 200);
     else if(num_res == 20)
-        res = Solve(node_num_one_side, 100);
+        Solve(node_num_one_side, 100);
     else if(num_res == 40)
-        res = Solve(node_num_one_side, 50);
+        Solve(node_num_one_side, 50);
     else if(num_res == 50)
-        res = Solve(node_num_one_side, 40);
+        Solve(node_num_one_side, 40);
     else
         printf("Argument error!\n");
     return 0;

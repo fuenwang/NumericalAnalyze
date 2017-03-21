@@ -4,7 +4,7 @@
 
 #include "MAT.h"
 
-MAT::MAT(int n){
+MAT::MAT(int n){  // Square Matrix
     this->m = n;
     this->n = n;
     this->val = new VEC*[m];
@@ -12,7 +12,7 @@ MAT::MAT(int n){
         this->val[i] = this->CreateVEC(n);
 }
 
-MAT::MAT(int m, int n){
+MAT::MAT(int m, int n){ // Rectangular Matrix
     this->m = m;
     this->n = n;
     this->val = new VEC*[m];
@@ -20,7 +20,7 @@ MAT::MAT(int m, int n){
         this->val[i] = this->CreateVEC(n);
 }
 
-MAT::MAT(const MAT &data){
+MAT::MAT(const MAT &data){ // Copy matrix
     this->m = data.m;
     this->n = data.n;
     this->val = new VEC*[m];
@@ -31,7 +31,7 @@ MAT::MAT(const MAT &data){
 }
 
 
-MAT::MAT(double **val, int m, int n){
+MAT::MAT(double **val, int m, int n){ // Matrix with initial value
     this->m = m;
     this->n = n;
     this->val = new VEC*[m];
@@ -61,7 +61,7 @@ MAT::~MAT(){
     delete this->val;
 }
 
-void MAT::checkDim(const MAT &data){
+void MAT::checkDim(const MAT &data){ // Check m,n match or not
     if (this->m != data.m || this->n != data.n){
         printf("MAT dimension dismatch!\n");
         exit(0);
@@ -74,7 +74,7 @@ VEC* MAT::CreateVEC(int n){
     return out;
 }
 
-void MAT::operator=(const MAT &data){
+void MAT::operator=(const MAT &data){ // Assign maatrix value
     this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
@@ -82,7 +82,7 @@ void MAT::operator=(const MAT &data){
     return;
 }
 
-void MAT::operator=(double num){
+void MAT::operator=(double num){ // Assign maatrix value
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] = num;
@@ -90,7 +90,7 @@ void MAT::operator=(double num){
 }
 
 
-VEC& MAT::operator[](int index) const{
+VEC& MAT::operator[](int index) const{ // Indexing: A[0], A[1]
     if(index >= this->m || index < 0){
         printf("MAT[index] out of bound!\n");
         exit(0);
@@ -301,9 +301,17 @@ MAT operator/(double num, const MAT &data){
     return out;
 }
 
-VEC fwdSubs(MAT &m1, VEC b){
+int MAT::GetM(){
+    return this->m;
+}
+int MAT::GetN(){
+    return this->n;
+}
+
+VEC fwdSubs(MAT &m1, VEC b){ // Forward Substitution
+    int m = m1.GetM();
     VEC Y(b);
-    for(int i=0; i < m1.m; i++){
+    for(int i=0; i < m; i++){
         for(int j=0; j < i; j++){
             Y[i] -= m1[i][j] * Y[j];
         }
@@ -311,10 +319,11 @@ VEC fwdSubs(MAT &m1, VEC b){
     return Y;
 }
 
-VEC bckSubs(MAT &m1, VEC b){
+VEC bckSubs(MAT &m1, VEC b){ // Backward Substitution
+    int m=m1.GetM();
     VEC X(b);
-    for(int i=m1.m-1; i >= 0; i--){
-        for(int j=m1.m-1; j > i; j--){
+    for(int i=m-1; i >= 0; i--){
+        for(int j=m-1; j > i; j--){
             X[i] -= m1[i][j] * X[j];
         }
         X[i] /= m1[i][i];
@@ -322,13 +331,14 @@ VEC bckSubs(MAT &m1, VEC b){
     return X;
 }
 
-MAT &luFact(MAT &m1){
-    for(int i=0; i<m1.m; i++){
-        for(int j=i+1; j < m1.m; j++){
+MAT &luFact(MAT &m1){ // LU Decomposition
+    int m=m1.GetM();
+    for(int i=0; i<m; i++){
+        for(int j=i+1; j < m; j++){
             m1[j][i] /= m1[i][i];
         }
-        for(int j=i+1; j < m1.m; j++){
-            for(int k=i+1; k < m1.m; k++){
+        for(int j=i+1; j < m; j++){
+            for(int k=i+1; k < m; k++){
                 m1[j][k] -= m1[j][i] * m1[i][k];
             }
         }
