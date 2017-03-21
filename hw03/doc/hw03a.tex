@@ -338,6 +338,18 @@ slope of them should be same as $N^2$ in log-scale plot. Figure \ref{fig:fwd_bck
 From Figure \ref{fig:fwd_bck}, we can clearly see that the slope of FWD and BCK is same as $N^2$, which means they are
 {\boldmath$O(n^2)$} problem.
 
+\subsection{Problem Modeling}
+When modeling the problem into matrix $A$, we need to create an $N \times N$ empty matrix, which is an $O(n^2)$ problem,
+Figure \ref{fig:problem} show the modeling time and $N^2$ with log-scale:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{src/problem.pdf}
+    \caption{PROBLEM vs N}
+    \label{fig:problem}
+\end{figure}
+In the begin of Figure \ref{fig:problem}, we can see the unstable slope. However, after N is large enough, the slope is
+same as $N^2$, which means this is a {\boldmath$O(n^2)$} problem.
+
 \section{Code Usage}
 To compile the code, just type \textbf{\$ g++ hw03.cpp MAT.cpp VEC.cpp} in terminal. \newline
 To run the program, use \textbf{\$ ./a.out 10}, 10 means there are 10 resistors at each side of the resistor network.

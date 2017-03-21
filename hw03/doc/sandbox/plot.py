@@ -23,7 +23,7 @@ plt.figure()
 
 plt.subplot('111')
 plt.plot(N, N**2, 'r--', marker='o', label='$N^2$')
-plt.plot(N, model, 'b--', marker='o', label='PROBLEM')
+plt.plot(N, model, 'b--', marker='o', label='PROBLEM(s)')
 #plt.plot(N, FWD, 'b--', marker='o', label='FWD(s)')
 #plt.plot(N, BCK, 'g--', marker='o', label='BCK(s)')
 
