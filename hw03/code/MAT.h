@@ -12,7 +12,6 @@
 #include <time.h>
 #include <sys/time.h>
 #include "VEC.h"
-
 using namespace std;
 
 class Performance{
