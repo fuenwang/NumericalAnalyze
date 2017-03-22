@@ -6,9 +6,38 @@
 #define MAT_H
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
 #include "VEC.h"
+
+using namespace std;
+
+class Performance{
+    private:
+        struct timeval start;
+        struct timeval stop;
+    public:
+        void Start();
+        double End();
+        double End(const char right[], const char left[]);
+};
+
+class Json{
+    private:
+        int first;
+        int ignore;
+        ofstream f;
+    public:
+        Json(const char f_name[], int flag = 1);
+        void Write(int data);
+        void Write(float data, int mode = 0);
+        void Write(double data, int mode = 0);
+        void Write(const char data[]);
+        void Close();
+};
 
 class MAT{
     private:

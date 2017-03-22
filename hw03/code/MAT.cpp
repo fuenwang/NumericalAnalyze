@@ -4,6 +4,102 @@
 
 #include "MAT.h"
 
+void Performance::Start(){
+    gettimeofday(&this->start, NULL);
+}
+
+double Performance::End(){
+    double duration;
+    gettimeofday(&this->stop, NULL);
+    duration = (stop.tv_sec - start.tv_sec) + (stop.tv_usec - start.tv_usec) / 1000000.0;
+    return duration;
+}
+
+double Performance::End(const char right[], const char left[]){
+    double duration;
+    gettimeofday(&this->stop, NULL);
+    duration = (stop.tv_sec - start.tv_sec) + (stop.tv_usec - start.tv_usec) / 1000000.0;
+    printf("%s %g %s\n", right, duration, left);
+    return duration;
+}
+
+Json::Json(const char f_name[], int flag){
+    this->first = 1;
+    this->ignore = flag;
+    if(!this->ignore){
+        this->f.open(f_name, ios::out);
+    }
+}
+
+void Json::Write(int data){
+    if(this->ignore)
+        return;
+    if(this->first == 1){
+        this->first = 0;
+        this->f << "[";
+    }
+    else
+        this->f << ",";
+    char s[100];
+    sprintf(s, "%d", data);
+    this->f << s;
+}
+
+void Json::Write(double data, int mode){
+    if(this->ignore)
+        return;
+    if(this->first == 1){
+        this->first = 0;
+        this->f << "[";
+    }
+    else
+        this->f << ",";
+    char s[100];
+    if(mode == 0)
+        sprintf(s, "%g", data);
+    else
+        sprintf(s, "%lf", data);
+    this->f << s;
+}
+
+void Json::Write(float data, int mode){
+    if(this->ignore)
+        return;
+    if(this->first == 1){
+        this->first = 0;
+        this->f << "[";
+    }
+    else
+        this->f << ",";
+    char s[100];
+    if(mode == 0)
+        sprintf(s, "%g", data);
+    else
+        sprintf(s, "%f", data);
+    this->f << s;
+}
+
+void Json::Write(const char data[]){
+    if(this->ignore)
+        return;
+    if(this->first == 1){
+        this->first = 0;
+        this->f << "[";
+    }
+    else
+        this->f << ",";
+    char s[100];
+    sprintf(s, "\"%s\"", data);
+    this->f << s;
+}
+
+void Json::Close(){
+    if(this->ignore)
+        return;
+    this->f << "]" << endl;
+    this->f.close();
+}
+
 MAT::MAT(int n){  // Square Matrix
     this->m = n;
     this->n = n;
