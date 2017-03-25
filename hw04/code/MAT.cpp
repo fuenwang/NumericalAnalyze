@@ -442,4 +442,72 @@ MAT &luFact(MAT &m1){ // LU Decomposition
     return m1;
 }
 
+double error_1_norm(VEC &x1, VEC &x2){
+    VEC E_mat(x1 - x2);
+    double error = 0;
+    for(int i=0; i < E_mat.dim() ; i++)
+        error += fabs(E_mat[i]);
+    return error;
+}
+
+double error_2_norm(VEC &x1, VEC &x2){
+    VEC E_mat(x1 - x2);
+    double error = 0;
+    for(int i=0; i < E_mat.dim() ; i++)
+        error += pow(E_mat[i], 2);
+    return sqrt(error);
+}
+
+double error_infinite_norm(VEC &x1, VEC &x2){
+    VEC E_mat(x1 - x2);
+    double error = fabs(E_mat[0]);
+    for(int i=1; i < E_mat.dim() ; i++)
+        if(fabs(E_mat[i]) > error)
+            error = fabs(E_mat[i]);
+    return error;
+}
+
+int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol){
+    int dim = x.dim();
+    double tmp;
+    double error;
+    for(int it=0; it < maxIter; it++){
+        VEC last_x(x);
+        for(int i=0; i < dim; i++){
+            tmp = 0;
+            for(int j=0; j<dim; j++){
+                if(j != i){
+                    tmp += A[i][j] * x[j];
+                }
+            }
+            x[i] = (1 / A[i][i]) * (b[i] - tmp);
+        }
+        //error = error_1_norm(last_x, x);
+        switch(E_type){
+            case 1:
+                error = error_1_norm(last_x, x);
+                break;
+            case 2:
+                error = error_2_norm(last_x, x);
+                break;
+            case 3:
+                error = error_infinite_norm(last_x, x);
+        }
+
+        if(error < tol)
+            return it+1;
+    }
+    return maxIter + 1;
+}
+
+
+
+
+
+
+
+
+
+
+
 

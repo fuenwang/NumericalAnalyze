@@ -36,10 +36,7 @@ int main(int argc, char* argv[]){
 }
 
 double Solve(int node_one_side, double resistor){
-    struct timeval start, stop, a,b;
     double conduct = 1 / resistor;
-    double MODEL, LU, FWD, BCK;
-    gettimeofday(&start, NULL);
 
     MAT A(node_one_side*node_one_side, node_one_side*node_one_side);
     VEC B(node_one_side*node_one_side);
@@ -74,50 +71,44 @@ double Solve(int node_one_side, double resistor){
 
     A[Ground_point] = 0;
     A[Ground_point][Ground_point] = 1;
-    gettimeofday(&stop, NULL);
-    MODEL = (stop.tv_sec - start.tv_sec) + (stop.tv_usec - start.tv_usec) / 1000000.0;
 
     //A.print();
-    gettimeofday(&a, NULL);
-    luFact(A);
-    gettimeofday(&b, NULL);
-    LU = (b.tv_sec - a.tv_sec) + (b.tv_usec - a.tv_usec) / 1000000.0;
-    
-    gettimeofday(&a, NULL);
-    VEC Y(fwdSubs(A, B));
-    gettimeofday(&b, NULL);
-    FWD = (b.tv_sec - a.tv_sec) + (b.tv_usec - a.tv_usec) / 1000000.0;
 
-    gettimeofday(&a, NULL);
+    MAT A_jo(A);
+    VEC B_jo(B);
+    VEC X_jo(B.dim());
+    double error_jo;
+
+    X_jo = 0;
+
+
+    luFact(A);
+    
+    VEC Y(fwdSubs(A, B));
+
     VEC X(bckSubs(A, Y));
-    gettimeofday(&b, NULL);
-    BCK = (b.tv_sec - a.tv_sec) + (b.tv_usec - a.tv_usec) / 1000000.0;
+    
 
     //X.print();
-    double V = X[Vin_point];
-    double V_ne = X[node_one_side-1];
-    double V_ea = X[(node_one_side*node_one_side-1)/2];
-    double V_sw = X[node_one_side*node_one_side - node_one_side];
-    double I = 0;
-    double res;
-    I += (V - X[Vin_point-1]) * conduct;
-    I += (V - X[Vin_point+1]) * conduct;
-    I += (V - X[Vin_point+node_one_side]) * conduct;
-    
-    res = V / I; 
-    cout << "-----------------" << endl;
-    printf("Dimension: %d\n", node_one_side*node_one_side);
-    printf("Each resistance: %lf\n", resistor);
-    printf("Total resistance: %lf\n", res);
-    printf("V_ne: %lf\n", V_ne);
-    printf("V_ea: %lf\n", V_ea);
-    printf("V_sw: %lf\n", V_sw);
-    printf("MODEL(s): %g\n", MODEL);
-    printf("LU(s): %g\n", LU);
-    printf("FWD(s): %g\n", FWD);
-    printf("BCK(s): %g\n", BCK);
-    cout << "-----------------" << endl << endl;
-    return res;
+    cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.9 * 1e-10) << endl; // For error_1
+    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.9 * 1e-10) << endl; // For error_2
+    //X_jo.print();
+    switch(E_type){
+        case 1:
+            error_jo = error_1_norm(X, X_jo);
+            break;
+        case 2:
+            error_jo = error_2_norm(X, X_jo);
+            break;
+        case 3:
+            error_jo = error_infinite_norm(X, X_jo);
+    }
+    cout << error_jo << endl;
+
+    //double V_ne = X[node_one_side-1];
+    //double V_ea = X[(node_one_side*node_one_side-1)/2];
+    //double V_sw = X[node_one_side*node_one_side - node_one_side];
+    return 0;
 }
 
 

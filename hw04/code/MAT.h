@@ -10,8 +10,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include <sys/time.h>
 #include "VEC.h"
+
+#define E_type 3
+
 using namespace std;
 
 class Performance{
@@ -101,7 +105,12 @@ MAT &luFact(MAT &m1); // LU Decomposition(IN-Place LU)
 VEC fwdSubs(MAT &m1, VEC b); // Forward Substitution
 VEC bckSubs(MAT &m1, VEC b); // Backward Substitution
 
+int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol);
+int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol);
+int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol);
 
-
+double error_1_norm(VEC &x1, VEC &x2);
+double error_2_norm(VEC &x1, VEC &x2);
+double error_infinite_norm(VEC &x1, VEC &x2);
 
 #endif
