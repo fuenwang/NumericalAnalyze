@@ -34,6 +34,8 @@
 \usepackage{courier} % Required for the courier font
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools, xparse}
 \usepackage{booktabs}
 \usepackage{bigstrut}
 \usepackage{float}
@@ -42,6 +44,9 @@
 \usepackage{algorithm}
 \usepackage{caption}
 \usepackage{algpseudocode}
+
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 
 \hypersetup{
     colorlinks   = true,    % Colours links instead of ugly boxes
@@ -62,7 +67,7 @@
 % Set up the header and footer
 \pagestyle{fancy}
 \lhead{\hmwkAuthorName} % Top left header
-\chead{\hmwkClass\ : \hmwkTitle} % Top center head
+\chead{\hmwkClass\ : \hmwkID} % Top center head
 \rhead{\firstxmark} % Top right header
 \lfoot{\lastxmark} % Bottom left footer
 \cfoot{} % Bottom center footer
@@ -165,8 +170,9 @@
 %	NAME AND CLASS SECTION
 %----------------------------------------------------------------------------------------
 
-\newcommand{\hmwkTitle}{homework 03} % Assignment title
-\newcommand{\hmwkDueDate}{Tuesday,\ March\ 21,\ 2017} % Due date
+\newcommand{\hmwkID}{homework 04} % Assignment title
+\newcommand{\hmwkTitle}{Linear Iterative Methods}
+\newcommand{\hmwkDueDate}{Tuesday,\ March\ 28,\ 2017} % Due date
 \newcommand{\hmwkClass}{Numerical Analysis} % Course/class
 \newcommand{\hmwkClassTime}{10:30am} % Class/lecture time
 \newcommand{\hmwkClassInstructor}{Jones} % Teacher/lecturer
@@ -178,7 +184,8 @@
 
 \title{
     \vspace{2in}
-    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \textmd{\textbf{\hmwkClass}}\\
+    \textmd{\textbf{\hmwkID: \hmwkTitle}} \\
     \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
     \vspace{3in}
 }
@@ -193,8 +200,123 @@
 \maketitle
 \newpage
 
+\section{Introduction}
+To solve such linear system:
+\begin{gather}
+    Ax = b
+\end{gather}
+We had used \textbf{LU Decomposition} to get $x$ in previous homework. In this project, we will solve it with the following 
+iterative methods:
+\begin{enumerate}
+    \item \textbf{Jacobi Method}
+    \item \textbf{Gauss-Seidel Method}
+    \item \textbf{Symmetric Gauss-Seidel Method}
+\end{enumerate}
+To evaluate the performance of three method, we will use Question.4 in previous homework(20 resistors at each side).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/network_small.png}
+    \caption{Simple resistor network}
+\end{figure}
+To calculate the error, we will use the following error formula:
+\begin{enumerate}
+    \item $ \norm{x}_1 = \sum_{i=1}^{n}\abs{x_i} $
+    \item $ \norm{x}_2 = (\sum_{i=1}^{n}x_i^2)^{\frac{1}{2}} $
+    \item $ \norm{x}_\infty = max_{i=1}^{n}\abs{x_i}  $
+\end{enumerate}
+\newpage
 
+\section{Implementation}
+\subsection{Jacobi Method}
+\begin{algorithm}[H]
+    \caption{\textbf{Jacobi Method}}
+    \label{algo:jacobi}
+    \begin{algorithmic}
+        \For{it $\in$ \{1, ..., maxIter\}}
+            \State lastX = X
+            \For{i $\in$ \{1, ..., N\}}
+                \State sum = 0
+                \For{j $\in$ \{1, ..., N\}}
+                    \If{i $\neq$ j}
+                        \State sum += A[i][j] * lastX[j]
+                    \EndIf
+                \EndFor
+                \State x[i] = (1 / A[i][i]) * (b[i] -sum)
+            \EndFor
+            \If{Error of (lastX - x) $\leq \textbf{tol}$}
+                \State break
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{Gauss-Seidel Method}
+\begin{algorithm}[H]
+    \caption{\textbf{Gauss-Seidel Method}}
+    \label{algo:gaussSeidel}
+    \begin{algorithmic}
+        \For{it $\in$ \{1, ..., maxIter\}}
+            \State lastX = X
+            \For{i $\in$ \{1, ..., N\}}
+                \State sum1 = 0
+                \State sum2 = 0
+                \For{j $\in$ \{1, ..., i-1\}}
+                    \State sum1 += A[i][j] * x[j]
+                \EndFor
+                \For{j $\in$ \{i+1, ..., N\}}
+                    \State sum2 += A[i][j] * lastX[j]
+                \EndFor
+                \State x[i] = (1 / A[i][i]) * (b[i] - sum1 - sum2)
+            \EndFor
+            \If{Error of (lastX - x) $\leq \textbf{tol}$}
+                \State break
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{Symmetric Gauss-Seidel Method}
+\begin{algorithm}[H]
+    \caption{\textbf{Symmetric Gauss-Seidel Method}}
+    \label{algo:sgs}
+    \begin{algorithmic}
+        \For{it $\in$ \{1, ..., maxIter\}}
+            \State lastX = X
+            \For{i $\in$ \{1, ..., N\}}
+                \State sum1 = 0
+                \State sum2 = 0
+                \For{j $\in$ \{1, ..., i-1\}}
+                    \State sum1 += A[i][j] * x[j]
+                \EndFor
+                \For{j $\in$ \{i+1, ..., N\}}
+                    \State sum2 += A[i][j] * lastX[j]
+                \EndFor
+                \State x[i] = (1 / A[i][i]) * (b[i] - sum1 - sum2)
+            \EndFor
+            \For{i $\in$ \{N, ..., 1\}}
+                \State sum1 = 0
+                \State sum2 = 0
+                \For{j $\in$ \{1, ..., i-1\}}
+                    \State sum1 += A[i][j] * x[j]
+                \EndFor
+                \For{j $\in$ \{i+1, ..., N\}}
+                    \State sum2 += A[i][j] * x[j]
+                \EndFor
+                \State x[i] = (1 / A[i][i]) * (b[i] - sum1 - sum2)
+            \EndFor
+
+            \If{Error of (lastX - x) $\leq \textbf{tol}$}
+                \State break
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
 \end{document}
+
+
+
+
+
 
 
 
