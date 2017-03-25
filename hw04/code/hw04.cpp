@@ -75,7 +75,7 @@ double Solve(int node_one_side, double resistor){
 
     //A.print();
 
-    int E_type = 3;
+
     MAT A_jo(A);
     VEC B_jo(B);
     VEC X_jo(B.dim());
@@ -84,45 +84,64 @@ double Solve(int node_one_side, double resistor){
     VEC B_ga(B);
     VEC X_ga(B.dim());
 
+    MAT A_sgs(A);
+    VEC B_sgs(B);
+    VEC X_sgs(B.dim());
+
     double error_jo;
     double error_ga;
+    double error_sgs;
 
     X_jo = 0;
     X_ga = 0;
-
+    X_sgs = 0;
 
     luFact(A);
-    
     VEC Y(fwdSubs(A, B));
-
     VEC X(bckSubs(A, Y));
-    
-
-    //X.print();
     //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_1
     //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_2
     //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_3
-
     //cout << gaussSeidel(A_ga, B_ga, X_ga, 100000000, 2.83 * 1e-10, E_type) << endl;
-    cout << sgs(A_ga, B_ga, X_ga, 100000000, 2.83 * 1e-10, E_type) << endl;
-    //X.print();
-    //X_ga.print();
-    //X_jo.print();
-    exit(0);
+    int E_type = 1;
+    int METHOD = 2;
+    //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
+    switch(METHOD){
+        case 1:
+            cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl;
+            break;
+        case 2:
+            cout << gaussSeidel(A_ga, B_ga, X_ga, 100000000, 2.83 * 1e-10, E_type) << endl;
+            break;
+        case 3:
+            cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
+    }
     switch(E_type){
         case 1:
             error_jo = error_1_norm(X, X_jo);
             error_ga = error_1_norm(X, X_ga);
+            error_sgs = error_1_norm(X, X_sgs);
             break;
         case 2:
             error_jo = error_2_norm(X, X_jo);
             error_ga = error_2_norm(X, X_ga);
+            error_sgs = error_2_norm(X, X_sgs);
             break;
         case 3:
             error_jo = error_infinite_norm(X, X_jo);
             error_ga = error_infinite_norm(X, X_ga);
+            error_sgs = error_infinite_norm(X, X_sgs);
     }
-    cout << error_ga << endl;
+    switch(METHOD){
+        case 1:
+            cout << error_jo << endl;
+            break;
+        case 2:
+            cout << error_ga << endl;
+            break;
+        case 3:
+            cout << error_sgs << endl;
+    }
 
     //double V_ne = X[node_one_side-1];
     //double V_ea = X[(node_one_side*node_one_side-1)/2];
