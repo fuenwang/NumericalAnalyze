@@ -14,9 +14,9 @@
 #include <sys/time.h>
 #include "VEC.h"
 
-#define E_type 3
-
 using namespace std;
+
+//extern int E_type;
 
 class Performance{
     private:
@@ -105,9 +105,9 @@ MAT &luFact(MAT &m1); // LU Decomposition(IN-Place LU)
 VEC fwdSubs(MAT &m1, VEC b); // Forward Substitution
 VEC bckSubs(MAT &m1, VEC b); // Backward Substitution
 
-int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol);
-int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol);
-int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol);
+int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type = 1);
+int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type = 1);
+int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type = 1);
 
 double error_1_norm(VEC &x1, VEC &x2);
 double error_2_norm(VEC &x1, VEC &x2);

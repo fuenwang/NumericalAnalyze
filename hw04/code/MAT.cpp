@@ -467,11 +467,12 @@ double error_infinite_norm(VEC &x1, VEC &x2){
     return error;
 }
 
-int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol){
+int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
+    int it;
     int dim = x.dim();
     double tmp;
     double error;
-    for(int it=0; it < maxIter; it++){
+    for(it=1; it <= maxIter; it++){
         VEC last_x(x);
         for(int i=0; i < dim; i++){
             tmp = 0;
@@ -495,13 +496,69 @@ int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol){
         }
 
         if(error < tol)
-            return it+1;
+            return it;
     }
-    return maxIter + 1;
+    return it;
 }
 
+int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
+    int it;
+    int dim = x.dim();
+    double tmp1;
+    double tmp2;
+    double error;
+    for(it=1; it <= maxIter; it++){
+        VEC last_x(x);
+        for(int i=0; i < dim; i++){
+            tmp1 = 0;
+            tmp2 = 0;
+            for(int j=0; j < i; j++){
+                tmp1 += A[i][j] * x[j];
+            }
+            for(int j=i+1; j < dim; j++){
+                tmp2 += A[i][j] * last_x[j];
+            }
+            x[i] = (1 / A[i][i]) * (b[i] - tmp1 - tmp2);
+        }
+        switch(E_type){
+            case 1:
+                error = error_1_norm(last_x, x);
+                break;
+            case 2:
+                error = error_2_norm(last_x, x);
+                break;
+            case 3:
+                error = error_infinite_norm(last_x, x);
+        }
 
+        if(error < tol)
+            return it;
+    }
+    return it;
+}
 
+int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
+    int it;
+    int m = A.GetM();
+    // A = D - E - F
+    MAT D(m, m);
+    MAT D_inv(m ,m);
+    MAT E(m ,m);
+    MAT F(m ,m);
+    //MAT P(m, m);
+
+    for(int i=0; i < m; i++){
+        D[i][i] = A[i][i];
+        D_inv[i][i] = (1 / A[i][i]);
+        for(int j=0; j < i; j++)
+            E[i][j] = -1 * A[i][j];
+        for(int j=i + 1; j < m; j++)
+            F[i][j] = -1 * A[i][j];
+    }
+    for(it = 1; it <= maxIter; it++){
+    }
+    return 0;
+}
 
 
 

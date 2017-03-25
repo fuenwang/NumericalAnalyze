@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 double Solve(int node_one_side, double resistor);
 
 // Ax = b
@@ -74,12 +75,20 @@ double Solve(int node_one_side, double resistor){
 
     //A.print();
 
+    int E_type = 3;
     MAT A_jo(A);
     VEC B_jo(B);
     VEC X_jo(B.dim());
+
+    MAT A_ga(A);
+    VEC B_ga(B);
+    VEC X_ga(B.dim());
+
     double error_jo;
+    double error_ga;
 
     X_jo = 0;
+    X_ga = 0;
 
 
     luFact(A);
@@ -90,20 +99,30 @@ double Solve(int node_one_side, double resistor){
     
 
     //X.print();
-    cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.9 * 1e-10) << endl; // For error_1
-    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.9 * 1e-10) << endl; // For error_2
+    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_1
+    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_2
+    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_3
+
+    //cout << gaussSeidel(A_ga, B_ga, X_ga, 100000000, 2.83 * 1e-10, E_type) << endl;
+    cout << sgs(A_ga, B_ga, X_ga, 100000000, 2.83 * 1e-10, E_type) << endl;
+    //X.print();
+    //X_ga.print();
     //X_jo.print();
+    exit(0);
     switch(E_type){
         case 1:
             error_jo = error_1_norm(X, X_jo);
+            error_ga = error_1_norm(X, X_ga);
             break;
         case 2:
             error_jo = error_2_norm(X, X_jo);
+            error_ga = error_2_norm(X, X_ga);
             break;
         case 3:
             error_jo = error_infinite_norm(X, X_jo);
+            error_ga = error_infinite_norm(X, X_ga);
     }
-    cout << error_jo << endl;
+    cout << error_ga << endl;
 
     //double V_ne = X[node_one_side-1];
     //double V_ea = X[(node_one_side*node_one_side-1)/2];
