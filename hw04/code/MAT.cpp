@@ -493,6 +493,10 @@ int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
                 break;
             case 3:
                 error = error_infinite_norm(last_x, x);
+                break;
+            default:
+                cout << "Error type wrong" << endl;
+                error = 0;
         }
 
         if(error < tol)
@@ -529,6 +533,10 @@ int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
                 break;
             case 3:
                 error = error_infinite_norm(last_x, x);
+                break;
+            default:
+                cout << "Error type wrong" << endl;
+                error = 0;
         }
 
         if(error < tol)
@@ -579,6 +587,10 @@ int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
                 break;
             case 3:
                 error = error_infinite_norm(last_x, x);
+                break;
+            default:
+                cout << "Error type wrong" << endl;
+                error = 0;
         }
 
         if(error < tol)
