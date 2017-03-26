@@ -472,7 +472,6 @@ int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
     int dim = x.dim();
     double tmp;
     double error;
-
     for(it=1; it <= maxIter; it++){
         VEC last_x(x);
         for(int i=0; i < dim; i++){
@@ -499,6 +498,7 @@ int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
                 cout << "Error type wrong" << endl;
                 error = 0;
         }
+        
         if(error < tol){
             return it;
         }

@@ -100,8 +100,8 @@ double Solve(int node_one_side, double resistor){
     hw03[1] = X[(node_one_side*node_one_side-1)/2]; // V_ea
     hw03[2] = X[node_one_side*node_one_side - node_one_side]; // V_sw
 
-    int METHOD = 1;
-    int E_type = 1;
+    int METHOD = 3;
+    int E_type = 3;
     //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
     switch(METHOD){
         case 1:
