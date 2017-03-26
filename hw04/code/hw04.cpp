@@ -122,6 +122,7 @@ double Solve(int node_one_side, double resistor){
             else if(E_type == 3)
                 cout << sgs(A_jo, B_jo, X_jo, 100000000, 5.95 * 1e-10, E_type) << endl;
     }
+
     hw04[0] = X_jo[node_one_side-1]; // V_ne
     hw04[1] = X_jo[(node_one_side*node_one_side-1)/2]; // V_ea
     hw04[2] = X_jo[node_one_side*node_one_side - node_one_side]; // V_sw
