@@ -21,7 +21,7 @@ using namespace std;
 
 //extern int E_type;
 
-class Performance{
+class Performance{ // To help me get cpu time of algorithm
     private:
         struct timeval start;
         struct timeval stop;
@@ -31,7 +31,7 @@ class Performance{
         double End(const char right[], const char left[]);
 };
 
-class Json{
+class Json{ // To help me dump experiment data
     private:
         int first;
         int ignore;
