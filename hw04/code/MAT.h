@@ -15,9 +15,9 @@
 #include "VEC.h"
 
 using namespace std;
-extern int p1,p2,p3;
-extern VEC hw03;
-extern VEC hw04;
+//extern int p1,p2,p3;
+//extern VEC hw03;
+//extern VEC hw04;
 
 //extern int E_type;
 
