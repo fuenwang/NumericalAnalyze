@@ -80,72 +80,67 @@ double Solve(int node_one_side, double resistor){
     VEC B_jo(B);
     VEC X_jo(B.dim());
 
-    MAT A_ga(A);
-    VEC B_ga(B);
-    VEC X_ga(B.dim());
-
-    MAT A_sgs(A);
-    VEC B_sgs(B);
-    VEC X_sgs(B.dim());
+    VEC hw04(3);
+    VEC hw03(3);
 
     double error_jo;
-    double error_ga;
-    double error_sgs;
 
     X_jo = 0;
-    X_ga = 0;
-    X_sgs = 0;
 
     luFact(A);
     VEC Y(fwdSubs(A, B));
     VEC X(bckSubs(A, Y));
-    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_1
-    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_2
-    //cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl; // For error_3
-    //cout << gaussSeidel(A_ga, B_ga, X_ga, 100000000, 2.83 * 1e-10, E_type) << endl;
-    int E_type = 1;
-    int METHOD = 2;
+    hw03[0] = X[node_one_side-1]; // V_ne
+    hw03[1] = X[(node_one_side*node_one_side-1)/2]; // V_ea
+    hw03[2] = X[node_one_side*node_one_side - node_one_side]; // V_sw
+
+    int METHOD = 3;
+    int E_type = 3;
     //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
     switch(METHOD){
         case 1:
-            cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.83 * 1e-10, E_type) << endl;
+            if(E_type == 1)
+                cout << jacobi(A_jo, B_jo, X_jo, 100000000, 1.95 * 1e-8, E_type) << endl; // For error_1
+            else if(E_type == 2)
+                cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.3 * 1e-9, E_type) << endl; // For error_2
+            else if(E_type == 3)
+                cout << jacobi(A_jo, B_jo, X_jo, 100000000, 3 * 1e-10, E_type) << endl; // For error_3
             break;
         case 2:
-            cout << gaussSeidel(A_ga, B_ga, X_ga, 100000000, 2.83 * 1e-10, E_type) << endl;
+            if(E_type == 1)
+                cout << gaussSeidel(A_jo, B_jo, X_jo, 100000000, 3.93 * 1e-8, E_type) << endl;
+            else if(E_type == 2)
+                cout << gaussSeidel(A_jo, B_jo, X_jo, 100000000, 3.27 * 1e-9, E_type) << endl;
+            else if(E_type ==3)
+                cout << gaussSeidel(A_jo, B_jo, X_jo, 100000000, 3.05 * 1e-10, E_type) << endl;
             break;
         case 3:
-            cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
+            if(E_type == 1)
+                cout << sgs(A_jo, B_jo, X_jo, 100000000, 7.7 * 1e-8, E_type) << endl;
+            else if(E_type == 2)
+                cout << sgs(A_jo, B_jo, X_jo, 100000000, 6.5 * 1e-9, E_type) << endl;
+            else if(E_type == 3)
+                cout << sgs(A_jo, B_jo, X_jo, 100000000, 5.95 * 1e-10, E_type) << endl;
     }
+    hw04[0] = X_jo[node_one_side-1]; // V_ne
+    hw04[1] = X_jo[(node_one_side*node_one_side-1)/2]; // V_ea
+    hw04[2] = X_jo[node_one_side*node_one_side - node_one_side]; // V_sw
+    //X.print();
+    //X_jo.print();
+    hw03.print();
+    hw04.print();
     switch(E_type){
         case 1:
-            error_jo = error_1_norm(X, X_jo);
-            error_ga = error_1_norm(X, X_ga);
-            error_sgs = error_1_norm(X, X_sgs);
+            error_jo = error_1_norm(hw03, hw04);
             break;
         case 2:
-            error_jo = error_2_norm(X, X_jo);
-            error_ga = error_2_norm(X, X_ga);
-            error_sgs = error_2_norm(X, X_sgs);
+            error_jo = error_2_norm(hw03, hw04);
             break;
         case 3:
-            error_jo = error_infinite_norm(X, X_jo);
-            error_ga = error_infinite_norm(X, X_ga);
-            error_sgs = error_infinite_norm(X, X_sgs);
+            error_jo = error_infinite_norm(hw03, hw04);
     }
-    switch(METHOD){
-        case 1:
-            cout << error_jo << endl;
-            break;
-        case 2:
-            cout << error_ga << endl;
-            break;
-        case 3:
-            cout << error_sgs << endl;
-    }
+    cout << error_jo << endl;
 
-    //double V_ne = X[node_one_side-1];
-    //double V_ea = X[(node_one_side*node_one_side-1)/2];
-    //double V_sw = X[node_one_side*node_one_side - node_one_side];
     return 0;
 }
 
