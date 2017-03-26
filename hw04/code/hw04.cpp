@@ -9,6 +9,9 @@
 
 using namespace std;
 
+int p1,p2,p3;
+VEC hw03(3);
+VEC hw04(3);
 
 double Solve(int node_one_side, double resistor);
 
@@ -80,8 +83,8 @@ double Solve(int node_one_side, double resistor){
     VEC B_jo(B);
     VEC X_jo(B.dim());
 
-    VEC hw04(3);
-    VEC hw03(3);
+    //VEC hw04(3);
+    //VEC hw03(3);
 
     double error_jo;
 
@@ -90,12 +93,15 @@ double Solve(int node_one_side, double resistor){
     luFact(A);
     VEC Y(fwdSubs(A, B));
     VEC X(bckSubs(A, Y));
+    p1 = node_one_side-1;
+    p2 = (node_one_side*node_one_side-1)/2;
+    p3 = node_one_side*node_one_side - node_one_side;
     hw03[0] = X[node_one_side-1]; // V_ne
     hw03[1] = X[(node_one_side*node_one_side-1)/2]; // V_ea
     hw03[2] = X[node_one_side*node_one_side - node_one_side]; // V_sw
 
-    int METHOD = 3;
-    int E_type = 3;
+    int METHOD = 1;
+    int E_type = 1;
     //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
     switch(METHOD){
         case 1:
