@@ -17,10 +17,11 @@ double Solve(int node_one_side, double resistor);
 
 // Ax = b
 int main(int argc, char* argv[]){
-    if(argc != 2){
-        printf("Please enter the resistor number one side\n");
-    }
-    int num_res = atoi(argv[1]);
+    //if(argc != 2){
+    //    printf("Please enter the resistor number one side\n");
+    //}
+    //int num_res = atoi(argv[1]);
+    int num_res = 20;
     int node_num_one_side = num_res + 1;
     if(num_res == 2)
         Solve(node_num_one_side, 1000);
