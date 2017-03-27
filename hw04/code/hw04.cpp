@@ -1,4 +1,4 @@
-// HW03: Resistor Networks
+// HW04: Linear Iterative Method
 // ID: 102061149
 // Name: Fu-En Wang
 
@@ -100,10 +100,12 @@ double Solve(int node_one_side, double resistor){
     hw03[0] = X[node_one_side-1]; // V_ne
     hw03[1] = X[(node_one_side*node_one_side-1)/2]; // V_ea
     hw03[2] = X[node_one_side*node_one_side - node_one_side]; // V_sw
-
+    
+    Performance P;
     int METHOD = 3;
     int E_type = 3;
     //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
+    P.Start();
     switch(METHOD){
         case 1:
             if(E_type == 1)
@@ -148,7 +150,7 @@ double Solve(int node_one_side, double resistor){
             error_jo = error_infinite_norm(hw03, hw04);
     }
     cout << error_jo << endl;
-
+    P.End("Runtime: ", " (s)");
     return 0;
 }
 
