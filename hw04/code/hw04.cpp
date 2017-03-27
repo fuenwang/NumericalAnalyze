@@ -97,44 +97,53 @@ double Solve(int node_one_side, double resistor){
     p1 = node_one_side-1;
     p2 = (node_one_side*node_one_side-1)/2;
     p3 = node_one_side*node_one_side - node_one_side;
-    hw03[0] = X[node_one_side-1]; // V_ne
-    hw03[1] = X[(node_one_side*node_one_side-1)/2]; // V_ea
-    hw03[2] = X[node_one_side*node_one_side - node_one_side]; // V_sw
+    hw03[0] = X[p1]; // V_ne
+    hw03[1] = X[p2]; // V_ea
+    hw03[2] = X[p3]; // V_sw
     
     Performance P;
-    int METHOD = 3;
+    int METHOD = 2;
     int E_type = 3;
     //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
     P.Start();
     switch(METHOD){
         case 1:
+            cout << jacobi(A_jo, B_jo, X_jo, 100000000, 3 * 1e-10) << endl;
+            /*
             if(E_type == 1)
-                cout << jacobi(A_jo, B_jo, X_jo, 100000000, 1.95 * 1e-8, E_type) << endl; // For error_1
+                cout << jacobi_E(A_jo, B_jo, X_jo, 100000000, 1.95 * 1e-8, E_type) << endl; // For error_1
             else if(E_type == 2)
-                cout << jacobi(A_jo, B_jo, X_jo, 100000000, 2.3 * 1e-9, E_type) << endl; // For error_2
+                cout << jacobi_E(A_jo, B_jo, X_jo, 100000000, 2.3 * 1e-9, E_type) << endl; // For error_2
             else if(E_type == 3)
-                cout << jacobi(A_jo, B_jo, X_jo, 100000000, 3 * 1e-10, E_type) << endl; // For error_3
+                cout << jacobi_E(A_jo, B_jo, X_jo, 100000000, 3 * 1e-10, E_type) << endl; // For error_3
+            */
             break;
         case 2:
+            cout << gaussSeidel(A_jo, B_jo, X_jo, 100000000, 3.05 * 1e-10) << endl;
+            /*
             if(E_type == 1)
-                cout << gaussSeidel(A_jo, B_jo, X_jo, 100000000, 3.93 * 1e-8, E_type) << endl;
+                cout << gaussSeidel_E(A_jo, B_jo, X_jo, 100000000, 3.93 * 1e-8, E_type) << endl;
             else if(E_type == 2)
-                cout << gaussSeidel(A_jo, B_jo, X_jo, 100000000, 3.27 * 1e-9, E_type) << endl;
+                cout << gaussSeidel_E(A_jo, B_jo, X_jo, 100000000, 3.27 * 1e-9, E_type) << endl;
             else if(E_type ==3)
-                cout << gaussSeidel(A_jo, B_jo, X_jo, 100000000, 3.05 * 1e-10, E_type) << endl;
+                cout << gaussSeidel_E(A_jo, B_jo, X_jo, 100000000, 3.05 * 1e-10, E_type) << endl;
+            */
             break;
         case 3:
+            cout << sgs(A_jo, B_jo, X_jo, 100000000, 5.95 * 1e-10) << endl;
+            /*
             if(E_type == 1)
-                cout << sgs(A_jo, B_jo, X_jo, 100000000, 7.7 * 1e-8, E_type) << endl;
+                cout << sgs_E(A_jo, B_jo, X_jo, 100000000, 7.7 * 1e-8, E_type) << endl;
             else if(E_type == 2)
-                cout << sgs(A_jo, B_jo, X_jo, 100000000, 6.5 * 1e-9, E_type) << endl;
+                cout << sgs_E(A_jo, B_jo, X_jo, 100000000, 6.5 * 1e-9, E_type) << endl;
             else if(E_type == 3)
-                cout << sgs(A_jo, B_jo, X_jo, 100000000, 5.95 * 1e-10, E_type) << endl;
+                cout << sgs_E(A_jo, B_jo, X_jo, 100000000, 5.95 * 1e-10, E_type) << endl;
+            */
     }
 
-    hw04[0] = X_jo[node_one_side-1]; // V_ne
-    hw04[1] = X_jo[(node_one_side*node_one_side-1)/2]; // V_ea
-    hw04[2] = X_jo[node_one_side*node_one_side - node_one_side]; // V_sw
+    hw04[0] = X_jo[p1]; // V_ne
+    hw04[1] = X_jo[p2]; // V_ea
+    hw04[2] = X_jo[p3]; // V_sw
     //X.print();
     //X_jo.print();
     hw03.print();

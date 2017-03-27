@@ -463,7 +463,7 @@ From Table \ref{tab:N}, Figure \ref{fig:complexity} show iter\_avg vs N with log
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{src/complexity.pdf}
-    \caption{Iteration runtime}
+    \caption{Iteration runtime(each)}
     \label{fig:complexity}
 \end{figure}
 For more clear visualization, I plot $10^{-7} * N^2$ vs N instead of $N^2$ vs N. In Figure \ref{fig:complexity}, we can clearly see
@@ -477,7 +477,7 @@ as shown in Figure \ref{fig:gauss vs sgs iter}:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{src/gauss_sgs_iter.pdf}
-    \caption{Iteration runtime}
+    \caption{Iteration number proportion}
     \label{fig:gauss vs sgs iter}
 \end{figure}
 Figure \ref{fig:gauss vs sgs iter} exactly shows that Symmetric Gauss-Seidel only use $\frac{1}{2}$ iterations as Gauss-Seidel.
@@ -486,7 +486,7 @@ double as that of Gauss-Seide, as shown in Figure \ref{fig:gauss vs sgs avg}:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{src/gauss_sgs_avg.pdf}
-    \caption{Iteration runtime}
+    \caption{Iteration runtime proportion(each)}
     \label{fig:gauss vs sgs avg}
 \end{figure}
 As a result, the efficiency of Symmetric Gauss-Seidel is almost same as Gauss-Seidel. When we plot the proportion of total runtime vs N,
@@ -494,7 +494,7 @@ we will see it converges to 1, as shown in Figure \ref{fig:gauss vs sgs runtime}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{src/gauss_sgs_runtime.pdf}
-    \caption{Iteration runtime}
+    \caption{Iteration runtime proportion(total)}
     \label{fig:gauss vs sgs runtime}
 \end{figure}
 From Figure \ref{fig:gauss vs sgs runtime}, we can find that Symmetric Gauss-Seidel is actually a little slower than Gauss-Seidel.

@@ -467,7 +467,7 @@ double error_infinite_norm(VEC &x1, VEC &x2){
     return error;
 }
 
-int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
+int jacobi_E(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
     int it;
     int dim = x.dim();
     double tmp;
@@ -506,7 +506,7 @@ int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
     return it;
 }
 
-int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
+int gaussSeidel_E(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
     int it;
     int dim = x.dim();
     double tmp1;
@@ -546,7 +546,7 @@ int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
     return it;
 }
 
-int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
+int sgs_E(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
     int it;
     int m = A.GetM();
     double tmp1;
@@ -598,6 +598,15 @@ int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
 
     }
     return it;
+}
+int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol){
+    return jacobi_E(A, b, x, maxIter, tol, 3);
+}
+int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol){
+    return gaussSeidel_E(A, b, x, maxIter, tol, 3);
+}
+int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol){
+    return sgs_E(A, b, x, maxIter, tol, 3);
 }
 
 
