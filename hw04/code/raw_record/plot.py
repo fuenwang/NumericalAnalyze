@@ -3,9 +3,9 @@ import json
 import numpy as np
 
 
-f = open('sgs_error1.json', 'r')
-f2 = open('sgs_error2.json', 'r')
-f3 = open('sgs_error3.json', 'r')
+f = open('jacobi_error1.json', 'r')
+f2 = open('jacobi_error2.json', 'r')
+f3 = open('jacobi_error3.json', 'r')
 data1 = json.load(f)
 data2 = json.load(f2)
 data3 = json.load(f3)
@@ -23,11 +23,13 @@ plt.plot(x3, data3, 'g', label='Error_infinite', linewidth=3)
 
 plt.xlabel('iter')
 plt.ylabel('Error')
-plt.title('Symmetric Gauss-Seidel Error')
+plt.title('Jacobi Error')
 
+#plt.xscale('log')
+plt.yscale('log')
 
 plt.legend()
 #plt.show()
 
-plt.savefig('sgs_error.pdf', dpi=300, bbox_inches='tight')
+plt.savefig('jacobi_error.pdf', dpi=300, bbox_inches='tight')
 
