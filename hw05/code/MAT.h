@@ -115,9 +115,12 @@ int sgs_E(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type = 1); // cu
 int jacobi(MAT &A, VEC b, VEC &x, int maxIter, double tol);
 int gaussSeidel(MAT &A, VEC b, VEC &x, int maxIter, double tol);
 int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol);
+int cg(MAT &A, VEC b, VEC &x, int maxIter, double tol);
+
 
 double error_1_norm(VEC &x1, VEC &x2);
 double error_2_norm(VEC &x1, VEC &x2);
 double error_infinite_norm(VEC &x1, VEC &x2);
+double error_cg(VEC &r, int n);
 
 #endif
