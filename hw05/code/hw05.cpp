@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
     //    printf("Please enter the resistor number one side\n");
     //}
     //int num_res = atoi(argv[1]);
-    int num_res = 50;
+    int num_res = 20;
     int node_num_one_side = num_res + 1;
     if(num_res == 2)
         Solve(node_num_one_side, 1000);
