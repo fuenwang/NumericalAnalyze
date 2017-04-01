@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
     //    printf("Please enter the resistor number one side\n");
     //}
     //int num_res = atoi(argv[1]);
-    int num_res = 20;
+    int num_res = 50;
     int node_num_one_side = num_res + 1;
     if(num_res == 2)
         Solve(node_num_one_side, 1000);
@@ -92,9 +92,12 @@ double Solve(int node_one_side, double resistor){
 
     X_jo = 0;
 
+    Performance P;
+    P.Start();
     luFact(A);
     VEC Y(fwdSubs(A, B));
     VEC X(bckSubs(A, Y));
+    P.End("Rintime: ", " s");
     p1 = node_one_side-1;
     p2 = (node_one_side*node_one_side-1)/2;
     p3 = node_one_side*node_one_side - node_one_side;
@@ -102,8 +105,7 @@ double Solve(int node_one_side, double resistor){
     hw03[1] = X[p2]; // V_ea
     hw03[2] = X[p3]; // V_sw
     
-    Performance P;
-    int METHOD = 2;
+    int METHOD = 4;
     int E_type = 3;
     //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
     P.Start();
@@ -140,8 +142,12 @@ double Solve(int node_one_side, double resistor){
             else if(E_type == 3)
                 cout << sgs_E(A_jo, B_jo, X_jo, 100000000, 5.95 * 1e-10, E_type) << endl;
             */
+            break;
+        case 4:
+            cout << cg(A_jo, B_jo, X_jo, 20000, 1e-15) << endl;
     }
 
+    P.End("Runtime: ", " (s)");
     hw04[0] = X_jo[p1]; // V_ne
     hw04[1] = X_jo[p2]; // V_ea
     hw04[2] = X_jo[p3]; // V_sw
@@ -149,6 +155,7 @@ double Solve(int node_one_side, double resistor){
     //X_jo.print();
     hw03.print();
     hw04.print();
+    /*
     switch(E_type){
         case 1:
             error_jo = error_1_norm(hw03, hw04);
@@ -160,7 +167,7 @@ double Solve(int node_one_side, double resistor){
             error_jo = error_infinite_norm(hw03, hw04);
     }
     cout << error_jo << endl;
-    P.End("Runtime: ", " (s)");
+    */
     return 0;
 }
 

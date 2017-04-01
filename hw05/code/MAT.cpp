@@ -467,6 +467,10 @@ double error_infinite_norm(VEC &x1, VEC &x2){
     return error;
 }
 
+double error_cg(VEC &r){
+    return sqrt((r * r).sum() / r.dim());
+}
+
 int jacobi_E(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
     int it;
     int dim = x.dim();
@@ -609,6 +613,44 @@ int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol){
     return sgs_E(A, b, x, maxIter, tol, 3);
 }
 
+int sd(MAT &A, VEC b, VEC &x, int maxIter, double tol){
+    VEC r(b - A * x); // r0
+    double alpha = (r * r).sum() / ( r * (A * r)).sum();
+    double error;
+    for(int it = 1; it <= maxIter; it++){
+        x += alpha * r;
+        r -= alpha * (A * r);
+        error = error_cg(r);
+        alpha = (r * r).sum() / ( r * (A * r)).sum();
+
+        if(error < tol){
+            return it;
+        }
+    }
+    return maxIter+1;
+}
+int cg(MAT &A, VEC b, VEC &x, int maxIter, double tol){
+    VEC r(b - A * x); // r0
+    VEC p(r); // p0 = r0
+    double pap = (p * (A * p)).sum();
+    double alpha = (p * r).sum() / pap;
+    double beta;
+    double error;
+    for(int it = 1; it <= maxIter; it++){
+        x += alpha * p;
+        r -= alpha * A * p;
+        beta = (p * (A * r)).sum() / pap;
+        p = r - beta * p;
+        pap = (p * (A * p)).sum();
+        alpha = (p * r).sum() / pap;
+
+        error = error_cg(r);
+        if(error < tol){
+            return it;
+        }
+    }
+    return maxIter+1;
+}
 
 
 
