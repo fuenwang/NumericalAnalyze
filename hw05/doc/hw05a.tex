@@ -173,9 +173,61 @@
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-
 \maketitle
 \newpage
+
+\section{Introduction}
+To solve a such linear system:
+\begin{gather}
+    Ax = b
+    \label{eq:system}
+\end{gather}
+We have already use \textbf{LU Decomposition}, \textbf{Jacobi}, \textbf{Gauss-Seidel} and \textbf{Symmetric Gauss-Seidel} to solve it. However,
+in the previous homework, we found that the three iterative methods are slower than \textbf{LU Decomposition}. As a result, to solve the system
+more faster, \textbf{Conjugate Gradient Descend Method} was introduced. \textbf{Conjugate Gradient} can solve Equation \ref{eq:system} faster a lot 
+than \textbf{LU Decomposition}.
+
+\subsection{Resistor Network}
+To evaluate the performance of algorithm, we will build several simple resistor networks(shown in Figure \ref{fig:network}) to test the accuracy 
+and efficiency.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{src/network.png}
+    \caption{Simple Resistor Network}
+    \label{fig:network}
+\end{figure}
+For \textbf{Confugate Gradient Methods}, the error between iteration is defined as Equation \ref{eq:error}:
+\begin{gather}
+    Error = \sqrt{\frac{r^Tr}{n}}
+    \label{eq:error}
+\end{gather}
+\newpage
+
+\section{Implementation}
+\begin{algorithm}[H]
+    \caption{\textbf{Conjugate Gradient Methods}}
+    \label{algo:cg}
+    \begin{algorithmic}
+        \State $p^{(0)} = r^{(0)} = b - Ax$
+        \For{each iteration k $\in$ \{0, maxIter-1\}}
+            \State $\alpha_k = \frac{(p^{k})^Tr^{(k)}}{(p^{k})^TAp^{k}}$
+            \State $x^{(k+1)} = x^{(k)} + \alpha_kp^{(k)}$
+            \State $r^{(k+1)} = r^{(k)} - \alpha_kAp^{(k)}$
+            \State $\beta_k = \frac{(p^{(k)})^TAr^{(k+1)}}{(p^{(k)})^TAp^{(k)}}$
+            \State $p^{(k+1)} = r^{(k+1)} - \beta_kp^{(k)}$
+            \If{$\sqrt{\frac{(r^{(k+1)})^Tr^{(k+1)}}{n}} < tol$}
+                \State break
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+\subsection{Complexity}
+\label{sec:complexity}
+For each iteration of Algorithm \ref{algo:cg}, the most time-consuming part is the multiplication of Matrix and Vector, which need a double for-loop.
+As a result, this is a {\boldmath$O(n^2)$} problem.
+
+\section{Discussion}
+
 
 \end{document}
 
