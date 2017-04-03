@@ -171,7 +171,7 @@ VEC* MAT::CreateVEC(int n){
 }
 
 void MAT::operator=(const MAT &data){ // Assign maatrix value
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] = data[i][j];
@@ -195,27 +195,27 @@ VEC& MAT::operator[](int index) const{ // Indexing: A[0], A[1]
 }
 
 void MAT::operator+=(const MAT &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] += data[i][j];
 }
 void MAT::operator-=(const MAT &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] -= data[i][j];
 
 }
 void MAT::operator*=(const MAT &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] *= data[i][j];
 
 }
 void MAT::operator/=(const MAT &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             (*this)[i][j] /= data[i][j];
@@ -245,18 +245,18 @@ void MAT::operator/=(double num){
 
 MAT MAT::operator+(const MAT &data){
     MAT out(this->m, this->n);
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
-            out[i][j] = (*this)[i][j] + data[i][j];
+            (*out.val[i])[j] = (*this->val[i])[j] + (*data.val[i])[j];
     return out;
 }
 MAT MAT::operator-(const MAT &data){
     MAT out(this->m, this->n);
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
-            out[i][j] = (*this)[i][j] - data[i][j];
+            (*out.val[i])[j] = (*this->val[i])[j] - (*data.val[i])[j];
     return out;
 }
 MAT MAT::operator*(const MAT &data){
@@ -275,9 +275,9 @@ MAT MAT::operator*(const MAT &data){
         for(int j=0; j<data.n; j++){
             double sum = 0;
             for(int k = 0; k < this->n; k++){
-                sum += (*this)[i][k] * data[k][j];
+                sum += (*this->val[i])[k] * (*data.val[k])[j];
             }
-            out[i][j] = sum;
+            (*out.val[i])[j] = sum;
         }
     }
 
@@ -285,10 +285,12 @@ MAT MAT::operator*(const MAT &data){
 }
 
 VEC MAT::operator*(const VEC &data){
+    /*
     if(this->n != data.dim()){
         printf("MAT mul size dismatch!\n");
         exit(0);
     }
+    */
     VEC out(this->m);
     //this->checkDim(data);
     /*
@@ -297,11 +299,7 @@ VEC MAT::operator*(const VEC &data){
             out[i][j] = (*this)[i][j] * data[i][j];
     */
     for(int i=0; i<this->m; i++){
-        double sum = 0;
-        for(int k = 0; k < this->n; k++){
-            sum += (*this)[i][k] * data[k];
-        }
-        out[i] = sum;
+            out[i] = (*this->val[i]) * data;
     }
 
     return out;
@@ -310,7 +308,7 @@ VEC MAT::operator*(const VEC &data){
 
 MAT MAT::operator/(const MAT &data){
     MAT out(this->m, this->n);
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
             out[i][j] = (*this)[i][j] / data[i][j];
@@ -342,7 +340,7 @@ MAT MAT::operator/(double num){
     MAT out(this->m, this->n);
     for(int i=0; i<this->m; i++)
         for(int j=0; j<this->n; j++)
-            out[i][j] = (*this)[i][j] / num;
+            (*out.val[i])[j] = (*this->val[i])[j] / num;
     return out;
 }
 
@@ -468,7 +466,7 @@ double error_infinite_norm(VEC &x1, VEC &x2){
 }
 
 double error_cg(VEC &r){
-    return sqrt((r * r).sum() / r.dim());
+    return sqrt((r * r) / r.dim());
 }
 
 int jacobi_E(MAT &A, VEC b, VEC &x, int maxIter, double tol, int E_type){
@@ -615,13 +613,13 @@ int sgs(MAT &A, VEC b, VEC &x, int maxIter, double tol){
 
 int sd(MAT &A, VEC b, VEC &x, int maxIter, double tol){
     VEC r(b - A * x); // r0
-    double alpha = (r * r).sum() / ( r * (A * r)).sum();
+    double alpha = (r * r) / ( r * (A * r));
     double error;
     for(int it = 1; it <= maxIter; it++){
         x += alpha * r;
         r -= alpha * (A * r);
         error = error_cg(r);
-        alpha = (r * r).sum() / ( r * (A * r)).sum();
+        alpha = (r * r) / ( r * (A * r));
 
         if(error < tol){
             return it;
@@ -629,32 +627,31 @@ int sd(MAT &A, VEC b, VEC &x, int maxIter, double tol){
     }
     return maxIter+1;
 }
+
 int cg(MAT &A, VEC b, VEC &x, int maxIter, double tol){
     VEC r(b - A * x); // r0
     VEC p(r); // p0 = r0
-    double pap = (p * (A * p)).sum();
-    double alpha = (p * r).sum() / pap;
+    int n = A.GetM();
+    VEC ap(A * p);
+    double pap = (p * ap);
+    double alpha = (p * r) / pap;
     double beta;
     double error;
     for(int it = 1; it <= maxIter; it++){
         x += alpha * p;
-        r -= alpha * A * p;
-        beta = (p * (A * r)).sum() / pap;
+        r -= alpha * ap;
+        beta = (p * (A * r)) / pap;
         p = r - beta * p;
-        pap = (p * (A * p)).sum();
-        alpha = (p * r).sum() / pap;
-
-        error = error_cg(r);
+        ap = A * p;
+        pap = (p * ap);
+        alpha = (p * r) / pap;
+        error = sqrt(r * r / n);
         if(error < tol){
             return it;
         }
+        
     }
     return maxIter+1;
 }
-
-
-
-
-
 
 

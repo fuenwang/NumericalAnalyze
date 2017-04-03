@@ -21,22 +21,11 @@ int main(int argc, char* argv[]){
     //    printf("Please enter the resistor number one side\n");
     //}
     //int num_res = atoi(argv[1]);
-    int num_res = 20;
+    int num_res = 100;
     int node_num_one_side = num_res + 1;
-    if(num_res == 2)
-        Solve(node_num_one_side, 1000);
-    else if(num_res == 4)
-        Solve(node_num_one_side, 500);
-    else if(num_res == 10)
-        Solve(node_num_one_side, 200);
-    else if(num_res == 20)
-        Solve(node_num_one_side, 100);
-    else if(num_res == 40)
-        Solve(node_num_one_side, 50);
-    else if(num_res == 50)
-        Solve(node_num_one_side, 40);
-    else
-        printf("Argument error!\n");
+    double res = 2000.0 / num_res;
+    Solve(node_num_one_side, res);
+
     return 0;
 }
 
@@ -79,7 +68,7 @@ double Solve(int node_one_side, double resistor){
 
     //A.print();
 
-
+    //A.print();
     MAT A_jo(A);
     VEC B_jo(B);
     VEC X_jo(B.dim());
@@ -93,18 +82,21 @@ double Solve(int node_one_side, double resistor){
     X_jo = 0;
 
     Performance P;
+    /*
     P.Start();
     luFact(A);
     VEC Y(fwdSubs(A, B));
     VEC X(bckSubs(A, Y));
     P.End("Rintime: ", " s");
+    */
     p1 = node_one_side-1;
     p2 = (node_one_side*node_one_side-1)/2;
     p3 = node_one_side*node_one_side - node_one_side;
+    /*
     hw03[0] = X[p1]; // V_ne
     hw03[1] = X[p2]; // V_ea
     hw03[2] = X[p3]; // V_sw
-    
+    */
     int METHOD = 4;
     int E_type = 3;
     //cout << sgs(A_sgs, B_sgs, X_sgs, 100000000, 2.83 * 1e-10, E_type) << endl;
@@ -144,16 +136,16 @@ double Solve(int node_one_side, double resistor){
             */
             break;
         case 4:
-            cout << cg(A_jo, B_jo, X_jo, 20000, 1e-15) << endl;
+            cout << cg(A_jo, B_jo, X_jo, 20000, 1e-10) << endl;
     }
-
+    //X_jo.print();
     P.End("Runtime: ", " (s)");
     hw04[0] = X_jo[p1]; // V_ne
     hw04[1] = X_jo[p2]; // V_ea
     hw04[2] = X_jo[p3]; // V_sw
     //X.print();
     //X_jo.print();
-    hw03.print();
+    //hw03.print();
     hw04.print();
     /*
     switch(E_type){

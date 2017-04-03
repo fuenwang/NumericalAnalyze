@@ -31,7 +31,7 @@ class VEC{
         VEC operator+(double num);
         VEC operator-(const VEC &data);
         VEC operator-(double num);
-        VEC operator*(const VEC &data);
+        double operator*(const VEC &data);
         VEC operator*(double num);
         VEC operator/(const VEC &data);
         VEC operator/(double num);

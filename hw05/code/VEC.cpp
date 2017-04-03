@@ -55,7 +55,7 @@ bool VEC::operator==(VEC &data){
 }
 
 void VEC::operator=(const VEC &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] = data.val[i];
     return;
@@ -68,25 +68,25 @@ void VEC::operator=(double num){
 }
 
 void VEC::operator+=(const VEC &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] += data.val[i];
 }
 
 void VEC::operator-=(const VEC &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] -= data.val[i];
 }
 
 void VEC::operator*=(const VEC &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] *= data.val[i];
 }
 
 void VEC::operator/=(const VEC &data){
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
         this->val[i] /= data.val[i];
 }
@@ -101,34 +101,35 @@ double& VEC::operator[](int index) const{
 
 VEC VEC::operator+(const VEC &data){
     VEC out(this->dimension);
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
-        out[i] = this->val[i] + data[i];
+        out.val[i] = this->val[i] + data.val[i];
     return out;
 }
 
 VEC VEC::operator-(const VEC &data){
     VEC out(this->dimension);
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
-        out[i] = this->val[i] - data[i];
+        out.val[i] = this->val[i] - data.val[i];
     return out;
 
 }
 
-VEC VEC::operator*(const VEC &data){
-    VEC out(this->dimension);
-    this->checkDim(data);
+double VEC::operator*(const VEC &data){
+    double sum = 0;
+    //VEC out(this->dimension);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
-        out[i] = this->val[i] * data[i];
-    return out;
+        sum  += this->val[i] * data.val[i];
+    return sum;
 }
 
 VEC VEC::operator/(const VEC &data){
     VEC out(this->dimension);
-    this->checkDim(data);
+    //this->checkDim(data);
     for(int i=0; i<this->dimension; i++)
-        out[i] = this->val[i] / data[i];
+        out.val[i] = this->val[i] / data.val[i];
     return out;
 }
 
