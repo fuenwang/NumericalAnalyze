@@ -9,9 +9,9 @@
 
 using namespace std;
 
-//int p1,p2,p3;
-//VEC hw03(3);
-//VEC hw04(3);
+int p1,p2,p3;
+VEC hw03(3);
+VEC hw04(3);
 
 double Solve(int node_one_side, double resistor);
 
@@ -73,10 +73,12 @@ double Solve(int node_one_side, double resistor){
     VEC B_jo(B);
     VEC X_jo(B.dim());
     
-    int p1,p2,p3;
-    VEC hw04(3);
-    VEC hw03(3);
-
+    //int p1,p2,p3;
+    //VEC hw04(3);
+    //VEC hw03(3);
+    hw03[0] = 0.588931;
+    hw03[1] = 0.5;
+    hw03[2] = 0.411069;
     double error_jo;
 
     X_jo = 0;

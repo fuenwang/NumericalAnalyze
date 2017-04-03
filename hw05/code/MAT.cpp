@@ -637,6 +637,7 @@ int cg(MAT &A, VEC b, VEC &x, int maxIter, double tol){
     double alpha = (p * r) / pap;
     double beta;
     double error;
+    Json Q("raw_record/error.json",0);
     for(int it = 1; it <= maxIter; it++){
         x += alpha * p;
         r -= alpha * ap;
@@ -646,7 +647,12 @@ int cg(MAT &A, VEC b, VEC &x, int maxIter, double tol){
         pap = (p * ap);
         alpha = (p * r) / pap;
         error = sqrt(r * r / n);
+        hw04[0] = x[p1];
+        hw04[1] = x[p2];
+        hw04[2] = x[p3];
+        Q.Write(error_infinite_norm(hw03, hw04));
         if(error < tol){
+            Q.Close();
             return it;
         }
         
