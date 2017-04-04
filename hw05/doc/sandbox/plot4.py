@@ -19,22 +19,23 @@ def ReadJson(f_name):
     f.close()
     return data
 
-data = ReadJson('error.json')
+[N, data] = ReadCSV('complexity.csv')
 data = np.array(data)
-x = np.arange(1, len(data)+1)
+N = np.array(N)
 
 plt.figure()
 plt.subplot('111')
 
-plt.plot(x, data, 'r', label='Error')
+plt.plot(N, data, 'r--', marker='o', label='iter_avg')
+plt.plot(N, 10**(-8)*N**2, 'b--', marker='o', label='$N^2$')
 
-#plt.xscale('log')
+plt.xscale('log')
 plt.yscale('log')
 #plt.xlim(10, 400)
 #plt.xticks([10, 50, 100, 150])
-plt.xlabel('iter')
-plt.ylabel('Error')
-plt.title('Iteration Error')
-plt.legend()
+plt.xlabel('N')
+plt.ylabel('Time(s)')
+plt.title('Average Iteration Runtime')
+plt.legend(loc='upper left', fontsize='large')
 #plt.show()
-plt.savefig('iter_error.pdf', dpi=300, bbox_inches='tight')
+plt.savefig('complexity.pdf', dpi=300, bbox_inches='tight')

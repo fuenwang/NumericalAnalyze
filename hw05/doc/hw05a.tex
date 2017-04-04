@@ -235,6 +235,7 @@ In this section, we will discuss the following issues:
 \end{enumerate}
 
 \subsection{Conjugate Gradient vs LU Decomposition}
+\label{sec:cg vs lu}
 In the Discussion of homework03, we know that the complexity of LU Decomposition is $O(n^3)$, while each iteration of Conjugate Gradient is $O(n^2)$.
 As a result, if the procedure of solving linear system needs small numbers of iteration, Conjugate Gradient can provide a much faster method to
 solve Equation \ref{eq:system}. \newline
@@ -254,33 +255,38 @@ For Conjugate Gradient method, Table \ref{tab:cg} shows the detail result to ach
 	\caption{Experiment result of LU Decomposition}
 	\label{tab:LU}
 \end{table}
-\begin{table}[H]
-	\begin{tabular}{|c|c|c|c|c|c|c|}
-		\hline
-		\textbf{N} & 441 & 1681 & 2601 & 3721 & 6561 & 10201 \\ \hline
-		\textbf{Iterations} & 75 & 148 & 184 & 221 & 293 & 365 \\ \hline
-		\textbf{Vne} & 0.622178 & 0.603088 & 0.598084 & 0.594327 & 0.588931 & 0.585141 \\ \hline
-		\textbf{Vea} & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\ \hline
-		\textbf{Vsw} & 0.377822 & 0.396912 & 0.401916 & 0.405673 & 0.411069 & 0.414859 \\ \hline
-		\textbf{Runtime(s)} & 0.036 & 0.8 & 2.38048 & 5.96049 & 23.9501 & 73.0905 \\ \hline
-		\textbf{iter\_avg} & 0.00048 & 0.0054054054 & 0.0129373913 & 0.026970543 & 0.0817409556 & 0.2002479452 \\ \hline
-	\end{tabular}
-	\caption{Experiment result of Conjugate Gradient}
-	\label{tab:cg}
+\begin{table}[htbp]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{N} & 441 & 1681 & 2601 & 3721 & 6561 & 10201 \\ \hline
+            \textbf{\# of Resistor} & 20 & 40 & 50 & 60 & 80 & 100 \\ \hline
+            \textbf{Iterations} & 75 & 148 & 184 & 221 & 293 & 365 \\ \hline
+            \textbf{Vne} & 0.622178 & 0.603088 & 0.598084 & 0.594327 & 0.588931 & 0.585141 \\ \hline
+            \textbf{Vea} & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\ \hline
+            \textbf{Vsw} & 0.377822 & 0.396912 & 0.401916 & 0.405673 & 0.411069 & 0.414859 \\ \hline
+            \textbf{Runtime(s)} & 0.036 & 0.8 & 2.38048 & 5.96049 & 23.9501 & 73.0905 \\ \hline
+            \textbf{iter\_avg} & 0.00048 & 0.0054054054 & 0.0129373913 & 0.026970543 & 0.0817409556 & 0.2002479452 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Experiment result of Conjugate Gradient}
+    \label{tab:cg}
 \end{table}
+
 
 Figure \ref{fig:cg vs lu} shows \textbf{Runtime} in Table \ref{tab:LU} and \ref{tab:cg} vs N in log-scale. In this figure, we can see a significant 
 efficiency gap between CG and LU. As a result, Conjugate Gradient is a better method for solving Simple Resistor Network.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{src/cg_vs_lu.pdf}
+	\includegraphics[width=0.6\textwidth]{src/cg_vs_lu.pdf}
 	\caption{Comparison of CG and LU}
 	\label{fig:cg vs lu}
 \end{figure}
 
 \subsection{Iterative Methods Comparison}
+\label{sec:iter comparison}
 To do comparison between \textbf{Jacobi}, \textbf{Gauss-Seidel}, \textbf{Symmetric Gauss-Seidel} and \textbf{Conjugate Gradient}, the most
-straightforward way is to comapre the number of iteration. Table \ref{tab:3 iter} show the result of iteration number.
+straightforward way is to compare the number of iteration. Table \ref{tab:3 iter} show the result of iteration number.
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|}
@@ -292,13 +298,13 @@ straightforward way is to comapre the number of iteration. Table \ref{tab:3 iter
 			\textbf{CG} & 4 & 10 & 37 & 75 & 148 \\ \hline
 		\end{tabular}
 	\end{center}
-\caption{Iteration number of 3 algorithm}
+\caption{Iteration number of 4 algorithm}
 \label{tab:3 iter}
 \end{table}
 Figure \ref{fig:iter comparison} shows the result with log-scale.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{src/iter.pdf}
+	\includegraphics[width=0.6\textwidth]{src/iter.pdf}
 	\caption{Comparison of 3 iterative methods}
 	\label{fig:iter comparison}
 \end{figure}
@@ -309,18 +315,30 @@ faster than the others. As a result, \textbf{Conjugate Gradient Method} is the b
 To see the trend of error, we can simply plot error of groundtruth(LU) and CG in each iteration. Figure \ref{fig:iter error} shows the result.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{src/iter_error.pdf}
+	\includegraphics[width=0.6\textwidth]{src/iter_error.pdf}
 	\caption{Iteration Error of Conjugate Gradient}
 	\label{fig:iter error}
 \end{figure}
 In the begining, the error is almost a constant. After about 100 times of iteration, the error starts to drop with significant slope. This is 
-because it was searching the right direction of convergence in the begining. After 100 iteration, it found the right direction. As a result
+because it was searching the right direction of convergence in the begining. After 100 iteration, it found the right direction and
 the converge speed increase a lot after that. About the time at 200 iteration, we can see the error starts to increase. This is because it 
 adjusts the origin direction with an new one and make error increase in the begining. After several iteration, the error drop rate starts to
 increase again and so on.
 
+\subsection{Average Iteration Runtime}
+From Table \ref{tab:cg}, we can try to plot \textbf{iter\_avg} vs N. Figure \ref{fig:complexity} shows the result with log-scale.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{src/complexity.pdf}
+	\caption{Iteration Runtime of Conjugate Gradient Method}
+	\label{fig:complexity}
+\end{figure}
+From Figure \ref{fig:complexity}, we can find that the slope of CG is same as $N^2$. As a result, the complexity of each iteration of 
+Conjugate Gradient Method is $O(n^2)$, which satisfies my analysis in Section \ref{sec:complexity}.
 
-
+\section{Conclusion}
+As we discuss in Section \ref{sec:cg vs lu} and \ref{sec:iter comparison}, \textbf{Conjugate Gradient} is faster than both \textbf{LU Decomposition}
+and the other three iteratiove methods. Therefore, the best method to solve a Simple Resistor Network is \textbf{Conjugate Gradient Method}.
 
 \end{document}
 
