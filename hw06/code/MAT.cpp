@@ -722,12 +722,12 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
         }
         //D.Write(error);
         lambda_old = lambda;
-        /*
+        
         if(error < tol){
             printf("%g\n", error);
             return it;
         }
-        */
+        
     }
     //D.Close();
     return it;
