@@ -738,11 +738,12 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     VEC r(q0.dim());
     VEC q_old(q0.dim());
     VEC z(q0.dim());
-    //Performance Q;
+    Performance Q;
     double wq;
+    z = 0;
+    z[0] = 1;
     for(it = 1; it <= maxiter; it++){
-        cout << error << endl;
-        z = 1;
+        //cout << error << endl;
         q_old = q0;
         if(HW06_E == 1 || HW06_E == 2 || it == 1){
             Aq = A * q0;
@@ -751,9 +752,9 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
             ATq = A_T * q0;
             wq = (ATq / error_2_norm(ATq)) * q0;
         }
-        //Q.Start();
-        cg(A, q0, z, 100000, 1e-7);
-        //Q.End("","");
+        Q.Start();
+        cg(A, q0, z, 100000, 1e-10);
+        Q.End("","");
         q0 = z / error_2_norm(z);
         lambda = q0 * (A * q0);
         switch(HW06_E){
@@ -775,7 +776,7 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
         }
         lambda_old = lambda;
         if(error < tol){
-            printf("%g\n", error);
+            //printf("%g\n", error);
             return it;
         }
     }
