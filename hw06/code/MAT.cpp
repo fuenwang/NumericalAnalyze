@@ -691,6 +691,7 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     VEC r(q0.dim());
     VEC q_old(q0.dim());
     double wq;
+    //Json D("raw_record/error_e4.json", 0);
     for(it = 1; it <= maxiter; it++){
         q_old = q0;
         if(HW06_E == 1 || HW06_E == 2 || it == 1){
@@ -719,12 +720,16 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r) / fabs(wq);
         }
+        //D.Write(error);
         lambda_old = lambda;
+        /*
         if(error < tol){
             printf("%g\n", error);
             return it;
         }
+        */
     }
+    //D.Close();
     return it;
 }
 
@@ -738,7 +743,7 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     VEC r(q0.dim());
     VEC q_old(q0.dim());
     VEC z(q0.dim());
-    Performance Q;
+    //Performance Q;
     double wq;
     z = 0;
     z[0] = 1;
@@ -752,9 +757,9 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
             ATq = A_T * q0;
             wq = (ATq / error_2_norm(ATq)) * q0;
         }
-        Q.Start();
+        //Q.Start();
         cg(A, q0, z, 100000, 1e-10);
-        Q.End("","");
+        //Q.End("","");
         q0 = z / error_2_norm(z);
         lambda = q0 * (A * q0);
         switch(HW06_E){
@@ -784,7 +789,64 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
 
 }
 
-
+int EViPwrShft(MAT &A, VEC &q0, double &lambda, double mu, double tol, int maxiter){
+    int it;
+    double error;
+    double lambda_old = lambda;
+    MAT I(A.GetN());
+    for(int i=0; i < A.GetN(); i++)
+        I[i][i] = 1;
+    MAT A_T(A.T());
+    MAT A_shift(A - I * mu);
+    VEC Aq(q0.dim());
+    VEC ATq(q0.dim());
+    VEC r(q0.dim());
+    VEC q_old(q0.dim());
+    VEC z(q0.dim());
+    //Performance Q;
+    double wq;
+    z = 0;
+    z[0] = 1;
+    for(it = 1; it <= maxiter; it++){
+        //cout << error << endl;
+        q_old = q0;
+        if(HW06_E == 1 || HW06_E == 2 || it == 1){
+            Aq = A * q0;
+        }
+        if(HW06_E == 4){
+            ATq = A_T * q0;
+            wq = (ATq / error_2_norm(ATq)) * q0;
+        }
+        //Q.Start();
+        cg(A_shift, q0, z, 100000, 1e-10);
+        //Q.End("","");
+        q0 = z / error_2_norm(z);
+        lambda = q0 * (A * q0);
+        switch(HW06_E){
+            case 1:
+                error = fabs(lambda - lambda_old);
+                break;
+            case 2:
+                error = error_2_norm(q_old - q0);
+                break;
+            case 3:
+                Aq = A * q0;
+                r = Aq - (lambda * q0);
+                error = error_2_norm(r);
+                break;
+            case 4:
+                Aq = A * q0;
+                r = Aq - (lambda * q0);
+                error = error_2_norm(r) / fabs(wq);
+        }
+        lambda_old = lambda;
+        if(error < tol){
+            //printf("%g\n", error);
+            return it;
+        }
+    }
+    return it;
+}
 
 
 

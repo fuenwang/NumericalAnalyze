@@ -72,10 +72,12 @@ double Solve(int node_one_side, double resistor){
     VEC q0(B.dim());
     //q0 = sqrt(1.0 / q0.dim());
     q0[0] = 1;
-    //cout << EVpwr(A, q0, lambda, 1e-9, 10000000) << endl;
     Performance P;
     P.Start();
+
+    //cout << EVpwr(A, q0, lambda, 1e-9, 4000) << endl;
     cout << EViPwr(A, q0, lambda, 1e-9, 10000000) << endl;
+    //cout << EViPwrShft(A, q0, lambda, 5e-5, 1e-9, 10000000) << endl;
     cout << lambda << endl;
     P.End("Runtime: ", " s");
     return 0;
