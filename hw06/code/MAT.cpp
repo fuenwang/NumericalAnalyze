@@ -700,8 +700,8 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
             ATq = A_T * q0;
             wq = (ATq / error_2_norm(ATq)) * q0;
         }
-        lambda = q0 * Aq;
         q0 = Aq / error_2_norm(Aq);
+        lambda = q0 * (A * q0);
         switch(HW06_E){
             case 1:
                 error = fabs(lambda - lambda_old);
@@ -720,13 +720,68 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
                 error = error_2_norm(r) / fabs(wq);
         }
         lambda_old = lambda;
-        if(error < tol)
+        if(error < tol){
+            printf("%g\n", error);
             return it;
+        }
     }
     return it;
 }
 
+int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
+    int it;
+    double error;
+    double lambda_old = lambda;
+    MAT A_T(A.T());
+    VEC Aq(q0.dim());
+    VEC ATq(q0.dim());
+    VEC r(q0.dim());
+    VEC q_old(q0.dim());
+    VEC z(q0.dim());
+    //Performance Q;
+    double wq;
+    for(it = 1; it <= maxiter; it++){
+        cout << error << endl;
+        z = 1;
+        q_old = q0;
+        if(HW06_E == 1 || HW06_E == 2 || it == 1){
+            Aq = A * q0;
+        }
+        if(HW06_E == 4){
+            ATq = A_T * q0;
+            wq = (ATq / error_2_norm(ATq)) * q0;
+        }
+        //Q.Start();
+        cg(A, q0, z, 100000, 1e-7);
+        //Q.End("","");
+        q0 = z / error_2_norm(z);
+        lambda = q0 * (A * q0);
+        switch(HW06_E){
+            case 1:
+                error = fabs(lambda - lambda_old);
+                break;
+            case 2:
+                error = error_2_norm(q_old - q0);
+                break;
+            case 3:
+                Aq = A * q0;
+                r = Aq - (lambda * q0);
+                error = error_2_norm(r);
+                break;
+            case 4:
+                Aq = A * q0;
+                r = Aq - (lambda * q0);
+                error = error_2_norm(r) / fabs(wq);
+        }
+        lambda_old = lambda;
+        if(error < tol){
+            printf("%g\n", error);
+            return it;
+        }
+    }
+    return it;
 
+}
 
 
 
