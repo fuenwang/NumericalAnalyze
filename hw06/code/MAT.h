@@ -33,19 +33,6 @@ class Performance{ // To help me get cpu time of algorithm
         double End(const char right[], const char left[]);
 };
 
-class Json{ // To help me dump experiment data
-    private:
-        int first;
-        int ignore;
-        ofstream f;
-    public:
-        Json(const char f_name[], int flag = 1);
-        void Write(int data);
-        void Write(float data, int mode = 0);
-        void Write(double data, int mode = 0);
-        void Write(const char data[]);
-        void Close();
-};
 
 class MAT{
     private:
@@ -63,8 +50,8 @@ class MAT{
         ~MAT();
         void Reset(double **val, int m, int n);
         void print() const; // Show matrix value
-        int GetM(); // Get m
-        int GetN(); // Get n
+        int GetM() const; // Get m
+        int GetN() const; // Get n
         MAT T(); // transpose matrix
         
         void operator=(double num); // Assign value
@@ -100,7 +87,20 @@ class MAT{
         //friend VEC bckSubs(MAT &m1, VEC b);
 
 };
-
+class Json{ // To help me dump experiment data
+    private:
+        int first;
+        int ignore;
+        ofstream f;
+    public:
+        Json(const char f_name[], int flag = 1);
+        void Write(int data);
+        void Write(float data, int mode = 0);
+        void Write(double data, int mode = 0);
+        void Write(const char data[]);
+        void Write(const MAT &m);
+        void Close();
+};
 MAT operator+(double num, const MAT &data);
 MAT operator-(double num, const MAT &data);
 MAT operator*(double num, const MAT &data);

@@ -93,6 +93,33 @@ void Json::Write(const char data[]){
     this->f << s;
 }
 
+void Json::Write(const MAT &m){
+    if(this->ignore)
+        return;
+    int M = m.GetM();
+    int N = m.GetN();
+    this->f << "[";
+    char s[100];
+    for(int i=0; i<M; i++){
+        this->f << "[";
+        for(int j=0; j<N; j++){
+            if( j != N-1) {
+                sprintf(s, "%lf,", m[i][j]);
+                this->f << s;
+            }
+            else{
+                sprintf(s, "%lf", m[i][j]);
+                this->f << s;
+            }
+        }
+        if(i != M-1)
+            this->f << "],";
+        else
+            this->f << "]";
+    }
+    this->f << "]";
+}
+
 void Json::Close(){
     if(this->ignore)
         return;
@@ -395,10 +422,10 @@ MAT operator/(double num, const MAT &data){
     return out;
 }
 
-int MAT::GetM(){
+int MAT::GetM() const{
     return this->m;
 }
-int MAT::GetN(){
+int MAT::GetN() const{
     return this->n;
 }
 

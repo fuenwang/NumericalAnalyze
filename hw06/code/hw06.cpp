@@ -68,6 +68,9 @@ double Solve(int node_one_side, double resistor){
     A[Ground_point][Ground_point] = alpha;
     
     //A.print();
+    Json t("raw_record/A.json", 0);
+    t.Write(A);
+    t.Close();
     double lambda = 0;
     VEC q0(B.dim());
     //q0 = sqrt(1.0 / q0.dim());
