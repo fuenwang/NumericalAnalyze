@@ -62,7 +62,7 @@ double Solve(int node_one_side, double resistor){
     double alpha = 0.003;
     A[Vin_point] = 0;
     A[Vin_point][Vin_point] = alpha;
-    B[Vin_point] = 1;
+    B[Vin_point] = alpha;
 
     A[Ground_point] = 0;
     A[Ground_point][Ground_point] = alpha;
