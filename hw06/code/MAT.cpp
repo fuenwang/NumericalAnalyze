@@ -104,11 +104,11 @@ void Json::Write(const MAT &m){
         this->f << "[";
         for(int j=0; j<N; j++){
             if( j != N-1) {
-                sprintf(s, "%lf,", m[i][j]);
+                sprintf(s, "%.10lf,", m[i][j]);
                 this->f << s;
             }
             else{
-                sprintf(s, "%lf", m[i][j]);
+                sprintf(s, "%.10lf", m[i][j]);
                 this->f << s;
             }
         }
@@ -117,7 +117,24 @@ void Json::Write(const MAT &m){
         else
             this->f << "]";
     }
-    this->f << "]";
+    //this->f << "]";
+}
+
+void Json::Write(const VEC &v){
+    if(this->ignore)
+        return;
+    int N = v.dim();
+    char s[100];
+    this->f << "[";
+    for(int i=0; i<N; i++){
+        if(i != N-1){
+            sprintf(s, "%.10lf,", v[i]);
+        }
+        else{
+            sprintf(s, "%.10lf", v[i]);
+        }
+        this->f << s;
+    }
 }
 
 void Json::Close(){

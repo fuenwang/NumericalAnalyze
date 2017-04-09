@@ -99,6 +99,7 @@ class Json{ // To help me dump experiment data
         void Write(double data, int mode = 0);
         void Write(const char data[]);
         void Write(const MAT &m);
+        void Write(const VEC &v);
         void Close();
 };
 MAT operator+(double num, const MAT &data);
