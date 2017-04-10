@@ -84,9 +84,9 @@ double Solve(int node_one_side, double resistor){
     Performance P;
     P.Start();
 
-    //cout << EVpwr(A, q0, lambda, 1e-9, 4000) << endl;
+    cout << EVpwr(A, q0, lambda, 1e-9, 4000) << endl;
     //cout << EViPwr(A, q0, lambda, 1e-9, 4000) << endl;
-    cout << EViPwrShft(A, q0, lambda, 5e-5, 1e-9, 10000000) << endl;
+    //cout << EViPwrShft(A, q0, lambda, 5e-5, 1e-9, 10000000) << endl;
     printf("%.15lf\n", lambda);
     P.End("Runtime: ", " s");
     return 0;

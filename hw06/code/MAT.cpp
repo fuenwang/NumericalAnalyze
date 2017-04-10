@@ -735,7 +735,7 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     VEC r(q0.dim());
     VEC q_old(q0.dim());
     double wq;
-    //Json D("raw_record/error_e4.json", 0);
+    Json D("raw_record/error_e4.json", 0);
     for(it = 1; it <= maxiter; it++){
         q_old = q0;
         q0 = Aq / error_2_norm(Aq);
@@ -758,16 +758,18 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r) / fabs(wq);
         }
-        //D.Write(error);
+        D.Write(error);
         lambda_old = lambda;
         //cout << lambda << endl; 
+        /*
         if(error < tol){
             //printf("%g\n", error);
             return it;
         }
+        */
         
     }
-    //D.Close();
+    D.Close();
     return it;
 }
 
