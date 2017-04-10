@@ -77,17 +77,17 @@ double Solve(int node_one_side, double resistor){
     j.Close();
     exit(0);
     */
-    double lambda = 0;
+    double lambda = 1;
     VEC q0(B.dim());
-    //q0 = sqrt(1.0 / q0.dim());
-    q0 = 1;
+    q0 = sqrt(1.0 / q0.dim());
+    //q0[0] = 1;
     Performance P;
     P.Start();
 
-    cout << EVpwr(A, q0, lambda, 1e-9, 4000) << endl;
-    //cout << EViPwr(A, q0, lambda, 1e-9, 10000000) << endl;
-    //cout << EViPwrShft(A, q0, lambda, 5e-5, 1e-9, 10000000) << endl;
-    cout << lambda << endl;
+    //cout << EVpwr(A, q0, lambda, 1e-9, 4000) << endl;
+    //cout << EViPwr(A, q0, lambda, 1e-9, 4000) << endl;
+    cout << EViPwrShft(A, q0, lambda, 5e-5, 1e-9, 10000000) << endl;
+    printf("%.15lf\n", lambda);
     P.End("Runtime: ", " s");
     return 0;
 }

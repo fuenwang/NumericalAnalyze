@@ -730,7 +730,7 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     double error;
     double lambda_old = lambda;
     MAT A_T(A.T());
-    VEC Aq(q0.dim());
+    VEC Aq(A * q0);
     VEC ATq(q0.dim());
     VEC r(q0.dim());
     VEC q_old(q0.dim());
@@ -738,15 +738,9 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     //Json D("raw_record/error_e4.json", 0);
     for(it = 1; it <= maxiter; it++){
         q_old = q0;
-        if(HW06_E == 1 || HW06_E == 2 || it == 1){
-            Aq = A * q0;
-        }
-        if(HW06_E == 4){
-            ATq = A_T * q0;
-            wq = (ATq / error_2_norm(ATq)) * q0;
-        }
         q0 = Aq / error_2_norm(Aq);
-        lambda = q0 * (A * q0);
+        Aq = A * q0;
+        lambda = q0 * Aq;
         switch(HW06_E){
             case 1:
                 error = fabs(lambda - lambda_old);
@@ -755,20 +749,20 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
                 error = error_2_norm(q_old - q0);
                 break;
             case 3:
-                Aq = A * q0;
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r);
                 break;
             case 4:
-                Aq = A * q0;
+                ATq = (A_T * q0);
+                wq = (ATq / error_2_norm(ATq)) * q0;
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r) / fabs(wq);
         }
         //D.Write(error);
         lambda_old = lambda;
-        
+        //cout << lambda << endl; 
         if(error < tol){
-            printf("%g\n", error);
+            //printf("%g\n", error);
             return it;
         }
         
@@ -781,31 +775,26 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     int it;
     double error;
     double lambda_old = lambda;
+    MAT A_lu(A);
     MAT A_T(A.T());
     VEC Aq(q0.dim());
     VEC ATq(q0.dim());
     VEC r(q0.dim());
     VEC q_old(q0.dim());
     VEC z(q0.dim());
+    VEC buf(q0.dim());
     //Performance Q;
     double wq;
     z = 0;
     z[0] = 1;
+    luFact(A_lu);
     for(it = 1; it <= maxiter; it++){
-        //cout << error << endl;
         q_old = q0;
-        if(HW06_E == 1 || HW06_E == 2 || it == 1){
-            Aq = A * q0;
-        }
-        if(HW06_E == 4){
-            ATq = A_T * q0;
-            wq = (ATq / error_2_norm(ATq)) * q0;
-        }
-        //Q.Start();
-        cg(A, q0, z, 100000, 1e-10);
-        //Q.End("","");
+        buf = fwdSubs(A_lu, q0);
+        z = bckSubs(A_lu, buf);
         q0 = z / error_2_norm(z);
-        lambda = q0 * (A * q0);
+        Aq = A * q0;
+        lambda = q0 * Aq;
         switch(HW06_E){
             case 1:
                 error = fabs(lambda - lambda_old);
@@ -814,16 +803,17 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
                 error = error_2_norm(q_old - q0);
                 break;
             case 3:
-                Aq = A * q0;
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r);
                 break;
             case 4:
-                Aq = A * q0;
+                ATq = (A_T * q0);
+                wq = (ATq / error_2_norm(ATq)) * q0;
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r) / fabs(wq);
         }
         lambda_old = lambda;
+        //cout << lambda << endl;
         if(error < tol){
             //printf("%g\n", error);
             return it;
@@ -847,25 +837,20 @@ int EViPwrShft(MAT &A, VEC &q0, double &lambda, double mu, double tol, int maxit
     VEC r(q0.dim());
     VEC q_old(q0.dim());
     VEC z(q0.dim());
+    VEC buf(q0.dim());
     //Performance Q;
     double wq;
     z = 0;
     z[0] = 1;
+    luFact(A_shift);
     for(it = 1; it <= maxiter; it++){
         //cout << error << endl;
         q_old = q0;
-        if(HW06_E == 1 || HW06_E == 2 || it == 1){
-            Aq = A * q0;
-        }
-        if(HW06_E == 4){
-            ATq = A_T * q0;
-            wq = (ATq / error_2_norm(ATq)) * q0;
-        }
-        //Q.Start();
-        cg(A_shift, q0, z, 100000, 1e-10);
-        //Q.End("","");
+        buf = fwdSubs(A_shift, q0);
+        z = bckSubs(A_shift, buf);
         q0 = z / error_2_norm(z);
-        lambda = q0 * (A * q0);
+        Aq = A * q0;
+        lambda = q0 * Aq;
         switch(HW06_E){
             case 1:
                 error = fabs(lambda - lambda_old);
@@ -874,15 +859,16 @@ int EViPwrShft(MAT &A, VEC &q0, double &lambda, double mu, double tol, int maxit
                 error = error_2_norm(q_old - q0);
                 break;
             case 3:
-                Aq = A * q0;
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r);
                 break;
             case 4:
-                Aq = A * q0;
+                ATq = (A_T * q0);
+                wq = (ATq / error_2_norm(ATq)) * q0;
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r) / fabs(wq);
         }
+
         lambda_old = lambda;
         if(error < tol){
             //printf("%g\n", error);
