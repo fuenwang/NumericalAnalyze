@@ -20,8 +20,8 @@ int main(int argc, char* argv[]){
     //if(argc != 2){
     //    printf("Please enter the resistor number one side\n");
     //}
-    //int num_res = atoi(argv[1]);
-    int num_res = 20;
+    int num_res = atoi(argv[1]);
+    //int num_res = 50;
     int node_num_one_side = num_res + 1;
     double res = 2000.0 / num_res;
     Solve(node_num_one_side, res);
@@ -78,17 +78,44 @@ double Solve(int node_one_side, double resistor){
     exit(0);
     */
     double lambda = 1;
+    double lambda_1 = 1;
+    double lambda_n = 1;
     VEC q0(B.dim());
-    q0 = sqrt(1.0 / q0.dim());
     //q0[0] = 1;
     Performance P;
-    P.Start();
+    
+    int it1, it2, it3;
+    cout << "N is "  << A.GetN() << endl;
 
-    cout << EVpwr(A, q0, lambda, 1e-9, 4000) << endl;
-    //cout << EViPwr(A, q0, lambda, 1e-9, 4000) << endl;
-    //cout << EViPwrShft(A, q0, lambda, 5e-5, 1e-9, 10000000) << endl;
-    printf("%.15lf\n", lambda);
-    P.End("Runtime: ", " s");
+    lambda_1 = 1;
+    q0 = sqrt(1.0 / q0.dim());
+    P.Start();
+    it1 = EVpwr(A, q0, lambda_1, 1e-9, 4000);
+    printf("it1 = %d\n", it1);
+    printf("lambda1 = %g\n", lambda_1);
+    P.End("Runtime(1): "," s");
+    cout << endl;
+    lambda_n = 1;
+    q0 = sqrt(1.0 / q0.dim());
+    P.Start();
+    it2 = EViPwr(A, q0, lambda_n, 1e-9, 4000);
+    printf("it2 = %d\n", it2);
+    printf("lambda2 = %g\n", lambda_n);
+
+    P.End("Runtime(2): "," s");
+    
+    cout << endl;
+    
+    lambda = 1;
+    q0 = sqrt(1.0 / q0.dim());
+    P.Start();
+    it3 = EViPwrShft(A, q0, lambda, 5e-5, 1e-9, 4000);
+    printf("it3 = %d\n", it3);
+    printf("lambda3 = %g\n", lambda);
+
+    P.End("Runtime(3): "," s");
+    
+    printf("\nCondition number is %g\n", lambda_1 / lambda_n);
     return 0;
 }
 

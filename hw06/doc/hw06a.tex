@@ -200,7 +200,7 @@ We will implement three Power Method algorithm to find eigenvalue.
 \subsection{Condition Numbers}
 Condition Numbers is defined as
 $$
-    k = \frac{\lambda_1}{\lambda_2}
+    k = \frac{\lambda_1}{\lambda_n}
 $$
 We need to find the condition numbers of the following resistor network.
 \begin{enumerate}
@@ -213,13 +213,16 @@ We need to find the condition numbers of the following resistor network.
 \end{enumerate}
 \newpage
 
-\section{Algorithm}
+\section{Implementation}
 \begin{algorithm}[H]
     \caption{\textbf{Power Method}}
     \begin{algorithmic}
         \For{each k $\in$ \{1, ..., maxIter\}}
             \State $q^{(k+1)} = \frac{Aq^k}{\norm{Aq^k}_2}$
             \State $V^{(k+1)} = (q^k)^TAq^k$
+            \If{$error < tol$}
+                \State break
+            \EndIf
         \EndFor
     \end{algorithmic}
 \end{algorithm}
@@ -229,10 +232,147 @@ We need to find the condition numbers of the following resistor network.
         \For{each k $\in$ \{1, ..., maxIter\}}
             \State $Az^k = q^{(k-1)}$
             \State $q^k = \frac{z^k}{\norm{z^k}_2}$
-
+            \State $V^k = (q^k)^TAq^k$
+            \If{$error < tol$}
+                \State break
+            \EndIf
         \EndFor
     \end{algorithmic}
 \end{algorithm}
+\begin{algorithm}[H]
+    \caption{\textbf{Inverse Power Method with Shift}}
+    \begin{algorithmic}
+        \For{each k $\in$ \{1, ..., maxIter\}}
+            \State $(A - {\omega}I)z^k = q^{(k-1)}$
+            \State $q^k = \frac{z^k}{\norm{z^k}_2}$
+            \State $V^k = (q^k)^TAq^k$
+            \If{$error < tol$}
+                \State break
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+\subsection{Complexity}
+\label{sec:complexity}
+For each iteration of the three Power Method, the most time-consuming part is Matrix x Vector, which is a {\boldmath$O(n^2)$} problem. 
+However, because I use LU Decomposition for Inverse Power Method and Inverse Power Method with Shift, so their overall runtime should be 
+influenced by {\boldmath$O(n^3)$}.
+
+
+\section{Discussion of Termination Condition}
+\label{sec:part1}
+In this section, we will discuss which termination condition is the best. Table \ref{tab:termination condition} shows average iteration
+time of a 20 x 20 resostor network.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+                & $\epsilon_1$ & $\epsilon_2$ & $\epsilon_3$ & $\epsilon_4$ \\ \hline
+            \# of iter & 299 & 795 & 683 & 683 \\ \hline
+            $\lambda$ & 0.0795492 & 0.0795492 & 0.0795492 & 0.0795492 \\ \hline
+            Runtime & 0.073175 & 0.163965 & 0.149694 & 0.303234 \\ \hline
+            iter\_avg & 2.45E-04 & 2.06E-04 & 2.19E-04 & 4.44E-04 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Average iteration time of 20 x 20 resistor network}
+    \label{tab:termination condition}
+\end{table}
+In Table \ref{tab:termination condition}, $\epsilon_4$ has the largest iter\_avg, while $\epsilon_2$ has the smallest. For more detailed
+observation, I plot the error vs iter as shown in Figure \ref{fig:termination condition}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/error_1234.pdf}
+    \caption{Error vs iter of 20 x 20 resistor network}
+    \label{fig:termination condition}
+\end{figure}
+In Figure \ref{fig:termination condition}, $\epsilon_3$ and $\epsilon_4$ almost overlap together and we can find that $\epsilon_1$ has the smallest 
+number of iteration to converge. In addition, because the purpose of Power Method is to find the eigenvalue, so I think we just need to check 
+the convergence of lambda. As a result, I think \textbf{{\boldmath$\epsilon_1$} is the best}.
+
+\section{Discussion of Power Method}
+In this section, we will determine the condition number of several resistor network and discuss the complexity of the three Power Method. 
+Table \ref{tab:pwr}, \ref{tab:ipwr} and \ref{tab:ipwrsht} show the detailed result of experiment with different resistor number.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            resistor num & 2 & 4 & 10 & 20 & 40 & 50 \\ \hline
+            N & 9 & 25 & 121 & 441 & 1681 & 2601 \\ \hline
+            \# of iter & 27 & 21 & 91 & 299 & 984 & 1439 \\ \hline
+            runtime(s) & 3.70E-05 & 7.10E-05 & 1.68E-03 & 7.04E-02 & 2.98E+00 & 1.04E+01 \\ \hline
+            iter\_avg(s) & 1.37E-06 & 3.38E-06 & 1.84E-05 & 2.36E-04 & 3.03E-03 & 7.22E-03 \\ \hline
+            $\lambda$ & 0.00523607 & 0.0142445 & 0.0391638 & 0.0795492 & 0.159765 & 0.19981 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Result of Power Method}
+    \label{tab:pwr}
+\end{table}
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            resistor num & 2 & 4 & 10 & 20 & 40 & 50 \\ \hline
+            N & 9 & 25 & 121 & 441 & 1681 & 2601 \\ \hline
+            \# of iter & 11 & 8 & 5 & 4 & 4 & 3 \\ \hline
+            runtime(s) & 2.40E-05 & 0.000153 & 0.004976 & 0.211479 & 12.4805 & 42.3624 \\ \hline
+            iter\_avg(s) & 1.82E-06 & 6.00E-06 & 1.15E-04 & 1.46E-03 & 2.14E-02 & 5.91E-02 \\ \hline
+            $\lambda$ & 0.000763932 & 0.000390179 & 0.000129496 & 5.42E-05 & 2.28E-05 & 1.73E-05 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Result of Inverse Power Method}
+    \label{tab:ipwr}
+\end{table}
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            resistor num & 2 & 4 & 10 & 20 & 40 & 50 \\ \hline
+            N & 9 & 25 & 121 & 441 & 1681 & 2601 \\ \hline
+            \# of iter & 11 & 7 & 5 & 3 & 4 & 4 \\ \hline
+            runtime(s) & 3.80E-05 & 1.59E-04 & 5.19E-03 & 2.17E-01 & 1.23E+01 & 4.31E+01 \\ \hline
+            iter\_avg(s) & 2.00E-06 & 5.71E-06 & 1.15E-04 & 1.53E-03 & 2.54E-02 & 5.65E-02 \\ \hline
+            $\lambda$ & 0.000763932 & 0.000390179 & 0.000129496 & 5.42E-05 & 2.28E-05 & 1.73E-05 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Result of Inverse Power Method with Shift(mu = 5E-05)}
+    \label{tab:ipwrsht}
+\end{table}
+Because Condition Number is $\frac{\lambda_1}{\lambda_n}$, so we can get Condition Number of the 6 resistor networks from the tables above,
+as shown in Table \ref{tab:condition number}.
+\begin{table}[htbp]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            resistor num & 2 & 4 & 10 & 20 & 40 & 50 \\ \hline
+            N & 9 & 25 & 121 & 441 & 1681 & 2601 \\ \hline
+            condition num & 6.8541 & 36.5077 & 302.432 & 1467.21 & 7016.84 & 11574.3 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Condition Number of the 6 resistor networks}
+    \label{tab:condition number}
+\end{table}
+
+\subsection{Complexity}
+From Table \ref{tab:pwr}, \ref{tab:ipwr} and \ref{tab:ipwrsht}, we can plot \textbf{iter\_avg vs N} and \textbf{overall runtime vs N} as shown in 
+Figure \ref{fig:iter_avg vs N} and \ref{fig:runtime vs N}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/iter_avg.pdf}
+    \caption{iter\_avg vs N}
+    \label{fig:iter_avg vs N}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/runtime.pdf}
+    \caption{runtime vs N}
+    \label{fig:runtime vs N}
+\end{figure}
+In Figure \ref{fig:iter_avg vs N} and \ref{fig:runtime vs N}, EViPwr and EViPwrShft almost overlap together because they have almost same speed.
+From Figure \ref{fig:iter_avg vs N}, we can find that the slope of each iteration of the three Power Method is same as $N^2$, which means
+each iteration is a $O(n^2)$ problem. From Figure \ref{fig:runtime vs N}, we can find that the slope of runtime of Inverse Power Method and
+Inverse Power Method with Shift is almost same as $N^3$, this is because the overall runtime will be affected by \textbf{LU Decomposition}, 
+which is $O(n^3)$ problem. For EVpwr, it seems that EVpwr also have $N^3$ slope, but I think this will vary from our initial guess. If
+we have a initial guess close to answer then the iteration number will drop and change the slope.
 
 \end{document}
 

@@ -735,7 +735,7 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     VEC r(q0.dim());
     VEC q_old(q0.dim());
     double wq;
-    Json D("raw_record/error_e4.json", 0);
+    //Json D("raw_record/error_e4.json", 0);
     for(it = 1; it <= maxiter; it++){
         q_old = q0;
         q0 = Aq / error_2_norm(Aq);
@@ -758,18 +758,18 @@ int EVpwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
                 r = Aq - (lambda * q0);
                 error = error_2_norm(r) / fabs(wq);
         }
-        D.Write(error);
+        //D.Write(error);
         lambda_old = lambda;
         //cout << lambda << endl; 
-        /*
+        
         if(error < tol){
             //printf("%g\n", error);
             return it;
         }
-        */
+        
         
     }
-    D.Close();
+    //D.Close();
     return it;
 }
 
@@ -790,6 +790,7 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
     z = 0;
     z[0] = 1;
     luFact(A_lu);
+    //Q.Start();
     for(it = 1; it <= maxiter; it++){
         q_old = q0;
         buf = fwdSubs(A_lu, q0);
@@ -818,6 +819,7 @@ int EViPwr(MAT &A, VEC &q0, double &lambda, double tol, int maxiter){
         //cout << lambda << endl;
         if(error < tol){
             //printf("%g\n", error);
+            //Q.End("iPwr: ", " s");
             return it;
         }
     }
@@ -845,6 +847,7 @@ int EViPwrShft(MAT &A, VEC &q0, double &lambda, double mu, double tol, int maxit
     z = 0;
     z[0] = 1;
     luFact(A_shift);
+    //Q.Start();
     for(it = 1; it <= maxiter; it++){
         //cout << error << endl;
         q_old = q0;
@@ -874,6 +877,7 @@ int EViPwrShft(MAT &A, VEC &q0, double &lambda, double mu, double tol, int maxit
         lambda_old = lambda;
         if(error < tol){
             //printf("%g\n", error);
+            //Q.End("iPwrSht: ", " s");
             return it;
         }
     }

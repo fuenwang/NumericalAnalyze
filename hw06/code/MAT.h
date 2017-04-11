@@ -14,7 +14,7 @@
 #include <sys/time.h>
 #include "VEC.h"
 
-#define HW06_E 4
+#define HW06_E 1
 
 using namespace std;
 //extern int p1,p2,p3;
