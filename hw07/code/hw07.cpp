@@ -10,19 +10,28 @@ int main(){
             scanf("%lf", &A[i][j]);
         }
     }
-    MAT Q(dim), R(dim);
-    QRFact(A, Q, R);
-    //Q.print();
-    //R.print();
-    //A.print();
-    //(Q*R).print();
+    int it;
     VEC eig(dim);
-    cout << EVqrShifted(A, 0.5, 1e-9, 10000) << endl;;
+    VEC largest(3);
+    VEC smallest(3);
+    it = EVqrShifted(A, 0.5, 1e-9, 10000);
     for(int i=0; i< dim; i++)
         eig[i] = A[i][i];
     eig.sort();
-    eig.print();
-    //A.print();
-    printf("Dim: %d\n", dim);
+
+    smallest[0]  = eig[0];
+    smallest[1]  = eig[1];
+    smallest[2]  = eig[2];
+    largest[0] = eig[dim-3];
+    largest[1] = eig[dim-2];
+    largest[2] = eig[dim-1];
+
+    printf("N: %d\n", dim);
+    printf("# of iteration: %d\n", it);
+    printf("Largest eigenvalue: ");
+    largest.print();
+    printf("Smallest eigenvalue: ");
+    smallest.print();
+
     return 0;
 }
