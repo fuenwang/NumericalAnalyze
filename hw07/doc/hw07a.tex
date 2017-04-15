@@ -176,6 +176,85 @@
 \maketitle
 \newpage
 
+\section{Introduction}
+In previous homework, we had already use power method and inverse power method to find the largest and smallest eigenvalue.
+However, both of them cannot be used to find all the eigenvalue of a matrix $A$; therefore, it this project, we will use
+\textbf{QR Method} to find all the eigenvalues.
+
+\subsection{API}
+In \textbf{MAT.h} and \textbf{MAT.cpp}, I implement the following functions:
+\begin{enumerate}
+    \item \textbf{void QRFact(const MAT \&A, MAT \&Q, MAT \&R);}
+    \item \textbf{int EVqr(MAT \&A, double tol, int maxiter);}
+    \item \textbf{int EVqrShifted(MAT \&A, double mu, double tol, int maxiter);}
+\end{enumerate}
+\textbf{QRFact} will apply \textbf{QR Decomposition} to A and store them into Q and R. \textbf{EVqr} and \textbf{EVqrShifted}
+is the implementation of \textbf{QR Iteration} and \textbf{Shifted QR Iteration}. In this assignment, \textbf{tol} should be set to
+$10^{-9}$ and \textbf{mu} should be 0.5. We have to find the three largest and the three smallest eigenvalues of 
+\textbf{m3.dat}, \textbf{m4.dat}, \textbf{m5.dat}, \textbf{m6.dat}, \textbf{m7.dat}, \textbf{m8.dat}.
+
+\subsection{Error Calculation}
+According to \textbf{Gram-Schmidt Process}, we should get a final matrix with 0 in the non-diagonal from \textbf{QR Iteration}.
+Therefore, it makes sense that we can check whether all non-diagonal elements are zero or not. However, for saving execution
+time, we simply this checking to the following fomula:
+$$
+    error = \max_{2 \leq i \leq n}{\abs{a_{i,i-1}}}
+$$
+For each iteration, we only check the one-line elements below diagonal, which will be faster a lot than checking all
+non-diagonal elements.
+
+\section{Implementation}
+\begin{algorithm}[H]
+    \caption{\textbf{QR Decomposition}}
+    \begin{algorithmic}
+        \State $A = \{a_1, a_2, ..., a_n\}, a_i$ is column vector,
+        \State $r_{11} = \sqrt{(a_1)^Ta_1}$
+        \State $q_1 = \frac{a_1}{r_{11}}$
+        \For{each j $\in$ \{2, ..., n\}}
+            \State $q_j = a_j$
+            \For{each i $\in$ \{1, ..., j-1\}}
+                \State $r_{ij} = (q_i)^Tq_j$
+                \State $q_j -= r_{ij}q_i$
+            \EndFor
+            \State $r_{jj} = \sqrt{(q_j)^Tq_j}$
+            \State $q_j = \sqrt{sum((q_j)^2)}$
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+    \caption{\textbf{QR Iteration}}
+    \begin{algorithmic}
+        \State $T^{(0)} = A$
+        \For{each k $\in$ \{1, ..., maxIter\}}
+            \State $T^k = Q^kR^k$
+            \State $T^{k+1} = R^kQ^k$
+            \If{error $<$ tol}
+                \State break
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+    \caption{\textbf{Shifted QR Iteration}}
+    \begin{algorithmic}
+        \State $T^{(0)} = A$
+        \For{each k $\in$ \{1, ..., maxIter\}}
+            \State $T^k - {\mu}I = Q^kR^k$
+            \State $T^{k+1} = R^kQ^k + {\mu}I$
+            \If{error $<$ tol}
+                \State break
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+\subsection{Complexity}
+\label{sec:complexity}
+For \textbf{QR Decomposition}, the double for-loop do $\frac{n(n+1)}{2}$ times of operation, and $(q_i)^Tq_j$ in each
+operation make \textbf{QR Decomposition} be a {\boldmath$O(n^3)$} problem. \newline
+For each iteration of \textbf{QR Iteration}, there are \textbf{QR Decomposition} and \textbf{mat {\boldmath$\times$} mat}. 
+So it is also {\boldmath$O(n^3)$} problem.
+
+
 \end{document}
 
 
