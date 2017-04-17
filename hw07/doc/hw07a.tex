@@ -254,6 +254,57 @@ operation make \textbf{QR Decomposition} be a {\boldmath$O(n^3)$} problem. \newl
 For each iteration of \textbf{QR Iteration}, there are \textbf{QR Decomposition} and \textbf{mat {\boldmath$\times$} mat}. 
 So it is also {\boldmath$O(n^3)$} problem.
 
+\section{Discussion}
+In the section, we will discuss the following topics:
+\begin{enumerate}
+    \item Eigenvalues of m3, ..., m15.dat
+    \item Runtime of EVqr
+    \item Runtime of EVqrShifted
+\end{enumerate}
+
+\subsection{Eigenvalues}
+Table \ref{tab:eigen evqr} and \ref{tab:eigen evqrshifted} show eigenvalue calculated by \textbf{EVqr} and \textbf{EVqrShifted}, respectively.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+            \hline
+            EVqr & N & E\_large\_1 & E\_large\_2 & E\_large\_3 & E\_small\_1 & E\_small\_2 & E\_small\_3 \\ \hline
+            m3 & 3 & 0.627719 & 2 & 6.372281 & 0.627719 & 2 & 6.372281 \\ \hline
+            m4 & 10 & 4.455992 & 20.431729 & 67.840399 & 0.512543 & 0.55164 & 0.629808 \\ \hline
+            m5 & 20 & 17.235222 & 81.223819 & 270.495189 & 0.503097 & 0.512479 & 0.528819 \\ \hline
+            m6 & 30 & 38.53868 & 182.544889 & 608.253606 & 0.501373 & 0.505511 & 0.512543 \\ \hline
+            m7 & 40 & 68.364136 & 324.394506 & 1081.115447 & 0.500772 & 0.503093 & 0.507004 \\ \hline
+            m8 & 50 & 106.711318 & 506.772618 & 1689.080688 & 0.500494 & 0.501978 & 0.504468 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Eigenvalue of EVqr}
+    \label{tab:eigen evqr}
+\end{table}
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+            \hline
+            EVqrShifted & N & E\_large\_1 & E\_large\_2 & E\_large\_3 & E\_small\_1 & E\_small\_2 & E\_small\_3 \\ \hline
+            m3 & 3 & 0.627719 & 2 & 6.372281 & 0.627719 & 2 & 6.372281 \\ \hline
+            m4 & 10 & 4.455992 & 20.431729 & 67.840399 & 0.512543 & 0.55164 & 0.629808 \\ \hline
+            m5 & 20 & 17.235222 & 81.223819 & 270.495189 & 0.503097 & 0.512479 & 0.528819 \\ \hline
+            m6 & 30 & 38.53868 & 182.544889 & 608.253606 & 0.501373 & 0.505511 & 0.512543 \\ \hline
+            m7 & 40 & 68.364136 & 324.394506 & 1081.115447 & 0.500772 & 0.503093 & 0.507004 \\ \hline
+            m8 & 50 & 106.711318 & 506.772618 & 1689.080688 & 0.500494 & 0.501978 & 0.504468 \\ \hline
+            m9 & 60 & 153.580161 & 729.679212 & 2432.149321 & 0.500343 & 0.501373 & 0.503097 \\ \hline
+            m10 & 70 & 208.970642 & 993.114283 & 3310.321344 & 0.500252 & 0.501008 & 0.502273 \\ \hline
+            m11 & 80 & 272.882751 & 1297.07783 & 4323.596758 & 0.500193 & 0.500772 & 0.501739 \\ \hline
+            m12 & 90 & 345.316483 & 1641.569852 & 5471.97556 & 0.500152 & 0.50061 & 0.501373 \\ \hline
+            m13 & 100 & 426.271836 & 2026.590348 & 6755.457752 & 0.500123 & 0.500494 & 0.501112 \\ \hline
+            m14 & 120 & 613.747401 & 2918.216761 & 9727.732302 & 0.500086 & 0.500343 & 0.500772 \\ \hline
+            m15 & 150 & 958.872886 & 4559.619934 & 15199.419543 & 0.500055 & 0.500219 & 0.500494 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Eigenvalue of EVqrShifted}
+    \label{tab:eigen evqrshifted}
+\end{table}
+
+
 
 \end{document}
 

@@ -909,7 +909,9 @@ int EVqr(MAT &A, double tol, int maxiter){
     MAT R(n);
     double mx;
     double tmp;
+    Performance P;
     //QRFact(A, Q, R);
+    P.Start();
     for(it = 1; it <= maxiter; it++){
         QRFact(A, Q, R);
         A = R * Q;
@@ -920,6 +922,7 @@ int EVqr(MAT &A, double tol, int maxiter){
                 mx = tmp;
         }
         if(mx < tol){
+            P.End("Time: ", " s");
             return it;
         }
     }
@@ -936,6 +939,8 @@ int EVqrShifted(MAT &A, double mu, double tol, int maxiter){
     MAT muI(mu * I);
     double mx;
     double tmp;
+    Performance P;
+    P.Start();
     for(it = 1; it <= maxiter; it++){
         QRFact(A - muI, Q, R);
         A = R * Q + muI;
@@ -946,6 +951,7 @@ int EVqrShifted(MAT &A, double mu, double tol, int maxiter){
                 mx = tmp;
         }
         if(mx < tol){
+            P.End("Time: ", " s");
             return it;
         }
     }
