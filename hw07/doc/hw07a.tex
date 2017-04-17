@@ -304,6 +304,40 @@ Table \ref{tab:eigen evqr} and \ref{tab:eigen evqrshifted} show eigenvalue calcu
     \label{tab:eigen evqrshifted}
 \end{table}
 
+\subsection{EVqr}
+Table \ref{tab:iter evqr} show the average iteration time(\textbf{iter\_avg}) and iteration number(\textbf{iter\_num})
+for m3 ..... m8.dat.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            EVqr & N & iter\_num & runtime(s) & iter\_avg \\ \hline
+            m3 & 3 & 20 & 7.20E-05 & 3.6000E-06 \\ \hline
+            m4 & 10 & 249 & 0.005884 & 2.3631E-05 \\ \hline
+            m5 & 20 & 909 & 0.110081 & 1.2110E-04 \\ \hline
+            m6 & 30 & 1942 & 0.693329 & 3.5702E-04 \\ \hline
+            m7 & 40 & 3325 & 2.88519 & 8.6773E-04 \\ \hline
+            m8 & 50 & 5041 & 9.79014 & 1.9421E-03 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Itertion number and iter\_avg of EVqr}
+    \label{tab:iter evqr}
+\end{table}
+From Table \ref{tab:iter evqr}, we can plot iter\_avg vs N and iter\_num vs N as shown in Figure \ref{fig:iter avg evqr} and \ref{fig:iter num evqr}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/iter_avg_unshifted.pdf}
+    \caption{iter\_avg vs N(EVqr)}
+    \label{fig:iter avg evqr}
+\end{figure}
+In Figure \ref{fig:iter avg evqr}, we can find that the slope of iter\_avg is same as $N^3$, which means the complexity of each iteration of
+EVqr is {\boldmath$O(n^3)$} and satisfies my analysis in Section \ref{sec:complexity}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/iter_num_unshifted.pdf}
+    \caption{iter\_num vs N(EVqr) in normal scale(top) and log scale(bottom)}
+    \label{fig:iter num evqr}
+\end{figure}
 
 
 \end{document}
