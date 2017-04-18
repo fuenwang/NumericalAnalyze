@@ -260,6 +260,7 @@ In the section, we will discuss the following topics:
     \item Eigenvalues of m3, ..., m15.dat
     \item Runtime of EVqr
     \item Runtime of EVqrShifted
+    \item Overall complexity
 \end{enumerate}
 
 \subsection{Eigenvalues}
@@ -303,6 +304,23 @@ Table \ref{tab:eigen evqr} and \ref{tab:eigen evqrshifted} show eigenvalue calcu
     \caption{Eigenvalue of EVqrShifted}
     \label{tab:eigen evqrshifted}
 \end{table}
+
+From Table \ref{tab:eigen evqrshifted}, we can plot the largest/smallest eigenvalue of m3 .... m15.dat as shown in Figure \ref{fig:eigen largest}
+and \ref{fig:eigen smallest}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/eigen_largest.pdf}
+    \caption{Largest eigenvalue}
+    \label{fig:eigen largest}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/eigen_smallest.pdf}
+    \caption{Smallest eigenvalue}
+    \label{fig:eigen smallest}
+\end{figure}
+In Figure \ref{fig:eigen largest} and \ref{fig:eigen smallest}, we can find that the three largest eigenvalues grow with $N^2$, while the three 
+smallest eigenvalues converge to 0.5. As a result, in our case we can easily predict the eigenvalue for other N.
 
 \subsection{EVqr}
 \label{sec:evqr}
