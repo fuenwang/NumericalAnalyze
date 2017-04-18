@@ -2,38 +2,38 @@ import numpy as np
 from matplotlib import pyplot as plt
 import Parser
 
-
-data = Parser.ReadCSV('iter_num_shifted.csv')
+data1 = Parser.ReadCSV('iter_num_unshifted.csv')
+data2 = Parser.ReadCSV('iter_avg_unshifted.csv')
+data3 = data1[:,1] * data2[:,1]
 #print data
-N = data[:, 0]
-num = data[:, 1]
+N1 = data1[:, 0]
+num1 = data3
+
+data1 = Parser.ReadCSV('iter_num_shifted.csv')
+data2 = Parser.ReadCSV('iter_avg_shifted.csv')
+data3 = data1[:,1] * data2[:,1]
+
+N2 = data1[:,0]
+num2 = data3
+
 
 plt.subplot('111')
-#plt.tight_layout()
 
-plt.title('Iteration num of EVqrShifted')
-#plt.title('iter_avg of EVqrShifted')
-plt.plot(N, num, 'r--', marker='o', label='iter_num')
-plt.plot(N, N, 'b--', marker='o', label='$N$')
+
+
+plt.plot(N1, num1, 'r--', marker='o', label='EVqr')
+
+plt.plot(N2, num2, 'b--', marker='o', label='EVqrShifted')
+
+plt.plot(N1, 10**(-6) * N1**5, 'm--', marker='o', label='$N^5$')
+plt.plot(N2, 10**(-8) * N2**4, 'y--', marker='o', label='$N^4$')
+
+plt.title('Overall complexity')
 plt.xlabel('N')
-plt.ylabel('Number')
-plt.legend()
+plt.ylabel('Time(s)')
 plt.xscale('log')
 plt.yscale('log')
-'''
-plt.subplot('212')
-plt.tight_layout()
-
-
-plt.title('Iteration number of EVqr(log scale)')
-plt.plot(N, num, 'r--', marker='o', label='iter number')
-plt.plot(N, N**2, 'b--', marker='o', label='$N^2$')
-plt.xlabel('N')
-plt.ylabel('Number')
 plt.legend()
-plt.xscale('log')
-plt.yscale('log')
-'''
 #plt.show()
 
-plt.savefig('iter_num_shifted.pdf', dpi=300, bbox_inches='tight')
+plt.savefig('overall.pdf', dpi=300, bbox_inches='tight')

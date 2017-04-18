@@ -305,6 +305,7 @@ Table \ref{tab:eigen evqr} and \ref{tab:eigen evqrshifted} show eigenvalue calcu
 \end{table}
 
 \subsection{EVqr}
+\label{sec:evqr}
 Table \ref{tab:iter evqr} show the average iteration time(\textbf{iter\_avg}) and iteration number(\textbf{iter\_num})
 for m3 ..... m8.dat.
 \begin{table}[H]
@@ -338,6 +339,84 @@ EVqr is {\boldmath$O(n^3)$} and satisfies my analysis in Section \ref{sec:comple
     \caption{iter\_num vs N(EVqr) in normal scale(top) and log scale(bottom)}
     \label{fig:iter num evqr}
 \end{figure}
+From Figure \ref{fig:iter num evqr}, we can find that the iteration number of EVqr grows with $N^2$, which mean the complexity of iteration number
+in EVqr is {\boldmath$O(n^2)$}. Because the complexity of iter\_avg and iter\_num is $O(n^3)$ and $O(n^2)$, repectively, the overall complexity of
+EVqr will be {\boldmath$O(n^5)$}.
+
+\subsection{EVqrShifted}
+\label{sec:evqrshifted}
+Table \ref{tab:iter evqrshifted} show the average iteration time(\textbf{iter\_avg}) and iteration number(\textbf{iter\_num})
+for m3 ..... m15.dat.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            EVqrShifted & N & iter\_num & runtime(s) & iter\_avg \\ \hline
+            m3 & 3 & 17 & 7.60E-05 & 4.4706E-06 \\ \hline
+            m4 & 10 & 35 & 0.000616 & 1.7600E-05 \\ \hline
+            m5 & 20 & 67 & 0.01132 & 1.6896E-04 \\ \hline
+            m6 & 30 & 104 & 0.039096 & 3.7592E-04 \\ \hline
+            m7 & 40 & 133 & 0.079233 & 5.9574E-04 \\ \hline
+            m8 & 50 & 167 & 0.17786 & 1.0650E-03 \\ \hline
+            m9 & 60 & 209 & 0.386447 & 1.8490E-03 \\ \hline
+            m10 & 70 & 244 & 0.724597 & 2.9697E-03 \\ \hline
+            m11 & 80 & 277 & 1.13667 & 4.1035E-03 \\ \hline
+            m12 & 90 & 310 & 1.81915 & 5.8682E-03 \\ \hline
+            m13 & 100 & 346 & 2.72404 & 7.8729E-03 \\ \hline
+            m14 & 120 & 425 & 5.60207 & 1.3181E-02 \\ \hline
+            m15 & 150 & 489 & 12.2082 & 2.4966E-02 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Itertion number and iter\_avg of EVqrShifted}
+    \label{tab:iter evqrshifted}
+\end{table}
+From Table \ref{tab:iter evqrshifted}, we can plot iter\_avg vs N and iter\_num vs N as shown in Figure \ref{fig:iter avg evqrshifted} 
+and \ref{fig:iter num evqrshifted}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/iter_avg_shifted.pdf}
+    \caption{iter\_avg vs N(EVqrShifted)}
+    \label{fig:iter avg evqrshifted}
+\end{figure}
+In the beginning of Figure \ref{fig:iter avg evqrshifted}, the slope is unstable because the runtime calculation has large error when N is small.
+After N is large enough. the slope is same as $N^3$, which means the complexity of each iteration in EVqrShifted is {\boldmath$O(n^3)$} and 
+satisfies my analysis in Section \ref{sec:complexity}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/iter_num_shifted.pdf}
+    \caption{iter\_num vs N(EVqrShifted)}
+    \label{fig:iter num evqrshifted}
+\end{figure}
+In Figure \ref{fig:iter num evqrshifted}, we can find that the iteration number grows with N, which means complexity of  iteration number 
+in EVqrShifted is {\boldmath$O(n)$}. Because the complexity of iter\_avg and iter\_num is $O(n^3)$ and $O(n)$, the overall complexity of
+EVqrShifted is {\boldmath$O(n^4)$}.
+
+\subsection{Overall Complexity}
+From Section \ref{sec:evqr} and \ref{sec:evqrshifted}, the overall complexity is listed in Table \ref{tab:overall}.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+             Complexity & Evqr & EvqrShifted \\ \hline
+             iter\_avg & $O(n^3)$ & $O(n^3)$ \\ \hline
+             iter\_num & $O(n^2)$ & $O(n)$ \\ \hline
+             overall & $O(n^5)$ & $O(n^4)$ \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Overall comlexity of EVqr and EVqrShifted}
+    \label{tab:overall}
+\end{table}
+From Table \ref{tab:iter evqr} and \ref{tab:iter evqrshifted}, we can plot (iter\_avg x iter\_num) vs N as shown in Figure \ref{fig:overall}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/overall.pdf}
+    \caption{(iter\_avg x iter\_num) vs N}
+    \label{fig:overall}
+\end{figure}
+In Figure \ref{fig:overall}, the slope of EVqr is same as $N^5$, while the slope of EVrShifted is same as $N^4$. Therefore, the overall complexity
+satisfies my analysis in Section \ref{sec:evqr} and \ref{sec:evqrshifted}. \newline
+Because the overall complexity of EVqr and EVqrShifted is {\boldmath$O(n^5)$ and $O(n^4)$}, respectively, EVqrShifted will be much faster when
+N is large.
 
 
 \end{document}
