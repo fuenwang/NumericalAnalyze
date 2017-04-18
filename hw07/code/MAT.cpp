@@ -897,7 +897,7 @@ void QRFact(const MAT &A, MAT &Q, MAT &R){
             Q[j] -= R[i][j] * Q[i];
         }
         R[j][j] = sqrt(Q[j] * Q[j]);
-        Q[j] /= sqrt(Q[j] * Q[j]);
+        Q[j] /= R[j][j];
     }
     Q = Q.T();
 }

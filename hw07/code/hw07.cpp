@@ -1,3 +1,7 @@
+// HW07: Matrix Eigenvalues
+// ID: 102061149
+// Name: Fu-En Wang
+
 #include "MAT.h"
 
 int main(){
@@ -14,8 +18,8 @@ int main(){
     VEC eig(dim);
     VEC largest(3);
     VEC smallest(3);
-    //it = EVqrShifted(A, 0.5, 1e-9, 10000);
-    it = EVqr(A, 1e-9, 10000);
+    it = EVqrShifted(A, 0.5, 1e-9, 10000);
+    //it = EVqr(A, 1e-9, 10000);
     for(int i=0; i< dim; i++)
         eig[i] = A[i][i];
     eig.sort();
