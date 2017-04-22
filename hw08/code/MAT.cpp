@@ -909,9 +909,9 @@ int EVqr(MAT &A, double tol, int maxiter){
     MAT R(n);
     double mx;
     double tmp;
-    Performance P;
+    //Performance P;
     //QRFact(A, Q, R);
-    P.Start();
+    //P.Start();
     for(it = 1; it <= maxiter; it++){
         QRFact(A, Q, R);
         A = R * Q;
@@ -922,7 +922,7 @@ int EVqr(MAT &A, double tol, int maxiter){
                 mx = tmp;
         }
         if(mx < tol){
-            P.End("Time: ", " s");
+            //P.End("Time: ", " s");
             return it;
         }
     }
@@ -939,8 +939,8 @@ int EVqrShifted(MAT &A, double mu, double tol, int maxiter){
     MAT muI(mu * I);
     double mx;
     double tmp;
-    Performance P;
-    P.Start();
+    //Performance P;
+    //P.Start();
     for(it = 1; it <= maxiter; it++){
         QRFact(A - muI, Q, R);
         A = R * Q + muI;
@@ -951,7 +951,7 @@ int EVqrShifted(MAT &A, double mu, double tol, int maxiter){
                 mx = tmp;
         }
         if(mx < tol){
-            P.End("Time: ", " s");
+            //P.End("Time: ", " s");
             return it;
         }
     }
@@ -959,7 +959,16 @@ int EVqrShifted(MAT &A, double mu, double tol, int maxiter){
 
 }
 
-
+double Lagrange(double x, VEC &XDATA, VEC &YDATA){
+    int n = YDATA.dim();
+    VEC NS(YDATA);
+    for(int k=1; k<n; k++){
+        for(int j=0; j<n-k; j++){
+            NS[j] = ((x - XDATA[j]) * NS[j+1] - (x - XDATA[k+j]) * NS[j]) / (XDATA[j+k] - XDATA[j]);
+        }
+    }
+    return NS[0];
+}
 
 
 
