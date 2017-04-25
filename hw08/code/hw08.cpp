@@ -19,9 +19,15 @@ void Parse(const char f_name[], vector<double> &x, vector<double> &y){
         x.push_back(a);
         y.push_back(b);
     }
+    f.close();
 }
 
 int main(int argc, char *argv[]){
+    if(argc != 2){
+        printf("Argument error!\n");
+        printf("Usage: ./a.out f21.dat\n");
+        exit(0);
+    }
     vector<double> x;
     vector<double> y;
     Parse(argv[1], x, y);
@@ -43,17 +49,25 @@ int main(int argc, char *argv[]){
     for(int i=1; i<301; i++)
         test_x[i] = test_x[i-1] + 1;
     
-    test_x.print();
     for(int i=0; i<301; i++){
         test_y[i] = Lagrange(test_x[i], X, Y);
     }
 
-    //test_y.print();
-    
-    Json xj("X.json", 0);
-    Json yj("Y.json", 0);
-    Json xo("XO.json", 0);
-    Json yo("YO.json", 0);
+    //test_y.print();p
+    /*
+    vector<double> a;
+    vector<double> b;
+    Parse("../f301.dat", a, b);
+    for(int i=0; i<XO.dim(); i++){
+        XO[i] = a[i];
+        YO[i] = b[i];
+    }
+    */
+    /*
+    Json xj("raw_record/X21.json", 1);
+    Json yj("raw_record/Y21.json", 1);
+    Json xo("raw_record/XS21.json", 0);
+    Json yo("raw_record/YS21.json", 0);
 
     xj.Write(test_x);
     yj.Write(test_y);
@@ -63,6 +77,6 @@ int main(int argc, char *argv[]){
     yo.Write(Y);
     xo.Close();
     yo.Close();
-   
+    */
     return 0;
 }
