@@ -233,7 +233,58 @@ Table \ref{tab:error} shows the result of all dat.
   \label{tab:error}%
 \end{table}%
 In Table \ref{tab:error}, Max Error(550 to 700) decreases when using more support points. However, Max Error(all) increases
-when using more support points.
+when using more support points. Because the range of interpolation is from 475 to 775, so the maximum error should occut at the
+475 to 549 or 701 to 775.
+
+\subsection{Experiment Result}
+In this section we will plot the interpolated data along with the original data to find out some problems of 
+\textbf{Lagrange Interpolation}. The following figures show the experiment result of f3.dat to f21.dat.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/f3.pdf}
+    \caption{Result of f3.dat}
+    \label{fig:f3}
+\end{figure}
+The number of support points in Figure \ref{fig:f3} is 3, so the interpolated data will be a second order polynomial and has a
+huge error with groundtruth.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/f5.pdf}
+    \caption{Result of f5.dat}
+    \label{fig:f5}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/f7.pdf}
+    \caption{Result of f7.dat}
+    \label{fig:f7}
+\end{figure}
+In Figure \ref{fig:f5} and \ref{fig:f7}, the order of polynomial become 4 and 6 and our interpolated data match the support points.
+But the number of support points seems still not enough to recover the origin data.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/f13.pdf}
+    \caption{Result of f13.dat}
+    \label{fig:f13}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{src/f21.pdf}
+    \caption{Result of f21.dat}
+    \label{fig:f21}
+\end{figure}
+In Figure \ref{fig:f13} and \ref{fig:f21}, the mid part of interpolated value is very close to the origin one, but the left and 
+right side  have a great error. Because when number of support points is large, the interpolated polynomial will have a large order 
+and $x^n$ will cause a huge error. As a result, \textbf{round-off error} will be very large at the
+two side of interpolation. So when we use Lagrange Interpolation, we have to prevent ourself from getting value at
+the neighbor of two side. In addition, we should also prevent extrapolation, because Largrange also has large error at location 
+out of support point range.
+
+\section{Conclusion}
+From the result in Figure \ref{fig:f13} and \ref{fig:f21}, Lagrange Interpolation can be pretty accurate at the mid part of
+data but has huge error at the two side. So if we need to get data at the two side, we should prevent ourself from using
+this algorithm.
 
 \end{document}
 
