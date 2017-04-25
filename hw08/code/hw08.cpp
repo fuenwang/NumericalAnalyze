@@ -52,7 +52,24 @@ int main(int argc, char *argv[]){
     for(int i=0; i<301; i++){
         test_y[i] = Lagrange(test_x[i], X, Y);
     }
+    double error;
+    vector<double> a;
+    vector<double> b;
+    Parse("../f301.dat", a, b);
+    VEC XO(a.size());
+    VEC YO(b.size());
 
+    for(int i=0; i<XO.dim(); i++){
+        XO[i] = a[i];
+        YO[i] = b[i];
+    }
+    error = fabs(YO[0] - test_y[0]);
+    for(int i=0; i<301; i++){
+        double tmp = fabs(YO[i] - test_y[i]);
+        if(tmp > error)
+            error = tmp;
+    }
+    printf("Max error: %lf\n", error);
     //test_y.print();p
     /*
     vector<double> a;
