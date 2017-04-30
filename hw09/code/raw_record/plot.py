@@ -1,6 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 import json
+import sys
 
 def ReadJson(f_n):
     f = open(f_n, 'r')
@@ -9,7 +10,7 @@ def ReadJson(f_n):
 
     return data
 
-index = '21'
+index = sys.argv[1]
 
 X = ReadJson('X%s.json'%index)
 Y = ReadJson('Y%s.json'%index)
@@ -30,5 +31,5 @@ plt.xlabel('X')
 plt.ylabel('Y')
 plt.title('f%s.dat'%index)
 plt.legend()
-plt.show()
-#plt.savefig('f%s.pdf'%index, dpi=300, bbox_inches='tight')
+#plt.show()
+plt.savefig('f%s.pdf'%index, dpi=300, bbox_inches='tight')
