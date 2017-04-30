@@ -56,9 +56,8 @@ int main(int argc, char *argv[]){
     for(int i=0; i<301; i++){
         test_y[i] = spline(test_x[i], X.dim(), X, Y, M);
     }
-    //test_y.print();
-    
-
+    test_y.print();
+    /*
     Json xj("raw_record/X21.json", 0);
     Json yj("raw_record/Y21.json", 0);
     Json xs("raw_record/XS21.json", 0);
@@ -88,5 +87,6 @@ int main(int argc, char *argv[]){
             error = tmp;
     }
     printf("Max error: %g\n", error);
+    */
     return 0;
 }
