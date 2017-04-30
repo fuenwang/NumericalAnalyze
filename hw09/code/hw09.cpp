@@ -47,5 +47,46 @@ int main(int argc, char *argv[]){
         Y[i] = y[i];
     }
     splineM(X.dim(), X, Y, M);
+    VEC test_x(301);
+    VEC test_y(301);
+    test_x[0] = 475;
+    for(int i=1; i<301; i++)
+        test_x[i] = test_x[i-1] + 1;
+    
+    for(int i=0; i<301; i++){
+        test_y[i] = spline(test_x[i], X.dim(), X, Y, M);
+    }
+    //test_y.print();
+    
+
+    Json xj("raw_record/X21.json", 0);
+    Json yj("raw_record/Y21.json", 0);
+    Json xs("raw_record/XS21.json", 0);
+    Json ys("raw_record/YS21.json", 0);
+    xj.Write(test_x);
+    yj.Write(test_y);
+    xs.Write(X);
+    ys.Write(Y);
+    xj.Close();
+    yj.Close();
+    xs.Close();
+    ys.Close();
+
+    vector<double> xo, yo;
+    Parse("../f301.dat", xo, yo);
+    VEC XO(xo.size());
+    VEC YO(yo.size());
+    for(int i=0; i<XO.dim(); i++){
+        XO[i] = xo[i];
+        YO[i] = yo[i];
+    }
+
+    double error = fabs(test_y[0] - YO[0]);
+    for(int i=0; i<YO.dim(); i++){
+        double tmp = fabs(test_y[i] - YO[i]);
+        if(tmp > error)
+            error = tmp;
+    }
+    printf("Max error: %g\n", error);
     return 0;
 }

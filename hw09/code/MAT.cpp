@@ -1016,6 +1016,24 @@ void splineM(int N, VEC &X, VEC &Y, VEC &M){
     M = bckSubs(A, Y2);
 }
 
+double spline(double x, int N, VEC &X, VEC &Y, VEC &M){
+    int start;
+    for(start = 0; start < N-1 && !(x >= X[start] && x <= X[start+1]); start++); 
+    if(start == N-1){
+        printf("Range Error!\n");
+        exit(0);
+    }
+    int end = start+1;
+    double sub = x - X[start];
+    double hi = X[end] - X[start];
+    double alpha = Y[start];
+    double beta = ((Y[end] - Y[start]) / hi) - ((hi / 6) * (M[end] + 2 * M[start]));
+    double gamma = M[start] / 2;
+    double delta = (M[end] - M[start]) / (6 * hi);
+
+    return alpha + beta * sub + gamma * sub * sub + delta * sub * sub * sub;
+}
+
 
 
 
