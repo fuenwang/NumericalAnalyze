@@ -207,25 +207,16 @@ VEC operator/(double num, const VEC &vec){
     return out;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+double Lagrange(double x, VEC &XDATA, VEC &YDATA){
+    int n = YDATA.dim();
+    VEC NS(YDATA);
+    for(int k=1; k<n; k++){
+        for(int j=0; j<n-k; j++){
+            NS[j] = ((x - XDATA[j]) * NS[j+1] - (x - XDATA[k+j]) * NS[j]) / (XDATA[j+k] - XDATA[j]);
+        }
+    }
+    return NS[0];
+}
 
 
 

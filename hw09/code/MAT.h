@@ -138,7 +138,6 @@ void QRFact(const MAT &A, MAT &Q, MAT &R);
 int EVqr(MAT &A, double tol, int maxiter);
 int EVqrShifted(MAT &A, double mu, double tol, int maxiter);
 
-double Lagrange(double x, VEC &XDATA, VEC &YDATA);
 void splineM(int N, VEC &X, VEC &Y, VEC &M);
 double spline(double x, int N, VEC &X, VEC &Y, VEC &M);
 

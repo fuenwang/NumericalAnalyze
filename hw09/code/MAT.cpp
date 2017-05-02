@@ -959,17 +959,6 @@ int EVqrShifted(MAT &A, double mu, double tol, int maxiter){
 
 }
 
-double Lagrange(double x, VEC &XDATA, VEC &YDATA){
-    int n = YDATA.dim();
-    VEC NS(YDATA);
-    for(int k=1; k<n; k++){
-        for(int j=0; j<n-k; j++){
-            NS[j] = ((x - XDATA[j]) * NS[j+1] - (x - XDATA[k+j]) * NS[j]) / (XDATA[j+k] - XDATA[j]);
-        }
-    }
-    return NS[0];
-}
-
 void splineM(int N, VEC &X, VEC &Y, VEC &M){
     VEC lambda(N-1);
     VEC mu(N-1);

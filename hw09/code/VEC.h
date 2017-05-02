@@ -53,4 +53,6 @@ VEC operator+(double num, const VEC &vec);
 VEC operator-(double num, const VEC &vec);
 VEC operator*(double num, const VEC &vec);
 VEC operator/(double num, const VEC &vec);
+
+double Lagrange(double x, VEC &XDATA, VEC &YDATA);
 #endif
