@@ -229,6 +229,121 @@ In this project, I use \textbf{zero boundary condition}
     &d_n = 0
 \end{align*}
 then we can claculate all $M_i$.
+\newpage
+
+\section{Discussion}
+In this section, we will discuss the following topic:
+\begin{enumerate}
+    \item The maximum error between f3.dat...f21.dat and f301.dat
+    \item Comparison the result of Spline and Lagrange Interpolation
+\end{enumerate}
+
+\subsection{Maximum Error}
+Like the experiment in homework08, we interpolated the value from the same data(f3.data....f21.dat) and find their maximum error. 
+Table \ref{tab:spline} is the result of Spline Interpolation and Table \ref{tab:lagrange} is result of Lagrange Interpolation.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            Spline & f3 & f5 & f7 & f13 & f21 \\ \hline
+            N & 3 & 5 & 7 & 13 & 21 \\ \hline
+            max\_error & 354.947 & 190.82 & 73.7436 & 29.0448 & 19.6417 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Error of Spline Interpolation}
+    \label{tab:spline}
+\end{table}
+\begin{table}[htbp]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            Lagrange & f3 & f5 & f7 & f13 & f21 \\ \hline
+            N & 3 & 5 & 7 & 13 & 21 \\ \hline
+            Max Error(all) & 372.866858 & 248.340631 & 379.107286 & 1283.448899 & 16728.564779 \\ \hline
+            Max Error(550~700) & 372.866858 & 233.364371 & 148.890794 & 39.618945 & 17.803983 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Error of Lagrange Interpolation}
+    \label{tab:lagrange}
+\end{table}
+In the previous homework, we have already known that the error at the two side of Lagrange can be quite large. However, from Table
+\ref{tab:spline} we can find that Spline doesn't have such problem, which means Spline Interpolation can be more accurate at the two
+side of interpolation and it can be closer to origin data when we use more support points.
+
+\subsection{Comparison}
+In this section, I will compare the two algorithm with the waveform for f3.dat to f21.dat. Figure \ref{fig:f3} and \ref{fig:f3l} is the result
+of f3.dat of Spline and Lagrange, respectively.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f3.pdf}
+    \caption{Result of f3.dat(Spline)}
+    \label{fig:f3}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f3_l.pdf}
+    \caption{Result of f3.dat(Lagrange)}
+    \label{fig:f3l}
+\end{figure}
+With 3 support points, the result is quite similar. Both of them are second order polynomial. Figure \ref{fig:f5} and \ref{fig:f5l} is the result of
+f5.dat.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f5.pdf}
+    \caption{Result of f5.dat(Spline)}
+    \label{fig:f5}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f5_l.pdf}
+    \caption{Result of f5.dat(Lagrange)}
+    \label{fig:f5l}
+\end{figure}
+From the two figures, we can find that the oscillation at the two side is more obvious in Langrange and it seems that the result of Spline 
+fit the answer better than Lagrange.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f7.pdf}
+    \caption{Result of f7.dat(Spline)}
+    \label{fig:f7}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f7_l.pdf}
+    \caption{Result of f7.dat(Lagrange)}
+    \label{fig:f7l}
+\end{figure}
+When we see the result from f7.dat(Figure \ref{fig:f7} and \ref{fig:f7l}), the result of Lagrange is a sixth order polunomial, so we can find 6
+peak in Figure \ref{fig:f7}. However, the result of Spline is getting more closer to the answer.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f13.pdf}
+    \caption{Result of f13.dat(Spline)}
+    \label{fig:f13}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f13_l.pdf}
+    \caption{Result of f13.dat(Lagrange)}
+    \label{fig:f13l}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f21.pdf}
+    \caption{Result of f21.dat(Spline)}
+    \label{fig:f21}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{src/f21_l.pdf}
+    \caption{Result of f21.dat(Lagrange)}
+    \label{fig:f21l}
+\end{figure}
+From Figure \ref{fig:f13} and \ref{fig:f21}, Spline fit the answer very well, while Lagrange starts to have huge error at the two side in
+Figure \ref{fig:f13l} and \ref{fig:f21l}.
+
+From all figures above, I think Spline Interpolation have better accuracy than Lagrange Interpolation.
 
 \end{document}
 
