@@ -1023,7 +1023,7 @@ double spline(double x, int N, VEC &X, VEC &Y, VEC &M){
     return alpha + beta * sub + gamma * sub * sub + delta * sub * sub * sub;
 }
 
-double Integrate(double (*func)(double), double start, double end, int n, int order){
+double Integrate(double (*func)(double), int order, VEC &Y, double step){
     const double *weight;
     switch(order){
         case 1:
@@ -1048,22 +1048,22 @@ double Integrate(double (*func)(double), double start, double end, int n, int or
             printf("The order is incorrect\n");
             exit(0);
     }
+    int n_blocks = Y.dim();
+    double total_sum = 0;
+    double start;
+    double h = (Y[0] + step) / order;
+    double block_sum;
     double fx;
-    double h = (end - start) / n;
-    double sum = 0;
-    double x_i = start;
-    int w_index = 0;
-    for(int i=0; i <= n; i++){
-        if(w_index == order + 1){
-            w_index = 0;
+    for(int block = 0; block < n_blocks; block++){
+        start = Y[block];
+        block_sum = 0;
+        for(int i=0; i<=order; i++){
+            fx = func(start + i * h);
+            block_sum += weight[i] * fx;
         }
-        cout << weight[w_index] << endl;
-        fx = func(x_i);
-        sum += weight[w_index] * fx;
-        x_i += h;
-        w_index++;
+        total_sum += h * block_sum;
     }
-    return h * sum;
+    return total_sum;
 }
 
 
