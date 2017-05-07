@@ -11,13 +11,8 @@
 int main(int argc, char *argv[]){
     int block = 12;
     int order = 6;
-    VEC Y(block);
-    double step = 2.0 / block;
-    for(int i=0; i<block; i++){
-        Y[i] += i * step;
-    }
     double answer = exp(2) - exp(0);
-    double my_answer = Integrate(exp, order, Y, step);
+    double my_answer = Integrate(exp, order, block, 0, 2);
     printf("Answer = %lf\n", answer);
     printf("My Answer = %lf\n", my_answer);
     printf("Error = %g\n", fabs(my_answer - answer));

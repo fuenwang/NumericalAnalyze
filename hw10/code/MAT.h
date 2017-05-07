@@ -148,4 +148,5 @@ void splineM(int N, VEC &X, VEC &Y, VEC &M);
 double spline(double x, int N, VEC &X, VEC &Y, VEC &M);
 
 double Integrate(double (*func)(double), int order, VEC &Y, double step);
+double Integrate(double (*func)(double), int order, int nblocks, double start, double end);
 #endif

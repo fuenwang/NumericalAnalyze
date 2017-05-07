@@ -1066,7 +1066,50 @@ double Integrate(double (*func)(double), int order, VEC &Y, double step){
     return total_sum;
 }
 
-
+double Integrate(double (*func)(double), int order, int nblocks, double start, double end){
+    const double *weight;
+    switch(order){
+        case 1:
+            weight = W1;
+            break;
+        case 2:
+            weight = W2;
+            break;
+        case 3:
+            weight = W3;
+            break;
+        case 4:
+            weight = W4;
+            break;
+        case 5:
+            weight = W5;
+            break;
+        case 6:
+            weight = W6;
+            break;
+        default:
+            printf("The order is incorrect\n");
+            exit(0);
+    }
+    double step = (end - start) / nblocks;
+    //cout << step << endl;
+    double total_sum = 0;
+    double block_sum;
+    double fx;
+    double h = step / order;
+    double xi = start;
+    for(int block = 0; block < nblocks; block++){
+        block_sum = 0;
+        //cout << xi << endl;
+        for(int i=0; i<=order; i++){
+            fx = func(xi + i*h);
+            block_sum += weight[i] * fx;
+        }
+        xi += step;
+        total_sum += h * block_sum;
+    }
+    return total_sum;
+}
 
 
 
