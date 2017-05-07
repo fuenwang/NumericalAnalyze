@@ -25,7 +25,9 @@ class VEC{
         double sum();
         bool operator==(VEC &data);
         void operator=(const VEC &data);
+        void operator=(const double *a);
         void operator=(double num);
+        void operator=(int num);
         double& operator[](int index) const;
 
         VEC operator+(const VEC &data);

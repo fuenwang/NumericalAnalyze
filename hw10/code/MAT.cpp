@@ -1111,6 +1111,84 @@ double Integrate(double (*func)(double), int order, int nblocks, double start, d
     return total_sum;
 }
 
+int Newton(double (*func)(double), double (*func_der)(double), double &x, int maxIter, double tol){
+    double tmp;
+    for(int it = 1; it <= maxIter; it++){
+        tmp = func(x);
+        double frac = tmp / func_der(x);
+        x -= frac;
+        if(fabs(tmp) < tol){
+            return it;
+        }
+    }
+    return maxIter+1;
+}
+
+int Bisection(double (*func)(double), double &a, double &b, double &x, int maxIter, double tol){
+    x = (a + b) / 2;
+    for(int it = 1; it <= maxIter; it++){
+        if(func(x) * func(a) <= 0){
+            b = x;
+        }
+        else{
+            a = x;
+        }
+        x = (a + b) / 2;
+        if(fabs(x - a) <= tol){
+            return it;
+        }
+    }
+    return maxIter + 1;
+}
+
+int NewtonPoly(VEC &a, VEC &x, int maxIter, double tol){
+    int order = a.dim() - 1;
+    VEC b(order);
+    VEC c(order-1);
+    double x_i = x[order-1];
+    double err;
+    double b_minus_1;
+    double c_minus_1;
+    for(int n=order; n>=1; n--){
+        err = tol + 1;
+        for(int it=1; it <=maxIter && err >= tol; it++){
+            b[n - 1] = a[n];
+            if(n >= 2){
+                c[n - 2] = b[n - 1];
+            }
+            for(int j = n - 2; j >= 0; j--){
+                b[j] = a[j+1] + x_i * b[j+1];
+            }
+            for(int j = n - 3; j >= 0; j--){
+                c[j] = b[j+1] + x_i * c[j+1];
+            }
+            b_minus_1 = a[0] + x_i * b[0];
+            if(n >= 2){
+                c_minus_1 = b[0] + x_i * c[0];
+            }
+            else{
+                c_minus_1 = b[0];
+            }
+            x_i -= b_minus_1 / c_minus_1;
+            err = fabs(b_minus_1);
+        }
+        x[n-1] = x_i;
+        a = b;
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

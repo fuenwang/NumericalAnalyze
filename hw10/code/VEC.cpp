@@ -45,7 +45,7 @@ double VEC::sum(){
 }
 void VEC::print(){
     for(int i=0; i<this->dimension; i++)
-        printf("%lf ",this->val[i]);
+        printf("%g ",this->val[i]);
     printf("\n");
     return;
 }
@@ -78,6 +78,18 @@ void VEC::operator=(const VEC &data){
 void VEC::operator=(double num){
     for(int i=0; i<this->dimension; i++)
         this->val[i] = num;
+    return;
+}
+void VEC::operator=(int num){
+    for(int i=0; i<this->dimension; i++)
+        this->val[i] = num;
+    return;
+}
+
+void VEC::operator=(const double *a){
+    for(int i=0; i<this->dimension; i++){
+        this->val[i] = a[i];
+    }
     return;
 }
 

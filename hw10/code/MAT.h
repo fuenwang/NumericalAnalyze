@@ -149,4 +149,9 @@ double spline(double x, int N, VEC &X, VEC &Y, VEC &M);
 
 double Integrate(double (*func)(double), int order, VEC &Y, double step);
 double Integrate(double (*func)(double), int order, int nblocks, double start, double end);
+
+int Newton(double (*func)(double), double (*func_der)(double), double &x, int maxIter, double tol);
+int Bisection(double (*func)(double), double &a, double &b, double &x, int maxIter, double tol);
+
+int NewtonPoly(VEC &a, VEC &x, int maxIter, double tol);
 #endif
