@@ -6,3 +6,4 @@
 *.log
 *.DS_store
 ~*
+sandbox/*
