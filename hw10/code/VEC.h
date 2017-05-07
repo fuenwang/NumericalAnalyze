@@ -8,6 +8,14 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+const double W1[2] = {0.5, 0.5};
+const double W2[3] = {1.0/3, 4.0/3, 1.0/3};
+const double W3[4] = {3.0/8, 9.0/8, 9.0/8, 3.0/8};
+const double W4[5] = {14.0/45, 64.0/45, 24.0/45, 64.0/45, 14.0/45};
+const double W5[6] = {95.0/288, 375.0/288, 250.0/288, 250.0/288, 375.0/288, 95.0/288};
+const double W6[7] = {41.0/140, 216.0/140, 27.0/140, 272.0/140, 27.0/140, 216.0/140, 41.0/140};
 
 class VEC{
     private:
@@ -57,4 +65,13 @@ VEC operator*(double num, const VEC &vec);
 VEC operator/(double num, const VEC &vec);
 
 double Lagrange(double x, VEC &XDATA, VEC &YDATA);
+
+double Integrate(double (*func)(double), int order, VEC &Y, double step);
+double Integrate(double (*func)(double), int order, int nblocks, double start, double end);
+
+int Newton(double (*func)(double), double (*func_der)(double), double &x, int maxIter, double tol);
+int Bisection(double (*func)(double), double &a, double &b, double &x, int maxIter, double tol);
+
+int NewtonPoly(VEC &a, VEC &x, int maxIter, double tol);
+
 #endif
