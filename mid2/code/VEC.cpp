@@ -230,48 +230,6 @@ double Lagrange(double x, VEC &XDATA, VEC &YDATA){
     return NS[0];
 }
 
-double Integrate(double (*func)(double), int order, VEC &Y, double step){
-    const double *weight;
-    switch(order){
-        case 1:
-            weight = W1;
-            break;
-        case 2:
-            weight = W2;
-            break;
-        case 3:
-            weight = W3;
-            break;
-        case 4:
-            weight = W4;
-            break;
-        case 5:
-            weight = W5;
-            break;
-        case 6:
-            weight = W6;
-            break;
-        default:
-            printf("The order is incorrect\n");
-            exit(0);
-    }
-    int n_blocks = Y.dim();
-    double total_sum = 0;
-    double start;
-    double h = (Y[0] + step) / order;
-    double block_sum;
-    double fx;
-    for(int block = 0; block < n_blocks; block++){
-        start = Y[block];
-        block_sum = 0;
-        for(int i=0; i<=order; i++){
-            fx = func(start + i * h);
-            block_sum += weight[i] * fx;
-        }
-        total_sum += h * block_sum;
-    }
-    return total_sum;
-}
 
 double Integrate(double (*func)(double), int order, int nblocks, double start, double end){
     const double *weight;

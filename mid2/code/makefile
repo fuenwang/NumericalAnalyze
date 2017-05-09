@@ -1,5 +1,5 @@
 all:
-	g++ -Wall -O3 test.cpp MAT.cpp VEC.cpp
+	g++ -Wall -O3 hw09.cpp MAT.cpp VEC.cpp
 	./a.out
 com:
 	g++ -Wall -O3 test.cpp MAT.cpp VEC.cpp

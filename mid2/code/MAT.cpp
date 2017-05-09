@@ -964,12 +964,57 @@ void splineM(int N, VEC &X, VEC &Y, VEC &M){
     VEC mu(N-1);
     VEC d(N);
     MAT A(N, N);
-
+    
     lambda[0] = 0;
     d[0] = 0;
     mu[N-2] = 0;
     d[N-1] = 0;
+    
+    /*
+    double hn = X[N - 1] - X[N - 2];
+    double h1 = X[1] - X[0];
+    mu[N-2] = hn / (hn + h1);
+    lambda[N-2] = h1 / (hn + h1);
+    d[N-1] = 6 / (hn + h1) * (((Y[1] - Y[N-1]) / h1) - ((Y[N-1] - Y[N-2]) / hn));
+    for(int i=1; i<N-2; i++){
+        double h_i = X[i] - X[i-1];
+        double h_i1 = X[i+1] - X[i];
+        lambda[i] = h_i1 / (h_i + h_i1);
+    }
+    for(int j=0; j<N-2; j++){
+        int i = j+1;
+        double h_i = X[i] - X[i-1];
+        double h_i1 = X[i+1] - X[i];
+        mu[j] = h_i / (h_i + h_i1);
+    }
+    for(int i=1; i<N-1; i++){
+        double h_i = X[i] - X[i-1];
+        double h_i1 = X[i+1] - X[i];
+        double tmp1 = (Y[i+1] - Y[i]) / h_i1;
+        double tmp2 = (Y[i] - Y[i-1]) / h_i;
+        d[i] = (6.0 / (h_i + h_i1)) * (tmp1 - tmp2);
+    }
+    A[0][0] = 2;
+    for(int i=1; i < N - 1; i++){
+        A[i][i] = 2;
+        A[i][i - 1] = mu[i];
+        A[i-1][i] = lambda[i];
+    }
+    A.print();
+    VEC newd(N - 1);
+    for(int i=0; i<N-1; i++)
+        newd[i] = d[i+1];
+    
+    VEC newM(N-1);
+    luFact(A);
+    VEC Y2(fwdSubs(A, newd));
+    newM = bckSubs(A, Y2);
+    M[0] = newM[N-2];
+    for(int i=0; i<N-1; i++)
+        M[i+1] = newM[i];
+    */
 
+    
     for(int i=1; i<N-1; i++){
         double h_i = X[i] - X[i-1];
         double h_i1 = X[i+1] - X[i];
@@ -998,11 +1043,14 @@ void splineM(int N, VEC &X, VEC &Y, VEC &M){
     for(int i=1; i<N; i++){
         A[i][i-1] = mu[i-1];
     }
+    
     //A.print();
     //d.print();
+    
     luFact(A);
     VEC Y2(fwdSubs(A, d));
     M = bckSubs(A, Y2);
+    
 }
 
 double spline(double x, int N, VEC &X, VEC &Y, VEC &M){
@@ -1024,6 +1072,58 @@ double spline(double x, int N, VEC &X, VEC &Y, VEC &M){
 }
 
 
+double Integrate(int order, VEC &X, VEC &Y){
+    const double *weight;
+    VEC M(X.dim());
+    splineM(X.dim(), X, Y, M);
+    switch(order){
+        case 1:
+            weight = W1;
+            break;
+        case 2:
+            weight = W2;
+            break;
+        case 3:
+            weight = W3;
+            break;
+        case 4:
+            weight = W4;
+            break;
+        case 5:
+            weight = W5;
+            break;
+        case 6:
+            weight = W6;
+            break;
+        default:
+            printf("The order is incorrect\n");
+            exit(0);
+    }
+    int nblocks = Y.dim() - 1;
+    //cout << step << endl;
+    double total_sum = 0;
+    double block_sum;
+    //double fx;
+    double h;
+    double xi = Y[0];
+    X.print();
+    Y.print();
+    //exit(0);
+    for(int block = 0; block < nblocks; block++){
+        xi = X[block];
+        h = fabs(X[block+1] - X[block]) / order;
+        block_sum = 0;
+        //cout << xi << endl;
+        for(int i=0; i<=order; i++){
+            cout << Lagrange(xi + i*h, X, Y) << endl;
+            //cout << weight[i] << endl;
+            block_sum += weight[i] * spline(xi + i*h, X.dim(), X, Y, M);
+        }
+        //cout << block_sum * h<< endl;
+        total_sum += h * block_sum;
+    }
+    return total_sum;
+}
 
 
 

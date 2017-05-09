@@ -15,17 +15,27 @@ double func_der(double x){
 }
 
 int main(int argc, char *argv[]){
-    int order = 3;
-    VEC x(order);
-    VEC poly(order + 1);
-    VEC t(order + 1);
-    double a[] = {1,3,3,1};
-    poly = a;
-    poly.print();
-    t.print();
-    t = poly;
-    t.print();
-    NewtonPoly(poly, x, 1000, 1e-10);
-    x.print();
+    //double a[] = {0, 1.5, 2.25, 3, 3.75, 4.5, 6};
+    //double b[] = {0, 0.578571, 0.885052, 1, 0.885052, 0.578571, 0};
+    //double a[] = {0, 0.75, 1.5, 3, 4.5, 5.25, 6};
+    //double b[] = {0, 0.204167, 0.578571, 1, 0.578571, 0.204167, 0};
+    double a[] = {0, 0.75, 1.5, 2.25, 3, 3.75, 4.5, 5.25, 6};
+    double b[] = {0, 0.204167, 0.578571, 0.885052, 1, 0.885052, 0.578571, 0.204167, 0};
+
+    int N = 9;
+    VEC xs(N);
+    VEC ys(N);
+    VEC M(N);
+    xs = a;
+    ys = b;
+    splineM(N, xs, ys, M);
+
+    xs.print();
+    ys.print();
+
+    printf("%g\n", spline(1, N, xs, ys, M));
+    printf("%g\n", spline(2, N, xs, ys, M));
+    printf("%g\n", spline(4, N, xs, ys, M));
+    printf("%g\n", spline(5, N, xs, ys, M));
     return 0;
 }
