@@ -187,7 +187,7 @@ Because the integration of $e^x$ can be evaluated by ourself, so we have the gro
 \begin{align}
     I^* = e^2 - e^0 \approx 6.389056
 \end{align}
-We will divide the range 0 to 2 into 12, 24, 96, 192, 384, 768, 1536 subintervals, respectively, and calculate the error with different
+We will divide the interval 0 to 2 into 12, 24, 96, 192, 384, 768, 1536 subintervals, respectively, and calculate the error with different
 order. For 12 subintervals, we will create 13-vector X and Y:
 \begin{align*}
     & h = \frac{2}{12} \\
@@ -224,7 +224,9 @@ For convinient purpose, I will refer $I_k^n$ and $E_k^n$ as my answer and error 
 The following tables show the experiment result.
 
 \begin{table}[H]
-    \centering
+    \centering 
+    \caption{Experiment Result}
+    \label{tab:all}
     \subtable[Result of 12 subintervals]{
         \begin{tabular}{|c|c|c|c|}
             \hline
@@ -314,8 +316,13 @@ The following tables show the experiment result.
         \label{tab:1536}
     }
 \end{table}
-
-
+From Table \ref{tab:all}, we can plot Error vs Different Order as shown in Figure \ref{fig:error_order}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{src/error.pdf}
+    \caption{Error vs Order}
+    \label{fig:error_order}
+\end{figure}
 \end{document}
 
 
