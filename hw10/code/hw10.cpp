@@ -9,7 +9,7 @@
 
 
 int main(int argc, char *argv[]){
-    int block = 12;
+    int block = 1536;
     int order = 6;
     double h = 2.0 / block;
     VEC Y(block + 1);
