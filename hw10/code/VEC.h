@@ -66,7 +66,7 @@ VEC operator/(double num, const VEC &vec);
 
 double Lagrange(double x, VEC &XDATA, VEC &YDATA);
 
-double Integrate(double (*func)(double), int order, VEC &Y, double step);
+double Integrate(int order, VEC &X, VEC &Y);
 double Integrate(double (*func)(double), int order, int nblocks, double start, double end);
 
 int Newton(double (*func)(double), double (*func_der)(double), double &x, int maxIter, double tol);
