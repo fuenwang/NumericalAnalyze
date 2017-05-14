@@ -1034,24 +1034,20 @@ int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, doubl
     VEC x_tmp(x0.dim());
     VEC delta_x(x0.dim());
     MAT jacobi(x0.dim());
-    MAT jacobi_LU(x0.dim());
-    int m = jacobi.GetM();
     for(it = 1; it <= maxIter; it++){
         if((it - 1) % step == 0){
             x_tmp = x0;
             for(int i = 0; i<x0.dim(); i++){
                 x_tmp[i] += h;
                 F_h = (F(x_tmp) - F_result) / h;
-                for(int row = 0; row < m; row++){
+                for(int row = 0; row < x0.dim(); row++){
                     jacobi[row][i] = F_h[row];
                 }
                 x_tmp[i] -= h;
             }
+            luFact(jacobi);
+            delta_x = bckSubs(jacobi, fwdSubs(jacobi, F_result * -1));
         }
-        jacobi_LU = jacobi;
-        luFact(jacobi_LU);
-        tmp = fwdSubs(jacobi_LU, F_result * -1);
-        delta_x = bckSubs(jacobi_LU, tmp);
         x0 += delta_x;
         F_result = F(x0);
         error = error_infinite_norm(F_result);
