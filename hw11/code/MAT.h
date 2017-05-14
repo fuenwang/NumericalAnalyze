@@ -141,4 +141,6 @@ int EVqrShifted(MAT &A, double mu, double tol, int maxiter);
 void splineM(int N, VEC &X, VEC &Y, VEC &M);
 double spline(double x, int N, VEC &X, VEC &Y, VEC &M);
 
+
+int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, double h, int step=1);
 #endif

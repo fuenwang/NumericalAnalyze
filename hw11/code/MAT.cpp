@@ -1024,6 +1024,43 @@ double spline(double x, int N, VEC &X, VEC &Y, VEC &M){
 }
 
 
+int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, double h, int step){
+    int it;
+    double error;
+    VEC F_result(x0.dim());
+    F_result = F(x0);
+    VEC F_h(x0.dim());
+    VEC tmp(x0.dim());
+    VEC x_tmp(x0.dim());
+    VEC delta_x(x0.dim());
+    MAT jacobi(x0.dim());
+    MAT jacobi_LU(x0.dim());
+    int m = jacobi.GetM();
+    for(it = 1; it <= maxIter; it++){
+        if((it - 1) % step == 0){
+            x_tmp = x0;
+            for(int i = 0; i<x0.dim(); i++){
+                x_tmp[i] += h;
+                F_h = (F(x_tmp) - F_result) / h;
+                for(int row = 0; row < m; row++){
+                    jacobi[row][i] = F_h[row];
+                }
+                x_tmp[i] -= h;
+            }
+        }
+        jacobi_LU = jacobi;
+        luFact(jacobi_LU);
+        tmp = fwdSubs(jacobi_LU, F_result * -1);
+        delta_x = bckSubs(jacobi_LU, tmp);
+        x0 += delta_x;
+        F_result = F(x0);
+        error = error_infinite_norm(F_result);
+        if(error < tol){
+            return it;
+        }
+    }
+    return it;
+}
 
 
 

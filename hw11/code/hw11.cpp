@@ -7,40 +7,31 @@
 #include <fstream>
 #include <string>
 
+#define V 0.12
+#define Is 1
+#define phi 0.026
+#define RL 0.01
+
+VEC cost(const VEC &x0){
+    VEC result(x0.dim());
+    double V1 = x0[0];
+    double V2 = x0[1];
+    double tmp1 = Is * (exp((V-V1)/phi) + exp(-1*V1/phi) - 2);
+    double tmp2 = -1 * Is * (exp((V2-V)/phi) + exp(V2/phi) - 2);
+    double tmp3 = (V1 - V2) / RL;
+    result[0] = Is * tmp1 - tmp3;
+    result[1] = Is * tmp2 + tmp3;
+    return result;
+}
+
 
 int main(int argc, char *argv[]){
-    int block = 192;
-    //int order = 6;
-    double h = 2.0 / block;
-    VEC Y(block + 1);
-    VEC X(block + 1);
-    for(int i=0; i <= block; i++){
-        X[i] = i * h;
-        Y[i] = exp(i * h);
-    }
-    double answer = exp(2) - exp(0);
-    double my_answer1 = Integrate(1, X, Y);
-    double my_answer2 = Integrate(2, X, Y);
-    double my_answer3 = Integrate(3, X, Y);
-    double my_answer4 = Integrate(4, X, Y);
-    double my_answer5 = Integrate(6, X, Y);
-    printf("Answer = %lf\n", answer);
-    printf("%d intervals\n", block);
-
-    printf("I1 = %lf\n", my_answer1);
-    printf("E1 = %g\n", fabs(my_answer1 - answer));
-
-    printf("I2 = %lf\n", my_answer2);
-    printf("E2 = %g\n", fabs(my_answer2 - answer));
-
-    printf("I3 = %lf\n", my_answer3);
-    printf("E3 = %g\n", fabs(my_answer3 - answer));
-
-    printf("I4 = %lf\n", my_answer4);
-    printf("E4 = %g\n", fabs(my_answer4 - answer));
-
-    printf("I6 = %lf\n", my_answer5);
-    printf("E6 = %g\n", fabs(my_answer5 - answer));
-
+    VEC x0(2);
+    //VEC tmp(20);
+    //tmp = cost(x0);
+    //tmp.print();
+    cout << CyclicJacobian(cost, x0, 100000, 1e-12, 0.00001, 1) << endl;
+    x0.print();
+    cost(x0).print();
     return 0;
 }
