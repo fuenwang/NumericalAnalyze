@@ -60,41 +60,117 @@ VEC cost2(const VEC &x0){
 
 
 int main(int argc, char *argv[]){
-    /*    
-    VEC x0(2);
-    cout << CyclicJacobian(cost1, x0, 1000000, 1e-8, 0.001) << endl;
-    x0.print();
-    cost1(x0).print();
+    /*
+       MAT result1(102, 8) ;   
+       VEC x0(2);
+       V = 0;
+       int i = 101;
+       while(V <= 1.00001){
+       CyclicJacobian(cost1, x0, 1000000, 1e-12, 0.00001);
+       double V1 = x0[0];
+       double V2 = x0[1];
+       double I1 = Is * (exp((V-V1)/phi0) - 1);
+       double I2 = Is * (exp(-1*V1/phi0) - 1);
+       double I3 = Is * (exp((V2-V)/phi0) - 1);
+       double I4 = Is * (exp(V2/phi0) - 1);
+       double IRL = (V1 - V2) / RL;
+       double tmp[] = {V, V1, V2, I1, I2, I3, I4, IRL};
+       result1[i] = tmp;
+       V += 0.02;
+       i--;
+       }
+       V = 0;
+       x0 = 0;
+       while(V >= -1.00001){
+       CyclicJacobian(cost1, x0, 1000000, 1e-12, 0.00001);
+       double V1 = x0[0];
+       double V2 = x0[1];
+       double I1 = Is * (exp((V-V1)/phi0) - 1);
+       double I2 = Is * (exp(-1*V1/phi0) - 1);
+       double I3 = Is * (exp((V2-V)/phi0) - 1);
+       double I4 = Is * (exp(V2/phi0) - 1);
+       double IRL = (V1 - V2) / RL;
+       double tmp[] = {V, V1, V2, I1, I2, I3, I4, IRL};
+       result1[i] = tmp;
+       V -= 0.02;
+       i--;
+       }
+    //result1.print();
+    Json M1("raw_record/M1.json", 0);
+    M1.Write(result1);
+    M1.Close();
     */
-    
+    MAT result2(202, 12);
     VEC x0(6);
     x0 = 300;
     x0[0] = 0;
     x0[1] = 0;
-    x0.print();
-    
+
     V = 0;
+    int i = 201;
     while(V <= 1.001){
-        cout << V << endl;
-        CyclicJacobian(cost2, x0, 1000000, 1e-10, 0.00001);
-        x0.print();
-        V += 0.02;
+        CyclicJacobian(cost2, x0, 1000000, 1e-12, 0.00001);
+        double V1 = x0[0];
+        double V2 = x0[1];
+        double T1 = x0[2];
+        double T2 = x0[3];
+        double T3 = x0[4];
+        double T4 = x0[5];
+
+
+        double phi1 = phi0 * T1 / 300;
+        double phi2 = phi0 * T2 / 300;
+        double phi3 = phi0 * T3 / 300;
+        double phi4 = phi0 * T4 / 300;
+
+        double I1 = Is * (exp((V-V1)/phi1) - 1);
+        double I2 = Is * (exp(-1*V1/phi2) - 1);
+        double I3 = Is * (exp((V2-V)/phi3) - 1);
+        double I4 = Is * (exp(V2/phi4) - 1);
+        double IRL = (V1 - V2) / RL;
+
+        double tmp[] = {V, V1, V2, I1, I2, I3, I4, IRL, T1, T2, T3, T4};
+        result2[i] = tmp;
+
+        V += 0.01;
+        i--;
     }
-    exit(0);
     x0 = 300;
     x0[0] = 0;
     x0[1] = 0;
     V = 0;
-    int i = 1;
     while(V >= -1.001){
-        cout << V << endl;
-        CyclicJacobian(cost2, x0, 1000000, 1e-10, 0.00001);
-        x0.print();
-        i++;
-        V -= 0.02;
+        CyclicJacobian(cost2, x0, 1000000, 1e-12, 0.00001);
+        double V1 = x0[0];
+        double V2 = x0[1];
+        double T1 = x0[2];
+        double T2 = x0[3];
+        double T3 = x0[4];
+        double T4 = x0[5];
+
+
+        double phi1 = phi0 * T1 / 300;
+        double phi2 = phi0 * T2 / 300;
+        double phi3 = phi0 * T3 / 300;
+        double phi4 = phi0 * T4 / 300;
+
+        double I1 = Is * (exp((V-V1)/phi1) - 1);
+        double I2 = Is * (exp(-1*V1/phi2) - 1);
+        double I3 = Is * (exp((V2-V)/phi3) - 1);
+        double I4 = Is * (exp(V2/phi4) - 1);
+        double IRL = (V1 - V2) / RL;
+
+        double tmp[] = {V, V1, V2, I1, I2, I3, I4, IRL, T1, T2, T3, T4};
+        result2[i] = tmp;
+
+        V -= 0.01;
+        i--;
     }
-    //cost2(x0).print();
-    
+    result2.print();
+    Json M2("raw_record/M2.json", 0);
+    M2.Write(result2);
+    M2.Close();
+
     return 0;
 }
 
