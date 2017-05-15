@@ -74,18 +74,20 @@ int main(int argc, char *argv[]){
     x0.print();
     
     V = 0;
-    while(V <= 1){
+    while(V <= 1.02){
+        cout << V << endl;
         CyclicJacobian(cost2, x0, 1000000, 1e-10, 0.00001);
         x0.print();
         V += 0.02;
     }
+    //exit(0);
     x0 = 300;
     x0[0] = 0;
     x0[1] = 0;
     V = 0;
     int i = 1;
-    while(V >= -1){
-        //cout << i << endl;
+    while(V >= -1.02){
+        cout << V << endl;
         CyclicJacobian(cost2, x0, 1000000, 1e-10, 0.00001);
         x0.print();
         i++;
