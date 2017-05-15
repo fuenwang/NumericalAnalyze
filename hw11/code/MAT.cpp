@@ -1028,10 +1028,11 @@ int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, doubl
     int it;
     double error;
     VEC F_result(x0.dim());
-    F_result = F(x0);
     VEC F_h(x0.dim());
     VEC delta_x(x0.dim());
     MAT jacobi(x0.dim());
+
+    F_result = F(x0);
     for(it = 1; it <= maxIter; it++){
         if((it - 1) % step == 0){
             for(int i = 0; i<x0.dim(); i++){
