@@ -1044,8 +1044,8 @@ int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, doubl
                 x0[i] -= h;
             }
             luFact(jacobi);
-            delta_x = bckSubs(jacobi, fwdSubs(jacobi, F_result * -1));
         }
+        delta_x = bckSubs(jacobi, fwdSubs(jacobi, F_result * -1));
         x0 += delta_x;
         F_result = F(x0);
         error = error_infinite_norm(F_result);
