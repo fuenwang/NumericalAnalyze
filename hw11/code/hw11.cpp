@@ -1,4 +1,4 @@
-// HW10: Numerical Integration
+// HW11: Diode Networks
 // ID: 102061149
 // Name: Fu-En Wang
 
