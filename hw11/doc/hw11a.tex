@@ -237,6 +237,7 @@ The result of Problem 1 is shown in Table \ref{tab:problem 1}, and Problem 2 is 
 Table \ref{tab:problem 2 temp}.
 
 \subsection{Problem 1}
+\label{sec:p1}
 From Table \ref{tab:problem 1}, we can see the change of $v1$ and $v2$ as shown in Figure \ref{fig:M1 volt}.
 \begin{figure}[H]
     \centering
@@ -256,6 +257,7 @@ From Figure \ref{fig:M1 current}, we can see that $I_{d1}$ and $I_d{4}$ are same
 $I_{d2}$ and $I_{d1}$ when V is negative and positive, respectively.
 
 \subsection{Problem 2}
+\label{sec:p2}
 From Table \ref{tab:problem 1}, we can see the change of $v1$ and $v2$ and current are same as Problem 1 as shown in Figure \ref{fig:M2 volt}
 and Figure \ref{fig:M2 current}.
 \begin{figure}[H]
@@ -270,7 +272,20 @@ and Figure \ref{fig:M2 current}.
     \caption{Problem 2 result(current)}
     \label{fig:M2 current}
 \end{figure}
+From Table \ref{tab:problem 2 temp}, we can see the trend of temperature of each diodes as shown in Figure \ref{fig:temp}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{src/M2_temp.pdf}
+    \caption{Problem 2 result(temperature)}
+    \label{fig:temp}
+\end{figure}
+In Figure \ref{fig:temp}, we can see that $T_{d1}$ and $T_{d4}$ are same and so as $T_{d2}$ and $T_{d3}$. 
+When V is negative, $T_{d1}$ is close to 300k and $T_{d2}$ increases, while $T_{d1}$ increases and $T_{d2}$ is close to 300k when V is positive.
 
+\section{Conclusion}
+From the result of Section \ref{sec:p1} and \ref{sec:p2}, we can find that the current flow across a diode will drop dramatically when $V_d$ is 
+small, which means diode has a large impedence when V is negative. As a result,  we can find that $I_{R}$ is always positive because D1 and D4 will
+pass when V is positive and D3 and D2 will pass when V is negative. So we can use this circult to make the output voltage always positive.
 
 
 \section{Appendix}
