@@ -1056,7 +1056,16 @@ int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, doubl
     return it;
 }
 
-
+int OrdDiff(VEC (*F)(const VEC&, double h), VEC &x0, double start, double end, double h){
+    double t = start;
+    while(t <= end){
+        x0.print();
+        F(x0, h);
+        t += h;
+        //cout << t << endl;
+    }
+    return 0;
+}
 
 
 
