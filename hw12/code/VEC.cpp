@@ -28,11 +28,11 @@ void VEC::sort(){
     double tmp;
     for(int i=0; i <= this->dimension; i++){
         for(int j=i+1; j<this->dimension; j++){
-           if(this->val[i] > this->val[j]) {
+            if(this->val[i] > this->val[j]) {
                 tmp = this->val[i];
                 this->val[i] = this->val[j];
                 this->val[j] = tmp;
-           }
+            }
         }
     }
 }
@@ -117,7 +117,7 @@ void VEC::operator/=(const VEC &data){
         this->val[i] /= data.val[i];
 }
 void VEC::operator/=(double num){
-     for(int i=0; i<this->dimension; i++)
+    for(int i=0; i<this->dimension; i++)
         this->val[i] /= num;
 }
 
@@ -377,18 +377,31 @@ int NewtonPoly(VEC &a, VEC &x, int maxIter, double tol){
     return 0;
 }
 
+void FindMax(VEC &i, VEC &j){
+    for(int idx = 0; idx < i.dim(); idx++){
+        if(i[idx] > j[idx])
+            j[idx] = i[idx];
+    }
+};
+void FindMin(VEC &i, VEC &j){
+    for(int idx = 0; idx < i.dim(); idx++){
+        if(i[idx] < j[idx])
+            j[idx] = i[idx];
+    }
+};
+
 int OrdDiff(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h){
     double t = start;
-    double tmp = x0[0];
+    VEC Max(x0);
+    VEC Min(x0);
     while(t <= end){
-        //x0.print();
         F(x0, h);
-        if(x0[0] < tmp)
-            tmp = x0[0];
+        FindMax(x0, Max);
+        FindMin(x0, Min);
         t += h;
-        //cout << t << endl;
     }
-    cout << tmp << endl;
+    Max.print();
+    Min.print();
     return 0;
 }
 

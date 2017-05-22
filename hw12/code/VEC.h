@@ -65,6 +65,9 @@ VEC operator-(double num, const VEC &vec);
 VEC operator*(double num, const VEC &vec);
 VEC operator/(double num, const VEC &vec);
 
+void FindMax(VEC &i, VEC &j);
+void FindMin(VEC &i, VEC &j);
+
 double Lagrange(double x, VEC &XDATA, VEC &YDATA);
 
 double Integrate(int order, VEC &X, VEC &Y);

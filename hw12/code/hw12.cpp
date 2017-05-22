@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
     VEC x0(3); // [v1, v2, iL]
     x0[0] = 1; // v1(0) = 1
     OrdDiff(Forward, x0, 0, 10, 0.1);  
-    x0.print();
+    //x0.print();
     return 0;
 }
 
