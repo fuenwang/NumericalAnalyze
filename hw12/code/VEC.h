@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+using namespace std;
 
 const double W1[2] = {0.5, 0.5};
 const double W2[3] = {1.0/3, 4.0/3, 1.0/3};
@@ -74,4 +75,5 @@ int Bisection(double (*func)(double), double &a, double &b, double &x, int maxIt
 
 int NewtonPoly(VEC &a, VEC &x, int maxIter, double tol);
 
+int OrdDiff(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h); // F will compute x0(t+h)
 #endif

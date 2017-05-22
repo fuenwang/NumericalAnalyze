@@ -377,6 +377,22 @@ int NewtonPoly(VEC &a, VEC &x, int maxIter, double tol){
     return 0;
 }
 
+int OrdDiff(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h){
+    double t = start;
+    double tmp = x0[0];
+    while(t <= end){
+        //x0.print();
+        F(x0, h);
+        if(x0[0] < tmp)
+            tmp = x0[0];
+        t += h;
+        //cout << t << endl;
+    }
+    cout << tmp << endl;
+    return 0;
+}
+
+
 
 
 

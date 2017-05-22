@@ -142,5 +142,4 @@ void splineM(int N, VEC &X, VEC &Y, VEC &M);
 double spline(double x, int N, VEC &X, VEC &Y, VEC &M);
 
 int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, double h, int step=1);
-int OrdDiff(VEC (*F)(const VEC&, double h), VEC &x0, double start, double end, double h); // F will compute x0(t+h)
 #endif
