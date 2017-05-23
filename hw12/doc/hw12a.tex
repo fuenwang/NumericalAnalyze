@@ -238,6 +238,18 @@ After some mathematical tricks, $i_L(t+h)$ can be derived as
     i_L(t+h) = \frac{(1-\frac{h^2}{4LC})i_L(t) + \frac{h}{2L}(V + v_1(t) - 2v_2(t))}{1 + \frac{h^2}{4LC} + \frac{hR}{2L}}
 \end{align}
 
+\section{Implementation}
+\begin{algorithm}[H]
+    \caption{\textbf{Ordinary Differential Equation}}
+    \begin{algorithmic}
+        \State t = start
+        \While{t $<$ end\_time}
+            \State Compute $x(t+h)$
+            \State t += h
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
+
 \end{document}
 
 
