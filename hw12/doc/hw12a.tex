@@ -223,6 +223,7 @@ After some mathematical tricks, $i_L(t+h)$ can be derived as
 \end{align}
 
 \subsection{Trapezoidal}
+\label{sec:trap}
 Trapezoidal is to model ODE as 
 $$
     x(t + h) = x(t) + h * \frac{f(t+h) + f(t)}{2}
@@ -305,7 +306,7 @@ When h = 0.1, Figure \ref{fig:back 01} shows v1, v2 and $i_L$ for $h \leq t \leq
     \label{fig:back 01}
 \end{figure}
 For the maximum and minimum value oof v1, v2 and $i_L$, Table \ref{tab:back 01} shows the result.
-\begin{table}[htbp]
+\begin{table}[H]
     \begin{center}
         \begin{tabular}{|c|c|c|c|}
             \hline
@@ -326,7 +327,7 @@ When h = 0.01, Figure \ref{fig:back 001} shows v1, v2 and $i_L$ for $h \leq t \l
     \label{fig:back 001}
 \end{figure}
 For the maximum and minimum value oof v1, v2 and $i_L$, Table \ref{tab:back 001} shows the result.
-\begin{table}[htbp]
+\begin{table}[H]
     \begin{center}
         \begin{tabular}{|c|c|c|c|}
             \hline
@@ -348,7 +349,7 @@ When h = 0.1, Figure \ref{fig:trap 01} shows v1, v2 and $i_L$ for $h \leq t \leq
     \label{fig:trap 01}
 \end{figure}
 For the maximum and minimum value oof v1, v2 and $i_L$, Table \ref{tab:trap 01} shows the result.
-\begin{table}[htbp]
+\begin{table}[H]
     \begin{center}
         \begin{tabular}{|c|c|c|c|}
             \hline
@@ -361,7 +362,6 @@ For the maximum and minimum value oof v1, v2 and $i_L$, Table \ref{tab:trap 01} 
     \label{tab:trap 01}
 \end{table}
 
-
 When h = 0.01, Figure \ref{fig:trap 001} shows v1, v2 and $i_L$ for $h \leq t \leq 10$
 \begin{figure}[H]
     \centering
@@ -370,7 +370,7 @@ When h = 0.01, Figure \ref{fig:trap 001} shows v1, v2 and $i_L$ for $h \leq t \l
     \label{fig:trap 001}
 \end{figure}
 For the maximum and minimum value oof v1, v2 and $i_L$, Table \ref{tab:trap 001} shows the result.
-\begin{table}[htbp]
+\begin{table}[H]
     \begin{center}
         \begin{tabular}{|c|c|c|c|}
             \hline
@@ -382,6 +382,56 @@ For the maximum and minimum value oof v1, v2 and $i_L$, Table \ref{tab:trap 001}
     \caption{Max/Min of Trapezoidal(h = 0.01)}
     \label{tab:trap 001}
 \end{table}
+
+\subsection{Comparison}
+For convenient purpose, I merge the four tables above as Table \ref{tab:all 01} and \ref{tab:all 001}
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            Forward & V1 & V2 & iL \\ \hline
+            Max & 1.1139 & 1.19627 & 0.581654 \\ \hline
+            Min & 0.418346 & 0 & -0.113905 \\ \hline
+              &  &  &  \\ \hline
+              Backward & V1 & V2 & iL \\ \hline
+              Max & 1.07026 & 1.13651 & 0.515275 \\ \hline
+              Min & 0.484725 & 0 & -0.0702564 \\ \hline
+               &  &  &  \\ \hline
+               Trap & V1 & V2 & iL \\ \hline
+               Max & 1.08936 & 1.16346 & 0.546816 \\ \hline
+               Min & 0.453184 & 0 & -0.0893592 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Max/Min(h = 0.1)}
+    \label{tab:all 01}
+\end{table}
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            Forward & V1 & V2 & iL \\ \hline
+            Max & 1.09125 & 1.16602 & 0.549617 \\ \hline
+            Min & 0.450383 & 0 & -0.0912488 \\ \hline
+              &  &  &  \\ \hline
+              Backward & V1 & V2 & iL \\ \hline
+              Max & 1.08694 & 1.16011 & 0.543012 \\ \hline
+              Min & 0.456988 & 0 & -0.0869399 \\ \hline
+               &  &  &  \\ \hline
+               Trap & V1 & V2 & iL \\ \hline
+               Max & 1.08907 & 1.16304 & 0.546298 \\ \hline
+               Min & 0.453702 & 0 & -0.0890672 \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Max/Min(h = 0.01)}
+    \label{tab:all 001}
+\end{table}
+From the two tables, we can find that the value of Trapezoidal is between that of Forward and Backward Euler. Recall from Section \ref{sec:trap},
+the formula of Trapezoidal is:
+$$
+    x(t+h) = x(t) + h * \frac{f(t+h) + f(t)}{2}
+$$
+The part $\frac{f(t+h) + f(t)}{2}$ is the mean value of that of Forward and Backward. As a result, it seems reasonable we got a value between the 
+two method.
 
 
 \end{document}
