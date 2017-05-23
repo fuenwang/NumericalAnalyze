@@ -78,5 +78,4 @@ int Bisection(double (*func)(double), double &a, double &b, double &x, int maxIt
 
 int NewtonPoly(VEC &a, VEC &x, int maxIter, double tol);
 
-int OrdDiff(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h); // F will compute x0(t+h)
 #endif

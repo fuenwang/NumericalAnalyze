@@ -1056,6 +1056,27 @@ int CyclicJacobian(VEC (*F)(const VEC&), VEC &x0, int maxIter, double tol, doubl
     return it;
 }
 
+int OrdDiff(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h){
+    double t = start;
+    VEC Max(x0);
+    VEC Min(x0);
+    //MAT result(1001, 3);
+    //int i = 0;
+    while(t <= end){
+        F(x0, h);
+        //result[i] = x0;
+        FindMax(x0, Max);
+        FindMin(x0, Min);
+        t += h;
+        //i++;
+    }
+    //Max.print();
+    //Min.print();
+    //Json f("raw_record/trap_001.json", 0);
+    //f.Write(result);
+    //f.Close();
+    return 0;
+}
 
 
 

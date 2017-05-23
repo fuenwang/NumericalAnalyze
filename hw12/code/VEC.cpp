@@ -390,20 +390,6 @@ void FindMin(VEC &i, VEC &j){
     }
 };
 
-int OrdDiff(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h){
-    double t = start;
-    VEC Max(x0);
-    VEC Min(x0);
-    while(t <= end){
-        F(x0, h);
-        FindMax(x0, Max);
-        FindMin(x0, Min);
-        t += h;
-    }
-    Max.print();
-    Min.print();
-    return 0;
-}
 
 
 

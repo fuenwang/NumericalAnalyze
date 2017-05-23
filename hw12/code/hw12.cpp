@@ -48,16 +48,23 @@ VEC Trap(VEC &x0, double h){
 }
 
 int main(int argc, char *argv[]){
+    double h = 0.01;
     VEC x0(3); // [v1, v2, iL]
+    /*
     x0[0] = 1; // v1(0) = 1
-    OrdDiff(Forward, x0, 0, 10, 0.1); 
+    OrdDiff(Forward, x0, 0, 10, h); 
+    */
+    /*
     x0 = 0;
     x0[0] = 1;
-    OrdDiff(Backward, x0, 0, 10, 0.1);
+    OrdDiff(Backward, x0, 0, 10, h);
+    */
+    
     x0 = 0;
     x0[0] = 1;
-    OrdDiff(Trap, x0, 0, 10, 0.1);
-    //x0.print();
+    OrdDiff(Trap, x0, 0, 10, h);
+    
+    x0.print();
     return 0;
 }
 
