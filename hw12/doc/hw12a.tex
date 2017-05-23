@@ -178,6 +178,66 @@
 \maketitle
 \newpage
 
+\section{Introduction}
+For a simple RLC circult as Figure \ref{fig:RLC}:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{src/RLC.jpg}
+    \caption{RLC circult}
+    \label{fig:RLC}
+\end{figure}
+The system consists of several ordinary differential equations:
+\begin{align}
+    & \frac{v_1 - V}{R} + i_L = 0 \\
+    & \frac{dv_2}{dt} = \frac{i_L}{C} \\
+    & \frac{di_L}{dt} = \frac{v_1 - v_2}{L}
+\end{align}
+In this homework, we will implement three algorithm to solve the ODE above.
+
+\subsection{Forward Euler}
+Forward Euler is to model ODE as 
+$$
+    x(t + h) = x(t) + h * f(t)
+$$
+and the system can be derived as
+\begin{align}
+    & v_1(t+h) = V + Ri_L(t+h) \\
+    & v_2(t+h) = v_2(t) + \frac{h}{C}i_L(t) \\
+    & i_L(t+h) = i_L(t) + \frac{h}{L}(v_1(t) - v_2(t))
+\end{align}
+
+\subsection{Backward Euler}
+Backward Euler is to model ODE as
+$$
+    x(t + h) = x(t) + h * f(t+h)
+$$
+and the system can be derived as
+\begin{align}
+    & v_1(t+h) = V + Ri_L(t+h) \\
+    & v_2(t+h) = v_2(t) + \frac{h}{C}i_L(t+h) \\
+    & i_L(t+h) = i_L(t) + \frac{h}{L}(v_1(t+h) - v_2(t+h))
+\end{align}
+After some mathematical tricks, $i_L(t+h)$ can be derived as
+\begin{align}
+    i_L(t+h) = \frac{i_L(t) - \frac{h}{L}v_2(t) + \frac{hV}{L}}{1 + \frac{h^2}{LC} + \frac{hR}{L}}
+\end{align}
+
+\subsection{Trapezoidal}
+Trapezoidal is to model ODE as 
+$$
+    x(t + h) = x(t) + h * \frac{f(t+h) + f(t)}{2}
+$$
+and the system can be derived as
+\begin{align}
+    & v_1(t+h) = V + R\frac{i_L(t+h) + i_L(t)}{2} \\
+    & v_2(t+h) = v_2(t) + \frac{h}{2C}(i_L(t+h) + i_L(t)) \\
+    & i_L(t+h) = i_L(t) + \frac{h}{2L}(v_1(t+h) - v_2(t+h) + v_1(t) - v_2(t))
+\end{align}
+After some mathematical tricks, $i_L(t+h)$ can be derived as
+\begin{align}
+    i_L(t+h) = \frac{(1-\frac{h^2}{4LC})i_L(t) + \frac{h}{2L}(V + v_1(t) - 2v_2(t))}{1 + \frac{h^2}{4LC} + \frac{hR}{2L}}
+\end{align}
+
 \end{document}
 
 
