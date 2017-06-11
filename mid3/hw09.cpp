@@ -47,6 +47,7 @@ int main(int argc, char *argv[]){
         Y[i] = y[i];
     }
     splineM_period(X.dim(), X, Y, M);
+    //splineM(X.dim(), X, Y, M);
     cout << spline(1, X.dim(), X, Y, M) << endl;
     cout << spline(2, X.dim(), X, Y, M) << endl;
     cout << spline(4, X.dim(), X, Y, M) << endl;
