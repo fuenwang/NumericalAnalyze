@@ -1121,9 +1121,47 @@ int OrdDiff(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h,
     //f.Close();
     return 0;
 }
+/*
+VEC solve_x2_Gear2(VEC &x0, double h2, VEC &x1, double h1, double t){
+//
+// x2 is x(t + h1)
+// x1 is x(t)
+// x0 is x(t - h2)
+//
+    MAT A(3, 3);
+    VEC b(3);
+    A[0][0] = 1;
+    A[0][1] = 1;
+    A[1][1] = -1 * h2;
+    A[1][2] = h1;
+    A[2][1] = h2 * h2;
+    A[2][2] = 2 * h1 * h1;
+    b[0] = 1;
+    b[1] = h1;
+    b[2] = h1 * h1;
+    luFact(A);
+    VEC alpha(bckSubs(A, fwdSubs(A, b))); // [a1 a2 a3]
 
+    double a1 = alpha[0];
+    double a2 = alpha[1];
+    double a3 = alpha[2];
+    double f = 
 
+}
 
+int OrdDiff_Gear2(VEC (*F)(VEC&, double), VEC &x0, double start, double end, double h, , double tol, int showMaxMin){
+    VEC last_x0_1(x0.dim());
+    VEC last_x0_2(x0.dim());
+    double LTE = 1 + tol;
+    double t = start + h;
+    double h_step = h;
+    last_x0_2 = x0;
+    while(t <= end && LTE > tol){
+        F(x0, h_step);
+        last_x0_1 = x0;
+    }
+}
+*/
 
 
 
