@@ -1,6 +1,6 @@
 all:
-	g++ -Wall -O3 hw09.cpp MAT.cpp VEC.cpp
-	./a.out f5.dat
+	g++ -Wall -O3 p3.cpp MAT.cpp VEC.cpp
+	./a.out
 com:
 	g++ -Wall -O3 hw12.cpp MAT.cpp VEC.cpp
 clean:
