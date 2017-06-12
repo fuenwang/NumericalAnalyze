@@ -17,10 +17,12 @@
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{algorithm}
-\usepackage{caption}
+%\usepackage{caption}
 \usepackage{algpseudocode}
 \usepackage{multirow}
-
+\usepackage{subfigure}
+\usepackage{longtable}
+\usepackage{supertabular}
 
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
@@ -51,7 +53,7 @@
 \rfoot{Page\ \thepage\ of\ \protect\pageref*{LastPage}} % Bottom right footer
 \renewcommand\headrulewidth{0.4pt} % Size of the header rule
 \renewcommand\footrulewidth{0.4pt} % Size of the footer rule
-
+\renewcommand{\subsectionmark}[1]{\markboth{#1}{}}
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
 
 %----------------------------------------------------------------------------------------
@@ -147,9 +149,9 @@
 %	NAME AND CLASS SECTION
 %----------------------------------------------------------------------------------------
 
-\newcommand{\hmwkID}{homework 06} % Assignment title
-\newcommand{\hmwkTitle}{Matrix Condition Numbers}
-\newcommand{\hmwkDueDate}{Tuesday,\ April\ 11,\ 2017} % Due date
+\newcommand{\hmwkID}{homework 12} % Assignment title
+\newcommand{\hmwkTitle}{RLC Circult}
+\newcommand{\hmwkDueDate}{Tuesday,\ May\ 22,\ 2017} % Due date
 \newcommand{\hmwkClass}{Numerical Analysis} % Course/class
 \newcommand{\hmwkClassTime}{10:30am} % Class/lecture time
 \newcommand{\hmwkClassInstructor}{Jones} % Teacher/lecturer
